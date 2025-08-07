@@ -16,6 +16,7 @@
         "laravel/sanctum": "^4.1",
         "laravel/tinker": "^2.10.1",
         "laravel/ui": "^4.6",
+        "mailjet/laravel-mailjet": "*",
         "mongodb/laravel-mongodb": "^5.4",
         "taffovelikoff/imagekit-adapter": "2.0"
     },
