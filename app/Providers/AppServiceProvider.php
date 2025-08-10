@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 use League\Flysystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
-use TaffoVelikoff\ImageKitAdapter\ImageKitAdapter;
+use TaffoVelikoff\ImageKitAdapter\ImagekitAdapter;
 use ImageKit\ImageKit;
 
 class AppServiceProvider extends ServiceProvider
@@ -52,5 +54,14 @@ class AppServiceProvider extends ServiceProvider
             $filesystem = new Filesystem($adapter);
             return new FilesystemAdapter($filesystem, $adapter, $config);
         });
+        
+        // Force HTTPS in production
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+        
+        // Set default pagination view
+        Paginator::defaultView('vendor.pagination.tailwind');
+        Paginator::defaultSimpleView('vendor.pagination.simple-tailwind');
     }
 }

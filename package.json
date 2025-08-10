@@ -2,21 +2,12 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "build": "echo 'No build needed for PHP app'"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.11.6",
-        "@tailwindcss/vite": "^4.0.14",
-        "axios": "^1.7.4",
-        "bootstrap": "^5.2.3",
-        "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^1.2.0",
-        "sass": "^1.56.1",
-        "tailwindcss": "^4.0.14",
-        "vite": "^6.0.11"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^6.7.2"
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0",
+        "vite": "^6.3.5"
     }
 }

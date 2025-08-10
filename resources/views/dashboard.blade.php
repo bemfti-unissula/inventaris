@@ -161,7 +161,7 @@
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900">Pencarian & Filter</h3>
                 </div>
-                
+
                 <form action="{{ route('inventaris') }}" method="GET" class="space-y-4">
                     <div class="flex flex-col md:flex-row gap-4">
                         <!-- Search Input -->
@@ -203,7 +203,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Search Button -->
                         <div class="w-full md:w-auto">
                             <label class="block text-sm font-medium text-transparent mb-2">Action</label>
@@ -254,18 +254,21 @@
                         <p class="text-sm text-gray-600">{{ $barangs->total() }} barang ditemukan</p>
                     </div>
                 </div>
-                
+
                 <!-- View Toggle -->
                 <div class="flex items-center gap-2 bg-gray-100 rounded-lg p-1 border border-gray-300">
                     <button id="gridViewBtn" class="view-toggle active flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                            </path>
                         </svg>
                         <span class="font-semibold">Grid</span>
                     </button>
                     <button id="listViewBtn" class="view-toggle flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                         </svg>
                         <span class="font-semibold">List</span>
                     </button>
@@ -330,7 +333,9 @@
                             <p class="text-gray-600 mb-4">Coba ubah kata kunci pencarian atau filter kategori</p>
                             <a href="{{ route('inventaris') }}" class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                    </path>
                                 </svg>
                                 Reset Filter
                             </a>
@@ -348,14 +353,17 @@
                                 <!-- Image -->
                                 <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                                     @if (is_array($barang->gambar) && isset($barang->gambar['url']))
-                                        <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}" class="w-full h-full object-cover">
+                                        <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
+                                            class="w-full h-full object-cover">
                                     @elseif (is_string($barang->gambar) && $barang->gambar)
-                                        <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}" class="w-full h-full object-cover">
+                                        <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}"
+                                            class="w-full h-full object-cover">
                                     @else
-                                        <img src="{{ asset('images/logo-bem-fti.png') }}" alt="{{ $barang->nama_barang }}" class="w-full h-full object-cover">
+                                        <img src="{{ asset('images/logo-bem-fti.png') }}"
+                                            alt="{{ $barang->nama_barang }}" class="w-full h-full object-cover">
                                     @endif
                                 </div>
-                                
+
                                 <!-- Content -->
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center justify-between">
@@ -374,7 +382,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- Arrow -->
                                         <div class="ml-4 flex-shrink-0 flex items-center">
                                             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -397,7 +405,9 @@
                         <p class="text-gray-600 mb-4">Coba ubah kata kunci pencarian atau filter kategori</p>
                         <a href="{{ route('inventaris') }}" class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                </path>
                             </svg>
                             Reset Filter
                         </a>
@@ -405,12 +415,30 @@
                 @endforelse
             </div>
 
-            <!-- Pagination -->
-            @if($barangs->hasPages())
-                <div class="mt-8 mb-4">
-                    {{ $barangs->withQueryString()->links() }}
+            <!-- Enhanced Pagination -->
+            <div class="mt-8 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10 p-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 10h6m-6 4h6">
+                            </path>
+                        </svg>
+                        <div class="text-sm text-gray-300">
+                            <span class="font-medium text-white">{{ $barangs->firstItem() ?? 0 }}</span>
+                            -
+                            <span class="font-medium text-white">{{ $barangs->lastItem() ?? 0 }}</span>
+                            dari
+                            <span class="font-medium text-sky-400">{{ $barangs->total() }}</span>
+                            barang
+                        </div>
+                    </div>
+
+                    <div class="pagination-wrapper">
+                        <x-pagination :paginator="$barangs->withQueryString()" />
+                    </div>
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 
@@ -430,11 +458,11 @@
         .pagination .page-item.disabled .page-link {
             @apply text-gray-400 cursor-not-allowed hover:bg-white hover:text-gray-400 hover:border-gray-300;
         }
-        
+
         .pagination .page-link:focus {
             @apply outline-none ring-2 ring-red-500/50;
         }
-        
+
         /* Custom pagination arrows */
          .pagination .page-link[rel="prev"],
          .pagination .page-link[rel="next"] {
@@ -496,13 +524,13 @@
      </script>
 
     <style>
-    .description-text-list {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-wrap: break-word;
-    }
+        .description-text-list {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+        }
     </style>
 </x-app-layout>
