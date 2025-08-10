@@ -13,14 +13,14 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-black relative">
+    <div class="min-h-screen bg-white relative">
         <!-- Grid Pattern Background -->
         <div
-            class="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]">
+            class="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,black,rgba(0,0,0,0))]">
         </div>
 
         <!-- Navbar -->
-        <nav class="bg-black/50 border-b border-gray-800 backdrop-blur-sm relative z-50" x-data="{ mobileMenuOpen: false }">
+        <nav class="bg-white/90 border-b border-gray-200 backdrop-blur-sm relative z-50" x-data="{ mobileMenuOpen: false }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
@@ -33,7 +33,7 @@
                         </div>
 
                         <!-- Navigation Links -->
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-black">
                             <x-nav-link href="{{ route('inventaris') }}" :active="request()->routeIs('inventaris')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
@@ -62,7 +62,7 @@
                         @auth
                             <div class="relative z-[9999]" x-data="{ open: false }" @click.away="open = false">
                                 <button @click="open = !open"
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300 bg-black/50 hover:text-white focus:outline-none transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 bg-white/50 hover:text-gray-900 focus:outline-none transition ease-in-out duration-150">
                                     <div>{{ Auth::user()->name }}</div>
                                     <div class="ml-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -80,10 +80,10 @@
                                     x-transition:leave="transition ease-in duration-75"
                                     x-transition:leave-start="transform opacity-100 scale-100"
                                     x-transition:leave-end="transform opacity-0 scale-95"
-                                    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-black backdrop-blur-sm border border-white/20"
+                                    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white backdrop-blur-sm border border-gray-200"
                                     style="display: none;">
                                     <a href="{{ route('profile.edit') }}"
-                                        class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-300 hover:bg-white/10 focus:outline-none focus:bg-white/10 transition duration-150 ease-in-out">
+                                        class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                         {{ __('Profile') }}
                                     </a>
 
@@ -91,7 +91,7 @@
                                         @csrf
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); this.closest('form').submit();"
-                                            class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-300 hover:bg-white/10 focus:outline-none focus:bg-white/10 transition duration-150 ease-in-out">
+                                            class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                             {{ __('Log Out') }}
                                         </a>
                                     </form>
@@ -100,11 +100,11 @@
                         @else
                             <div class="flex space-x-3">
                                 <a href="{{ route('login.page') }}"
-                                    class="inline-flex items-center px-4 py-2 border border-white/20 text-sm font-medium rounded-md text-white bg-transparent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/20 transition duration-150 ease-in-out">
+                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-transparent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition duration-150 ease-in-out">
                                     {{ __('Login') }}
                                 </a>
                                 <a href="{{ route('register') }}"
-                                    class="inline-flex items-center px-4 py-2 border border-white/20 text-sm font-medium rounded-md text-white bg-white/10 hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition duration-150 ease-in-out">
+                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ease-in-out">
                                     {{ __('Register') }}
                                 </a>
                             </div>
@@ -114,7 +114,7 @@
                     <!-- Hamburger -->
                     <div class="-mr-2 flex items-center sm:hidden">
                         <button @click="mobileMenuOpen = !mobileMenuOpen"
-                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 focus:text-white transition duration-150 ease-in-out">
+                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-900 transition duration-150 ease-in-out">
                             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                 <path :class="{ 'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }"
                                     class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -135,7 +135,7 @@
                 x-transition:leave="transition ease-in duration-200"
                 x-transition:leave-start="opacity-100 transform translate-y-0"
                 x-transition:leave-end="opacity-0 transform -translate-y-2" x-cloak>
-                <div class="pt-2 pb-3 space-y-1 bg-black/50 backdrop-blur-sm">
+                <div class="pt-2 pb-3 space-y-1 bg-white/90 backdrop-blur-sm">
                     <x-nav-link href="{{ route('inventaris') }}" :active="request()->routeIs('inventaris')" class="block pl-3 pr-4 py-2">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -160,15 +160,15 @@
                 </div>
 
                 <!-- Mobile Profile -->
-                <div class="pt-4 pb-3 border-t border-gray-700 bg-black/50 backdrop-blur-sm">
+                <div class="pt-4 pb-3 border-t border-gray-300 bg-white/90 backdrop-blur-sm">
                     @auth
                         <div class="px-4">
-                            <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                            <div class="font-medium text-base text-gray-900">{{ Auth::user()->name }}</div>
                         </div>
 
                         <div class="mt-3 space-y-1">
                             <a href="{{ route('profile.edit') }}"
-                                class="block px-4 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/10">
+                                class="block px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">
                                 {{ __('Profile') }}
                             </a>
 
@@ -176,7 +176,7 @@
                                 @csrf
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); this.closest('form').submit();"
-                                    class="block px-4 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/10">
+                                    class="block px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">
                                     {{ __('Log Out') }}
                                 </a>
                             </form>
@@ -184,11 +184,11 @@
                     @else
                         <div class="px-4 space-y-3">
                             <a href="{{ route('login.page') }}"
-                                class="block w-full px-4 py-2 text-base font-medium text-white border border-white/20 bg-transparent hover:bg-white/10 rounded-md transition duration-150 ease-in-out text-center">
+                                class="block w-full px-4 py-2 text-base font-medium text-gray-700 border border-gray-300 bg-transparent hover:bg-gray-100 rounded-md transition duration-150 ease-in-out text-center">
                                 {{ __('Login') }}
                             </a>
                             <a href="{{ route('register') }}"
-                                class="block w-full px-4 py-2 text-base font-medium text-white border border-sky-400 bg-sky-600 hover:bg-sky-700 rounded-md transition duration-150 ease-in-out text-center">
+                                class="block w-full px-4 py-2 text-base font-medium text-white border border-gray-800 bg-gray-800 hover:bg-gray-700 rounded-md transition duration-150 ease-in-out text-center">
                                 {{ __('Register') }}
                             </a>
                         </div>
@@ -199,14 +199,14 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-black/50 shadow relative z-40">
+            <header class="bg-white/90 shadow relative z-40">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <div class="relative">
                         {{ $header }}
                     </div>
                 </div>
                 <div
-                    class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-300 to-transparent">
+                    class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent">
                 </div>
             </header>
         @endif
@@ -218,7 +218,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-black border-t border-gray-800 relative z-40 mt-auto">
+    <footer class="bg-white border-t border-gray-200 relative z-40 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Logo dan Deskripsi -->
@@ -226,11 +226,11 @@
                     <div class="flex items-center space-x-3">
                         <img src="{{ asset('images/Logo-BEM-FTI.png') }}" alt="Logo BEM FTI" class="h-10 w-auto">
                         <div>
-                            <h3 class="text-white font-semibold text-lg">Inventaris BEM FTI</h3>
-                            <p class="text-gray-400 text-sm">Universitas Islam Sultan Agung</p>
+                            <h3 class="text-gray-900 font-semibold text-lg">Inventaris BEM FTI</h3>
+                            <p class="text-gray-600 text-sm">Universitas Islam Sultan Agung</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">
+                    <p class="text-gray-700 text-sm leading-relaxed">
                         Sistem manajemen inventaris untuk Badan Eksekutif Mahasiswa Fakultas Teknologi Industri
                         Universitas Islam Sultan Agung.
                     </p>
@@ -238,11 +238,11 @@
 
                 <!-- Quick Links -->
                 <div class="space-y-4">
-                    <h4 class="text-white font-semibold text-base">Quick Links</h4>
+                    <h4 class="text-gray-900 font-semibold text-base">Quick Links</h4>
                     <ul class="space-y-1">
                         <li>
                             <a href="{{ route('inventaris') }}"
-                                class="text-gray-300 hover:text-sky-400 transition-colors duration-200 text-sm">
+                                class="text-gray-700 hover:text-gray-900 transition-colors duration-200 text-sm">
                                 Dashboard
                             </a>
                         </li>
@@ -250,14 +250,14 @@
                             @if (Auth::user()->role === 'admin')
                                 <li>
                                     <a href="{{ route('admin.barang.index') }}"
-                                        class="text-gray-300 hover:text-sky-400 transition-colors duration-200 text-sm">
+                                        class="text-gray-700 hover:text-gray-900 transition-colors duration-200 text-sm">
                                         Kelola Inventaris
                                     </a>
                                 </li>
                             @else
                                 <li>
                                     <a href="{{ route('pinjaman') }}"
-                                        class="text-gray-300 hover:text-sky-400 transition-colors duration-200 text-sm">
+                                        class="text-gray-700 hover:text-gray-900 transition-colors duration-200 text-sm">
                                         Pinjaman
                                     </a>
                                 </li>
@@ -265,7 +265,7 @@
                         @endauth
                         <li>
                             <a href="#"
-                                class="text-gray-300 hover:text-sky-400 transition-colors duration-200 text-sm">
+                                class="text-gray-700 hover:text-gray-900 transition-colors duration-200 text-sm">
                                 Bantuan
                             </a>
                         </li>
@@ -274,40 +274,40 @@
 
                 <!-- Contact Info -->
                 <div class="space-y-4">
-                    <h4 class="text-white font-semibold text-base">Kontak</h4>
+                    <h4 class="text-gray-900 font-semibold text-base">Kontak</h4>
                     <div class="space-y-2">
                         <div class="flex items-start space-x-2">
-                            <svg class="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                            <svg class="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" fill="currentColor"
                                 viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="text-gray-300 text-sm leading-relaxed">Jl. Kaligawe Raya No.Km.4, Terboyo
+                            <span class="text-gray-700 text-sm leading-relaxed">Jl. Kaligawe Raya No.Km.4, Terboyo
                                 Kulon, Kec. Genuk, Kota Semarang, Jawa Tengah 50112</span>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                             </svg>
-                            <span class="text-gray-300 text-sm">bem.fti@unej.ac.id</span>
+                            <span class="text-gray-700 text-sm">bem.fti@unej.ac.id</span>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path
                                     d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
                                 </path>
                             </svg>
-                            <span class="text-gray-300 text-sm">(0331) 123456</span>
+                            <span class="text-gray-700 text-sm">(0331) 123456</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Maps -->
                 <div class="space-y-4">
-                    <h4 class="text-white font-semibold text-base">Lokasi</h4>
-                    <div class="w-full h-31 rounded-lg overflow-hidden border border-gray-700">
+                    <h4 class="text-gray-900 font-semibold text-base">Lokasi</h4>
+                    <div class="w-full h-31 rounded-lg overflow-hidden border border-gray-300">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.0!2d110.4601599!3d-6.9542522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70f33d6b563227%3A0x46597d1bdae2f728!2sFakultas%20Teknologi%20Industri%20Unissula!5e0!3m2!1sid!2sid!4v1699999999999!5m2!1sid!2sid"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
@@ -318,14 +318,14 @@
             </div>
 
             <!-- Divider -->
-            <div class="mt-8 pt-6 border-t border-gray-700">
+            <div class="mt-8 pt-6 border-t border-gray-300">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    <div class="text-gray-400 text-sm">
+                    <div class="text-gray-600 text-sm">
                         © {{ date('Y') }} BEM FTI Universitas Islam Sultan Agung. All rights reserved.
                     </div>
                     <div class="flex space-x-6">
                         <a href="https://www.instagram.com/bemftiunissula?igsh=em5lZDFmajk3dHFv"
-                            class="text-gray-400 group transition-colors duration-200">
+                            class="text-gray-600 group transition-colors duration-200">
                             <svg class="w-5 h-5 group-hover:text-transparent" fill="currentColor"
                                 viewBox="0 0 24 24">
                                 <defs>
