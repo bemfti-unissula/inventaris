@@ -1,0 +1,56 @@
+{
+    "outputDirectory": "public",
+    "buildCommand": "",
+    "framework": null,
+    "functions": {
+        "api/index.php": {
+            "runtime": "vercel-php@0.7.4"
+        }
+    },
+    "routes": [
+        {
+            "src": "/(.*)",     
+            "dest": "/api/index.php"
+        }
+    ],
+    "env": {
+        "APP_NAME": "BEM FTI",
+        "APP_ENV": "production",
+        "APP_KEY": "base64:sYmcz5FDutLFbnMbfIJYij9HA/YgnL0ElvVQpf6o88Q=",
+        "APP_DEBUG": "true",
+        "APP_URL": "https://inventaris-bemfti.vercel.app",
+
+        "APP_CONFIG_CACHE": "/tmp/config.php",
+        "APP_EVENTS_CACHE": "/tmp/events.php",
+        "APP_PACKAGES_CACHE": "/tmp/packages.php",
+        "APP_ROUTES_CACHE": "/tmp/routes.php",
+        "APP_SERVICES_CACHE": "/tmp/services.php",
+        "VIEW_COMPILED_PATH": "/tmp",
+
+        "LOG_CHANNEL": "stderr",
+        "DB_CONNECTION": "mongodb",
+        "DB_URI": "mongodb+srv://bemfti:BEM#fti123@inventaris.zcoynta.mongodb.net/inventaris",
+        "DB_DATABASE": "inventaris",
+        "SESSION_DRIVER": "cookie",
+        "SESSION_LIFETIME": "120",
+        "SESSION_ENCRYPT": "false",
+        "SESSION_PATH": "/",
+        "SESSION_DOMAIN": "null",
+        "FILESYSTEM_DISK": "imagekit",
+        "IMAGEKIT_PUBLIC_KEY": "public_LruUVn+HjNNuxxYJNf0Q4FRMKkw=",
+        "IMAGEKIT_PRIVATE_KEY": "private_x+t19o5uWkoO27rL+5uwSD+nrU4=",
+        "IMAGEKIT_URL_ENDPOINT": "https://ik.imagekit.io/bemfti",
+        "CACHE_STORE": "array",
+        "CACHE_DRIVER": "array",
+        "QUEUE_CONNECTION": "sync",
+        "MAILJET_APIKEY": "61edf8a2342e5fe39ff335ac4f01c76b",
+        "MAILJET_APISECRET": "a318e583dc50e0a7a475f5ec15e58aa3",
+        "MAIL_MAILER": "mailjet",
+        "MAIL_HOST": "in-v3.mailjet.com",
+        "MAIL_PORT": "587",
+        "MAIL_USERNAME": "61edf8a2342e5fe39ff335ac4f01c76b",
+        "MAIL_PASSWORD": "a318e583dc50e0a7a475f5ec15e58aa3",
+        "MAIL_FROM_ADDRESS": "no-reply.bem.fti@gmail.com",
+        "MAIL_FROM_NAME": "BEM FTI"
+    }
+}
