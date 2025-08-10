@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
-use TaffoVelikoff\ImageKitAdapter\ImageKitAdapter;
+use TaffoVelikoff\ImageKitAdapter\ImagekitAdapter;
 use ImageKit\ImageKit;
 
 class AppServiceProvider extends ServiceProvider

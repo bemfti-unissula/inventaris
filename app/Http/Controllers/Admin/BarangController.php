@@ -96,7 +96,7 @@ class BarangController extends Controller
         $totalItems = $query->count();
 
         // Paginate results
-        $barangs = $query->paginate(9)->withQueryString();
+        $barangs = $query->orderBy('created_at', 'desc')->paginate(9)->withQueryString();
 
         // Get current filter status
         $currentFilters = [
