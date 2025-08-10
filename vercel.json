@@ -29,7 +29,7 @@
             "dest": "/robots.txt"
         },
         {
-            "src": "/(.*)",     
+            "src": "/(.*)",
             "dest": "/api/index.php"
         }
     ],

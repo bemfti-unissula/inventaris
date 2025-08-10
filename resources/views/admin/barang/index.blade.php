@@ -148,8 +148,8 @@
             </div>
 
 
-            <div class="pb-6">
-                <div class="max-w-7xl mx-auto pb-6">
+            <div>
+                <div class="max-w-7xl mx-auto">
                     <!-- Alert Messages -->
                     @if (session('success'))
                         <div class="mb-4 bg-green-500/10 border border-green-500/20 text-green-500 px-4 py-3 rounded relative"
@@ -328,7 +328,7 @@
                             </div>
                             
                             <div class="pagination-wrapper">
-                                {{ $barangs->links() }}
+                                <x-pagination :paginator="$barangs->withQueryString()" />
                             </div>
                         </div>
                     </div>
