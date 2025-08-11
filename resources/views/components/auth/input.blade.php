@@ -1,19 +1,26 @@
 @props(['type' => 'text', 'name', 'id', 'label', 'value' => '', 'required' => false])
 
-<div class="input-container">
-    <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}" class="input-field" placeholder=" "
-        autocomplete="off" value="{{ old($name, $value) }}" {{ $required ? 'required' : '' }} />
-    <label for="{{ $id }}" class="input-label">{{ $label }}</label>
-    @if ($type === 'password')
-        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-            onclick="togglePassword('{{ $id }}')">
-            <svg id="eye-icon-{{ $id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                fill="currentColor" class="w-6 h-6 text-gray-400">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                <path fill-rule="evenodd"
-                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
-                    clip-rule="evenodd" />
-            </svg>
-        </div>
-    @endif
+<div class="mb-4">
+    <label for="{{ $id }}" class="block text-sm font-medium text-gray-700 mb-1">{{ $label }}</label>
+    <div class="relative">
+        <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}" 
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 {{ $type === 'password' ? 'pr-10' : '' }}"
+            placeholder="Enter {{ strtolower($label) }}"
+            value="{{ old($name, $value) }}" 
+            {{ $required ? 'required' : '' }} />
+        
+        @if ($type === 'password')
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onclick="togglePassword('{{ $id }}')">
+                <svg id="eye-icon-{{ $id }}" class="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+            </div>
+        @endif
+    </div>
+    
+    @error($name)
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+    @enderror
 </div>
