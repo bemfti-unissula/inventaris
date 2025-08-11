@@ -38,23 +38,33 @@
 </head>
 
 <body>
-    <div class="bg-black text-white flex min-h-screen flex-col items-center pt-16 sm:justify-center sm:pt-0">
-        <x-auth.logo />
+    <!-- Simple Professional Background -->
+    <div class="min-h-screen bg-gray-50 relative">
+        <!-- Subtle Pattern -->
+        <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.02]"></div>
+        
+        <div class="relative flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+            <!-- Logo Section -->
+            <div class="mb-8">
+                <x-auth.logo />
+            </div>
 
-        <!-- Alert Container -->
-        <div id="alert-container"></div>
+            <!-- Alert Container -->
+            <div id="alert-container"></div>
 
-        <div class="relative mt-12 w-full max-w-lg sm:mt-10">
-            <div class="relative mb-px h-px w-full bg-gradient-to-r from-transparent via-sky-300 to-transparent"
-                bis_skin_checked="1"></div>
-            <div
-                class="mx-5 border dark:border-b-white/50 dark:border-t-white/50 border-b-white/20 sm:border-t-white/20 shadow-[20px_0_20px_20px] shadow-slate-500/10 dark:shadow-white/20 rounded-lg border-white/20 border-l-white/20 border-r-white/20 sm:shadow-sm lg:rounded-xl lg:shadow-none">
-                <div class="flex flex-col p-6">
-                    <h3 class="text-xl font-semibold leading-6 tracking-tighter">{{ $header }}</h3>
-                    <p class="mt-1.5 text-sm font-medium text-white/50">{{ $subheader }}</p>
-                </div>
-                <div class="p-6 pt-0">
-                    {{ $slot }}
+            <!-- Simple Professional Card -->
+            <div class="w-full max-w-md">
+                <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+                    <!-- Simple Header -->
+                    <div class="bg-white px-8 py-6 border-b border-gray-100">
+                        <h3 class="text-2xl font-semibold text-gray-900">{{ $header }}</h3>
+                        <p class="mt-2 text-gray-600 text-sm">{{ $subheader }}</p>
+                    </div>
+                    
+                    <!-- Form Content -->
+                    <div class="px-8 py-6">
+                        {{ $slot }}
+                    </div>
                 </div>
             </div>
         </div>

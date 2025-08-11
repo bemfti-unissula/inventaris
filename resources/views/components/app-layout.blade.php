@@ -20,58 +20,70 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="bg-white/90 border-b border-gray-200 backdrop-blur-sm relative z-50" x-data="{ mobileMenuOpen: false }">
+        <nav class="bg-white border-b border-gray-100 relative z-50" x-data="{ mobileMenuOpen: false }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex">
-                        <!-- Logo -->
-                        <div class="shrink-0 flex items-center">
-                            <a href="{{ route('inventaris') }}">
-                                <img src="{{ asset('images/Logo-BEM-FTI.png') }}" alt="Logo BEM FTI"
-                                    class="block h-9 w-auto">
-                            </a>
-                        </div>
-
-                        <!-- Navigation Links -->
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-black">
-                            <x-nav-link href="{{ route('inventaris') }}" :active="request()->routeIs('inventaris')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                            @auth
-                                @if (Auth::user()->role === 'admin')
-                                    <x-nav-link href="{{ route('admin.barang.index') }}" :active="request()->routeIs('admin.barang.*')">
-                                        {{ __('Kelola Inventaris') }}
-                                    </x-nav-link>
-                                    <x-nav-link href="{{ route('inventaris') }}" :active="request()->routeIs('admin.users')">
-                                        {{ __('Kelola User') }}
-                                    </x-nav-link>
-                                @else
-                                    <x-nav-link href="{{ route('pinjaman') }}" :active="request()->routeIs('pinjaman')">
-                                        {{ __('Pinjaman') }}
-                                    </x-nav-link>
-                                    <x-nav-link href="{{ route('riwayat') }}" :active="request()->routeIs('riwayat')">
-                                        {{ __('Riwayat Pinjaman') }}
-                                    </x-nav-link>
-                                @endif
-                            @endauth
-                        </div>
+                <div class="flex items-center h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <a href="{{ route('inventaris') }}" class="flex items-center space-x-2">
+                            <img src="{{ asset('images/Logo-BEM-FTI.png') }}" alt="Logo BEM FTI"
+                                class="block h-9 w-auto">
+                            <div class="flex flex-col items-start -space-y-1">
+                                <span class="text-xl font-bold text-gray-900">BEM FTI</span>
+                                <span class="text-sm text-gray-600">Inventaris</span>
+                            </div>
+                        </a>
                     </div>
 
-                    <!-- Profile -->
-                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <!-- Navigation Links -->
+                    <div class="hidden md:flex items-center space-x-8 ml-8">
                         @auth
-                            <div class="relative z-[9999]" x-data="{ open: false }" @click.away="open = false">
+                            @if (Auth::user()->role === 'admin')
+                                <a href="{{ route('inventaris') }}"
+                                    class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('inventaris') ? 'text-purple-600' : '' }}">
+                                    Dashboard
+                                </a>
+                                <a href="{{ route('admin.barang.index') }}"
+                                    class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('admin.barang.*') ? 'text-purple-600' : '' }}">
+                                    Kelola Inventaris
+                                </a>
+                                <a href="{{ route('inventaris') }}"
+                                    class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('admin.users') ? 'text-purple-600' : '' }}">
+                                    Kelola User
+                                </a>
+                            @else
+                                <a href="{{ route('inventaris') }}"
+                                    class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('inventaris') ? 'text-purple-600' : '' }}">
+                                    Dashboard
+                                </a>
+                                <a href="{{ route('pinjaman') }}"
+                                    class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('pinjaman') ? 'text-purple-600' : '' }}">
+                                    Pinjaman
+                                </a>
+                                <a href="{{ route('riwayat') }}"
+                                    class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('riwayat') ? 'text-purple-600' : '' }}">
+                                    Riwayat Pinjaman
+                                </a>
+                            @endif
+                        @else
+                            <a href="{{ route('inventaris') }}"
+                                class="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-200 {{ request()->routeIs('inventaris') ? 'text-purple-600' : '' }}">
+                                Dashboard
+                            </a>
+                        @endauth
+                    </div>
+
+                    <!-- Right Side - Profile/Login -->
+                    <div class="hidden md:flex items-center ml-auto">
+                        @auth
+                            <div class="relative" x-data="{ open: false }" @click.away="open = false">
                                 <button @click="open = !open"
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 bg-white/50 hover:text-gray-900 focus:outline-none transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none transition duration-150 ease-in-out">
                                     <div>{{ Auth::user()->name }}</div>
-                                    <div class="ml-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
+                                    <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
                                 </button>
 
                                 <div x-show="open" x-transition:enter="transition ease-out duration-200"
@@ -80,41 +92,38 @@
                                     x-transition:leave="transition ease-in duration-75"
                                     x-transition:leave-start="transform opacity-100 scale-100"
                                     x-transition:leave-end="transform opacity-0 scale-95"
-                                    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white backdrop-blur-sm border border-gray-200"
+                                    class="absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white border border-gray-200"
                                     style="display: none;">
                                     <a href="{{ route('profile.edit') }}"
-                                        class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                        {{ __('Profile') }}
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out">
+                                        Profile
                                     </a>
-
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); this.closest('form').submit();"
-                                            class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                            {{ __('Log Out') }}
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out">
+                                            Log Out
                                         </a>
                                     </form>
                                 </div>
                             </div>
                         @else
-                            <div class="flex space-x-3">
-                                <a href="{{ route('login.page') }}"
-                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-transparent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition duration-150 ease-in-out">
-                                    {{ __('Login') }}
-                                </a>
-                                <a href="{{ route('register') }}"
-                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ease-in-out">
-                                    {{ __('Register') }}
-                                </a>
-                            </div>
+                            <a href="{{ route('login.page') }}"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors duration-200">
+                                Log in
+                                <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                    </path>
+                                </svg>
+                            </a>
                         @endauth
                     </div>
 
-                    <!-- Hamburger -->
-                    <div class="-mr-2 flex items-center sm:hidden">
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
                         <button @click="mobileMenuOpen = !mobileMenuOpen"
-                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-900 transition duration-150 ease-in-out">
+                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                 <path :class="{ 'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }"
                                     class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -129,38 +138,51 @@
             </div>
 
             <!-- Mobile menu -->
-            <div class="sm:hidden" x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
+            <div class="md:hidden" x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform -translate-y-2"
                 x-transition:enter-end="opacity-100 transform translate-y-0"
                 x-transition:leave="transition ease-in duration-200"
                 x-transition:leave-start="opacity-100 transform translate-y-0"
                 x-transition:leave-end="opacity-0 transform -translate-y-2" x-cloak>
-                <div class="pt-2 pb-3 space-y-1 bg-white/90 backdrop-blur-sm">
-                    <x-nav-link href="{{ route('inventaris') }}" :active="request()->routeIs('inventaris')" class="block pl-3 pr-4 py-2">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="pt-2 pb-3 space-y-1 bg-white border-t border-gray-100">
                     @auth
                         @if (Auth::user()->role === 'admin')
-                            <x-nav-link href="{{ route('admin.barang.index') }}" :active="request()->routeIs('admin.barang.*')"
-                                class="block pl-3 pr-4 py-2">
-                                {{ __('Kelola Inventaris') }}
-                            </x-nav-link>
-                            <x-nav-link href="{{ route('inventaris') }}" :active="request()->routeIs('admin.users.*')" class="block pl-3 pr-4 py-2">
-                                {{ __('Kelola User') }}
-                            </x-nav-link>
+                            <a href="{{ route('inventaris') }}"
+                                class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('inventaris') ? 'text-purple-600 bg-purple-50' : '' }}">
+                                Dashboard
+                            </a>
+                            <a href="{{ route('admin.barang.index') }}"
+                                class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('admin.barang.*') ? 'text-purple-600 bg-purple-50' : '' }}">
+                                Kelola Inventaris
+                            </a>
+                            <a href="{{ route('inventaris') }}"
+                                class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('admin.users') ? 'text-purple-600 bg-purple-50' : '' }}">
+                                Kelola User
+                            </a>
                         @else
-                            <x-nav-link href="{{ route('pinjaman') }}" :active="request()->routeIs('pinjaman')" class="block pl-3 pr-4 py-2">
-                                {{ __('Pinjaman') }}
-                            </x-nav-link>
-                            <x-nav-link href="{{ route('riwayat') }}" :active="request()->routeIs('riwayat')" class="block pl-3 pr-4 py-2">
-                                {{ __('Riwayat Pinjaman') }}
-                            </x-nav-link>
+                            <a href="{{ route('inventaris') }}"
+                                class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('inventaris') ? 'text-purple-600 bg-purple-50' : '' }}">
+                                Dashboard
+                            </a>
+                            <a href="{{ route('pinjaman') }}"
+                                class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('pinjaman') ? 'text-purple-600 bg-purple-50' : '' }}">
+                                Pinjaman
+                            </a>
+                            <a href="{{ route('riwayat') }}"
+                                class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('riwayat') ? 'text-purple-600 bg-purple-50' : '' }}">
+                                Riwayat Pinjaman
+                            </a>
                         @endif
+                    @else
+                        <a href="{{ route('inventaris') }}"
+                            class="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-gray-50 font-medium transition-colors duration-200 {{ request()->routeIs('inventaris') ? 'text-purple-600 bg-purple-50' : '' }}">
+                            Dashboard
+                        </a>
                     @endauth
                 </div>
 
                 <!-- Mobile Profile -->
-                <div class="pt-4 pb-3 border-t border-gray-300 bg-white/90 backdrop-blur-sm">
+                <div class="pt-4 pb-3 border-t border-gray-100 bg-white">
                     @auth
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-900">{{ Auth::user()->name }}</div>
@@ -168,28 +190,27 @@
 
                         <div class="mt-3 space-y-1">
                             <a href="{{ route('profile.edit') }}"
-                                class="block px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">
-                                {{ __('Profile') }}
+                                class="block px-4 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50">
+                                Profile
                             </a>
-
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); this.closest('form').submit();"
-                                    class="block px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">
-                                    {{ __('Log Out') }}
+                                    class="block px-4 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50">
+                                    Log Out
                                 </a>
                             </form>
                         </div>
                     @else
-                        <div class="px-4 space-y-3">
+                        <div class="px-4">
                             <a href="{{ route('login.page') }}"
-                                class="block w-full px-4 py-2 text-base font-medium text-gray-700 border border-gray-300 bg-transparent hover:bg-gray-100 rounded-md transition duration-150 ease-in-out text-center">
-                                {{ __('Login') }}
-                            </a>
-                            <a href="{{ route('register') }}"
-                                class="block w-full px-4 py-2 text-base font-medium text-white border border-gray-800 bg-gray-800 hover:bg-gray-700 rounded-md transition duration-150 ease-in-out text-center">
-                                {{ __('Register') }}
+                                class="inline-flex items-center px-4 py-2 text-base font-medium text-gray-700 hover:text-purple-600 transition-colors duration-200">
+                                Log in
+                                <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
                             </a>
                         </div>
                     @endauth
