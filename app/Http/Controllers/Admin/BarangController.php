@@ -12,62 +12,6 @@ use App\Http\Requests\Barang\UpdateRequest;
 
 class BarangController extends Controller
 {
-    protected $imageKitService;
-
-    public function __construct(ImageKitService $imageKitService)
-    {
-        $this->imageKitService = $imageKitService;
-    }
-
-    // Metode alternatif menggunakan Storage facade dengan ImageKit adapter
-    // protected function uploadImageWithStorage($file)
-    // {
-    //     try {
-    //         // Generate unique filename
-    //         $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-
-    //         // Get file contents
-    //         $fileContents = file_get_contents($file->getRealPath());
-
-    //         // Upload file menggunakan Storage facade dengan disk imagekit
-    //         // Menggunakan put() method yang tersedia di Flysystem
-    //         $path = $filename; // Define path where file will be stored
-    //         Storage::disk('imagekit')->put($path, $fileContents);
-
-    //         // Dapatkan URL publik dari file yang diupload
-    //         $url = Storage::disk('imagekit')->url($path);
-
-    //         $optimizedUrl = $url . '?tr=w-500,h-500,f-auto,q-50';
-
-    //         return ['url' => $url, 'path' => $path, 'optimizedUrl' => $optimizedUrl];
-    //     } catch (\Exception $e) {
-    //         \Log::error('Storage ImageKit upload failed:', [
-    //             'error' => $e->getMessage(),
-    //             'trace' => $e->getTraceAsString()
-    //         ]);
-
-    //         return ['error' => $e->getMessage()];
-    //     }
-    // }
-
-    // // Metode alternatif untuk menghapus file menggunakan Storage facade
-    // protected function deleteImageWithStorage($path)
-    // {
-    //     try {
-    //         if (Storage::disk('imagekit')->exists($path)) {
-    //             Storage::disk('imagekit')->delete($path);
-    //             return true;
-    //         }
-    //         return false;
-    //     } catch (\Exception $e) {
-    //         \Log::error('Storage ImageKit delete failed:', [
-    //             'error' => $e->getMessage(),
-    //             'trace' => $e->getTraceAsString()
-    //         ]);
-    //         return false;
-    //     }
-    // }
-
     public function index(Request $request)
     {
         $query = Barang::query();
@@ -113,7 +57,7 @@ class BarangController extends Controller
         return view('admin.barang.create');
     }
 
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $request, ImageKitService $imageKitService)
     {
         try {
             $data = $request->validated();
@@ -121,7 +65,7 @@ class BarangController extends Controller
             if ($request->hasFile('gambar') && $request->file('gambar')->isValid()) {
                 try {
                     // Menggunakan metode Storage facade dengan ImageKit adapter
-                    $uploadResult = $this->imageKitService->uploadImageWithStorage($request->file('gambar'), 'inventaris');
+                    $uploadResult = $imageKitService->uploadImageWithStorage($request->file('gambar'), 'inventaris');
 
                     if (isset($uploadResult['error']) && $uploadResult['error']) {
                         throw new \Exception($uploadResult['error']);
@@ -161,11 +105,8 @@ class BarangController extends Controller
             $barang->stok = (int) $request->validated('stok');
             $barang->total_dimiliki = (int) $request->validated('total_dimiliki');
             $barang->gambar = $gambar;
+            $barang->is_paid = (bool) $request->validated('is_paid');
             $barang->save();
-            // if (!$result) {
-            //     return redirect()->route('admin.barang.index')
-            //         ->with('error', 'Gagal menambahkan barang');
-            // }
 
             return redirect()->route('admin.barang.index')
                 ->with('success', 'Barang berhasil ditambahkan');
@@ -184,7 +125,7 @@ class BarangController extends Controller
         return view('admin.barang.create', compact('barang'));
     }
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, $id, ImageKitService $imageKitService)
     {
         try {
             $data = $request->validated();
@@ -198,11 +139,11 @@ class BarangController extends Controller
             if ($request->hasFile('gambar') && $request->file('gambar')->isValid()) {
                 try {
                     if (!empty($barang->gambar) && is_array($barang->gambar) && isset($barang->gambar['path'])) {
-                        $this->imageKitService->deleteImageWithStorage($barang->gambar['path']);
+                        $imageKitService->deleteImageWithStorage($barang->gambar['path']);
                     }
 
                     // Upload gambar baru menggunakan Storage facade dengan ImageKit adapter
-                    $uploadResult = $this->imageKitService->uploadImageWithStorage($request->file('gambar'), 'inventaris');
+                    $uploadResult = $imageKitService->uploadImageWithStorage($request->file('gambar'), 'inventaris');
 
                     if (isset($uploadResult['error']) && $uploadResult['error']) {
                         throw new \Exception($uploadResult['error']);
@@ -236,6 +177,8 @@ class BarangController extends Controller
             // Ensure integer values for stok and total_dimiliki
             $data['stok'] = (int) $data['stok'];
             $data['total_dimiliki'] = (int) $data['total_dimiliki'];
+            // Ensure boolean values for is_paid
+            $data['is_paid'] = (bool) $data['is_paid'];
             $result = $barang->update($data);
             if (!$result) {
                 return redirect()->route('admin.barang.index')
@@ -250,7 +193,7 @@ class BarangController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy($id, ImageKitService $imageKitService)
     {
         try {
             $barang = Barang::findOrFail($id);
@@ -261,7 +204,7 @@ class BarangController extends Controller
 
             if (!empty($barang->gambar) && is_array($barang->gambar) && isset($barang->gambar['path'])) {
                 try {
-                    $this->imageKitService->deleteImageWithStorage($barang->gambar['path']);
+                    $imageKitService->deleteImageWithStorage($barang->gambar['path']);
                 } catch (\Exception $e) {
                     // Continue with deletion even if image deletion fails
                 }
