@@ -1,66 +1,177 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Inventaris BEM FTI
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Description
 
-## About Laravel
+Sistem Inventaris BEM FTI adalah aplikasi web untuk mengelola inventaris barang-barang milik Badan Eksekutif Mahasiswa Fakultas Teknologi Informasi. Aplikasi ini memungkinkan admin untuk mengelola data barang, melakukan transaksi peminjaman dan pengembalian, serta memantau stok barang secara real-time.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Technologies Used
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Laravel 12** - PHP Framework untuk backend
+- **PHP** - Server-side programming language
+- **MongoDB** - NoSQL Database untuk penyimpanan data
+- **ImageKit** - Cloud storage untuk manajemen file dan gambar
+- **Blade** - Template engine Laravel
+- **Tailwind** - CSS framework untuk styling
+- **JavaScript** - Client-side scripting
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+### 🔐 Authentication
+- Login dan Register pengguna
+- Sistem role-based access (Admin/User)
+- Password reset functionality
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 📦 Manajemen Barang
+- CRUD (Create, Read, Update, Delete) data barang
+- Upload gambar barang dengan ImageKit
+- Kategori dan klasifikasi barang
+- Tracking stok barang real-time
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 📋 Transaksi
+- **Peminjaman Barang**
+  - Form peminjaman dengan validasi
+  - Upload dokumen pendukung (PDF)
+  - Pengurangan stok otomatis
+  - Tracking tanggal peminjaman
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Pengembalian Barang**
+  - Proses pengembalian dengan validasi
+  - Penambahan stok kembali
+  - Tracking tanggal pengembalian
 
-## Laravel Sponsors
+### 📊 Dashboard
+- Overview statistik inventaris
+- Monitoring transaksi terbaru
+- Status stok barang
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🎨 User Interface
+- Responsive design
+- Modern UI dengan tema hitam-merah
+- Font Poppins untuk typography
+- User-friendly navigation
 
-### Premium Partners
+## Setup Instructions
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Prerequisites
+- PHP >= 8.1
+- Composer
+- MongoDB
+
+### Installation
+
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/bemfti-unissula/inventaris.git
+   cd inventaris
+   ```
+
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
+
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Edit file `.env` dan sesuaikan konfigurasi:
+   ```env
+   APP_NAME="Inventaris BEM FTI"
+   APP_URL=http://localhost:8000
+   
+   DB_CONNECTION=mongodb
+   DB_URI="your-mongodb-connection-string"
+   
+   IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
+   IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+   IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
+   ```
+
+4. **Generate application key**
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Run database migrations**
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Seed database (optional)**
+   ```bash
+   php artisan db:seed
+   ```
+
+7. **Start development server**
+   ```bash
+   php artisan serve
+   ```
+
+   Aplikasi akan berjalan di `http://localhost:8000`
+
+### Production Deployment
+
+Untuk deployment production:
+
+1. Set `APP_ENV=production` di file `.env`
+2. Set `APP_DEBUG=false`
+3. Optimize aplikasi:
+   ```bash
+   php artisan config:cache
+   php artisan route:cache
+   php artisan view:cache
+   ```
+
+## Project Structure
+
+```
+inventarisBEMFTI/
+├── app/
+│   ├── Http/Controllers/     # Controllers
+│   ├── Models/              # Eloquent Models
+│   ├── Requests/            # Form Request Validation
+│   └── Services/            # Business Logic Services
+├── resources/
+│   └── views/               # Blade Templates
+├── routes/
+│   └── web.php             # Web Routes
+├── database/
+│   ├── migrations/         # Database Migrations
+│   └── seeders/           # Database Seeders
+└── public/                # Public Assets
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
+
+## AI Support Explanation
+
+Proyek Inventaris BEM FTI dikembangkan dengan dukungan teknologi Artificial Intelligence yang memberikan kontribusi signifikan dalam berbagai aspek pengembangan:
+
+### 🎨 **User Interface Development**
+AI berperan dalam merancang dan mengoptimalkan antarmuka pengguna yang responsif dan intuitif. Dengan bantuan AI, kami dapat menciptakan desain yang konsisten dengan tema hitam-merah, implementasi font Poppins, dan pengalaman pengguna yang seamless across different devices.
+
+### 🔧 **Technology Integration**
+AI memfasilitasi integrasi yang efisien antara berbagai teknologi stack yang digunakan dalam proyek ini. Mulai dari konfigurasi Laravel dengan MongoDB, implementasi ImageKit untuk cloud storage, hingga optimasi performa aplikasi secara keseluruhan.
+
+### 🚀 **Deployment Automation**
+Penggunaan AI dalam proses deployment ke platform Vercel memungkinkan otomatisasi yang lebih efektif. AI membantu dalam konfigurasi environment variables, optimasi build process, dan troubleshooting deployment issues untuk memastikan aplikasi dapat diakses secara stabil.
+
+### ⚙️ **Backend Development**
+AI memberikan dukungan komprehensif dalam pengembangan backend, termasuk optimasi database queries, implementasi business logic yang robust, error handling yang efektif, dan security best practices untuk memastikan aplikasi yang aman dan performant.
+
+## Contact
+
+BEM FTI - Fakultas Teknologi Informasi
+
+Project Link: [https://github.com/bemfti-unissula/inventaris](https://github.com/bemfti-unissula/inventaris)

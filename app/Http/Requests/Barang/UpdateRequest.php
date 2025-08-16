@@ -28,6 +28,7 @@ class UpdateRequest extends FormRequest
             'stok' => 'required|integer|min:0',
             'total_dimiliki' => 'required|integer|min:0',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_paid' => 'required|boolean',
         ];  
     }
 
@@ -48,6 +49,8 @@ class UpdateRequest extends FormRequest
             'gambar.image' => 'File harus berupa gambar.',
             'gambar.mimes' => 'Format gambar harus jpeg, png, jpg, gif, atau svg.',
             'gambar.max' => 'Ukuran gambar maksimal 2MB.', 
+            'is_paid.required' => 'Is paid harus diisi.',
+            'is_paid.boolean' => 'Is paid harus berupa true atau false.',
         ];
     }
 }
