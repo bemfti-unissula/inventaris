@@ -18,10 +18,10 @@ class UpdatePeminjamanRequest extends FormRequest
         $this->transaksi = Transaksi::find($this->route('id'));
 
         if (!$this->transaksi) {
-            return false; // Transaksi tidak ditemukan
+            return false;
         }
 
-        return $this->transaksi->user_id == Auth::id();
+        return $this->transaksi->user_id == Auth::user()->id;
     }
 
     /**
@@ -32,10 +32,10 @@ class UpdatePeminjamanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'jumlah' => 'required|integer|min:1',
             'tanggal_peminjaman' => 'required|date',
             'tanggal_pengembalian' => 'required|date',
-            'file' => 'sometimes|file|mimes:pdf|max:2048',
+            'file' => 'nullable|file|mimes:pdf|max:2048',
+            'jumlah' => 'required|integer|min:1',
             'keterangan' => 'nullable|string',
         ];
     }
@@ -43,9 +43,6 @@ class UpdatePeminjamanRequest extends FormRequest
     public function messages()
     {
         return [
-            'jumlah.required' => 'Jumlah harus diisi',
-            'jumlah.integer' => 'Jumlah harus berupa angka',
-            'jumlah.min' => 'Jumlah minimal 1',
             'tanggal_peminjaman.required' => 'Tanggal peminjaman harus diisi',
             'tanggal_peminjaman.date' => 'Tanggal peminjaman harus berupa tanggal',
             'tanggal_pengembalian.required' => 'Tanggal pengembalian harus diisi',
@@ -53,7 +50,11 @@ class UpdatePeminjamanRequest extends FormRequest
             'file.file' => 'File harus berupa file',
             'file.mimes' => 'File harus berupa pdf',
             'file.max' => 'File maksimal 2MB',
+            'jumlah.required' => 'Jumlah harus diisi',
+            'jumlah.integer' => 'Jumlah harus berupa angka',
+            'jumlah.min' => 'Jumlah minimal 1',
             'keterangan.string' => 'Keterangan harus berupa teks',
         ];
     }
 }
+

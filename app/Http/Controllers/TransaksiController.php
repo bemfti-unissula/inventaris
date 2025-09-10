@@ -28,7 +28,7 @@ class TransaksiController extends Controller
             return redirect()->route('transaksi.getByUser')->with('error', 'Riwayat tidak ditemukan');
         }
         if ($transaksi->user_id != Auth::user()->id) {
-            return redirect()->route('transaksi.getByUser')->with('error', 'Kamu tidak memiliki akses');
+            return abort(403);
         }
         return view('transaksi.detail', compact('transaksi'));
     }
@@ -44,11 +44,11 @@ class TransaksiController extends Controller
             // Step 1: Cek barang dan stok terlebih dahulu
             $barang = Barang::find($request->validated('barang_id'));
             if (!$barang) {
-                throw new \Exception('Barang tidak ditemukan');
+                return redirect()->route('transaksi.getByUser')->with('error', 'Barang tidak ditemukan');
             }
 
-            if ($barang->stok < (int) $request->validated('jumlah')) {
-                return redirect()->route('transaksi.getByUser')->with('error', 'Stok barang tidak cukup');
+            if ($barang->total_dimiliki < (int) $request->validated('jumlah')) {
+                return redirect()->route('transaksi.getByUser')->with('error', 'Jumlah barang tidak cukup');
             }
 
             // Step 2: Upload file
@@ -100,13 +100,13 @@ class TransaksiController extends Controller
         try {
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
-            if ($transaksi->tipe != 'peminjaman' || $transaksi->status != 'pending') {
+            if ($transaksi->tipe != 'peminjaman' || $transaksi->status == 'accepted') {
                 return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak dapat diupdate');
             }
 
             // Validasi stok barang
-            if ($transaksi->barang->stok < (int) $request->validated('jumlah')) {
-                return redirect()->back()->with('error', 'Stok barang tidak cukup untuk jumlah yang diminta.')->withInput();
+            if ($transaksi->barang->total_dimiliki < (int) $request->validated('jumlah')) {
+                return redirect()->back()->with('error', 'Jumlah barang tidak cukup untuk jumlah yang diminta.')->withInput();
             }
 
             // Update tanggal
@@ -140,6 +140,7 @@ class TransaksiController extends Controller
                 $transaksi->file = $file;
             }
 
+            $transaksi->status = 'pending';
             $transaksi->save();
 
             return redirect()->route('transaksi.getByUser')->with('success', 'Transaksi peminjaman berhasil diupdate.');
@@ -210,7 +211,7 @@ class TransaksiController extends Controller
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
             // Cek kondisi tambahan yang tidak bisa divalidasi di Form Request
-            if ($transaksi->tipe != 'pengembalian' || $transaksi->status != 'pending') {
+            if ($transaksi->tipe != 'pengembalian' || $transaksi->status == 'accepted') {
                 return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi ini tidak dapat diupdate.');
             }
 
@@ -241,6 +242,7 @@ class TransaksiController extends Controller
                 $return->gambar = $gambar;
             }
 
+            $transaksi->status = 'pending';
             $transaksi->return = $return;
             $transaksi->save();
 

@@ -70,7 +70,9 @@
         "MAIL_PORT": "587",
         "MAIL_USERNAME": "61edf8a2342e5fe39ff335ac4f01c76b",
         "MAIL_PASSWORD": "a318e583dc50e0a7a475f5ec15e58aa3",
-        "MAIL_FROM_ADDRESS": "no-reply.bem.fti@gmail.com",
-        "MAIL_FROM_NAME": "BEM FTI"
+        "MAIL_FROM_ADDRESS": "bemfti@unissula.ac.id",
+        "MAIL_FROM_NAME": "BEM FTI",
+
+        "JWT_SECRET": "xGNl4iiKcMvZyOVyMEJ0wb8ztoNawmCuutKxJex8ENx1sREgNdtn1PK50SKGY7q7"
     }
 }

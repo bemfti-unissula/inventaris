@@ -11,10 +11,14 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'create'])->name('register.create');
     Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+    Route::get('/reset-password', [AuthController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+    Route::get('/verify-email', [AuthController::class, 'verifyEmail'])->name('email.verify');
+    Route::get('/email-sent', [AuthController::class, 'emailSent'])->name('email.sent');
+    Route::get('/resend-verification', [AuthController::class, 'resendVerificationEmail'])->name('email.resend');
 });
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/', [BarangController::class, 'index'])->name('inventaris');
 Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
@@ -23,12 +27,13 @@ Route::get('/riwayat', [BarangController::class, 'index'])->name('riwayat');
 
 // Profile routes
 Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile.edit');
     Route::patch('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
     Route::patch('/profile/password', [AuthController::class, 'updatePassword'])->name('profile.password.update');
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/barang', [AdminBarangController::class, 'index'])->name('barang.index');
     Route::get('/barang/create', [AdminBarangController::class, 'create'])->name('barang.create');
     Route::post('/barang', [AdminBarangController::class, 'store'])->name('barang.store');
