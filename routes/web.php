@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Admin\BarangController as AdminBarangController;
 
 Route::middleware('guest')->group(function () {
@@ -23,7 +24,7 @@ Route::middleware('guest')->group(function () {
 Route::get('/', [BarangController::class, 'index'])->name('inventaris');
 Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
 Route::get('/pinjaman', [BarangController::class, 'index'])->name('pinjaman');
-Route::get('/riwayat', [BarangController::class, 'index'])->name('riwayat');
+Route::get('/riwayat', [TransaksiController::class, 'getByUser'])->name('riwayat');
 
 // Profile routes
 Route::middleware(['auth'])->group(function () {
@@ -31,6 +32,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile.edit');
     Route::patch('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
     Route::patch('/profile/password', [AuthController::class, 'updatePassword'])->name('profile.password.update');
+
+    // Transaksi peminjaman (user)
+    Route::get('/peminjaman/{barang_id}', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/peminjaman/{barang_id}', [TransaksiController::class, 'peminjaman'])->name('transaksi.store');
+
+    // Halaman pinjaman untuk user
+    Route::get('/pinjaman', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/{id}', [TransaksiController::class, 'getDetail'])->name('transaksi.detail');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

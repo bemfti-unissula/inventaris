@@ -15,6 +15,12 @@ use App\Http\Requests\Transaksi\UpdatePengembalianRequest;
 
 class TransaksiController extends Controller
 {
+    public function index()
+    {
+        $transaksis = Transaksi::where('user_id', Auth::user()->id)->get();
+        return view('transaksi.index', compact('transaksis'));
+    }
+
     public function getByUser()
     {
         $transaksis = Transaksi::where('user_id', Auth::user()->id)->get();
@@ -33,9 +39,14 @@ class TransaksiController extends Controller
         return view('transaksi.detail', compact('transaksi'));
     }
 
-    public function create()
+    public function create($barang_id)
     {
-        return view('transaksi.create');
+        $barang = Barang::find($barang_id);
+        if (!$barang) {
+            return redirect()->route('inventaris')->with('error', 'Barang tidak ditemukan');
+        }
+
+        return view('transaksi.create', compact('barang'));
     }
 
     public function peminjaman(CreateRequest $request, ImageKitService $imageKitService)
@@ -100,7 +111,7 @@ class TransaksiController extends Controller
         try {
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
-            if ($transaksi->tipe != 'peminjaman' || $transaksi->status == 'accepted') {
+            if ($transaksi->tipe != 'peminjaman' || $transaksi->status == 'accepted' || $transaksi->status == 'canceled') {
                 return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak dapat diupdate');
             }
 
@@ -159,7 +170,7 @@ class TransaksiController extends Controller
         try {
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
-            if ($transaksi->tipe != 'peminjaman' || $transaksi->status != 'accepted') {
+            if ($transaksi->tipe != 'peminjaman' || $transaksi->status != 'accepted' || $transaksi->status == 'canceled') {
                 return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak dapat dikembalikan');
             }
 
@@ -211,7 +222,7 @@ class TransaksiController extends Controller
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
             // Cek kondisi tambahan yang tidak bisa divalidasi di Form Request
-            if ($transaksi->tipe != 'pengembalian' || $transaksi->status == 'accepted') {
+            if ($transaksi->tipe != 'pengembalian' || $transaksi->status == 'accepted' || $transaksi->status == 'canceled') {
                 return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi ini tidak dapat diupdate.');
             }
 
@@ -254,5 +265,22 @@ class TransaksiController extends Controller
             }
             return redirect()->route('transaksi.getByUser')->with('error', 'Gagal mengupdate data: ' . $e->getMessage());
         }
+    }
+
+    public function statusCancel($id)
+    {
+        $transaksi = Transaksi::find($id);
+        if (!$transaksi) {
+            return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak ditemukan');
+        }
+        if ($transaksi->user_id != Auth::user()->id) {
+            return abort(403);
+        }
+        if ($transaksi->status == 'accepted') {
+            return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi sudah diterima dan tidak dapat dibatalkan');
+        }
+        $transaksi->status = 'canceled';
+        $transaksi->save();
+        return redirect()->route('transaksi.getByUser')->with('success', 'Transaksi berhasil dibatalkan');
     }
 }

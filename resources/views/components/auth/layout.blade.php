@@ -13,6 +13,47 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
+        /* Import Superline Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        @font-face {
+            font-family: 'Superline-Regular';
+            src: url('/fonts/Superline-Regular.woff2') format('woff2'),
+                 url('/fonts/Superline-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Superline-Line';
+            src: url('/fonts/Superline-Line.woff2') format('woff2'),
+                 url('/fonts/Superline-Line.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        .font-superline {
+            font-family: 'Superline-Regular', 'Inter', sans-serif;
+        }
+        
+        .font-superline-line {
+            font-family: 'Superline-Line', 'Inter', sans-serif;
+        }
+        
+        .red-glow {
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+        }
+        
+        .bg-red-gradient {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
+        }
+        
+        .bg-red-gradient-soft {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 50%, #fecaca 100%);
+        }
+        
         .alert {
             position: fixed;
             top: -100px;
@@ -20,11 +61,12 @@
             transform: translateX(-50%);
             z-index: 1000;
             transition: top 0.5s ease-in-out;
-            background-color: #ef4444;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
             color: white;
             padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -3px rgba(220, 38, 38, 0.3), 0 4px 6px -2px rgba(220, 38, 38, 0.05);
+            font-family: 'Superline-Regular', 'Inter', sans-serif;
         }
 
         .alert.show {
@@ -38,11 +80,16 @@
 </head>
 
 <body>
-    <!-- Simple Professional Background -->
-    <div class="min-h-screen bg-gray-50 relative">
-        <!-- Subtle Pattern -->
-        <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.02]"></div>
+    <!-- Red Dominant Background -->
+    <div class="min-h-screen bg-red-gradient-soft relative">
+        <!-- Red Pattern -->
+        <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.05] hue-rotate-[350deg]"></div>
         
+        <!-- Floating Red Elements -->
+        <div class="absolute top-20 left-10 w-32 h-32 bg-red-200/30 rounded-full blur-xl"></div>
+        <div class="absolute bottom-20 right-10 w-40 h-40 bg-red-300/20 rounded-full blur-2xl"></div>
+        <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-red-400/20 rounded-full blur-lg"></div>
+
         <div class="relative flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
             <!-- Logo Section -->
             <div class="mb-8">
@@ -52,17 +99,17 @@
             <!-- Alert Container -->
             <div id="alert-container"></div>
 
-            <!-- Simple Professional Card -->
+            <!-- Red Themed Professional Card -->
             <div class="w-full max-w-md">
-                <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-                    <!-- Simple Header -->
-                    <div class="bg-white px-8 py-6 border-b border-gray-100">
-                        <h3 class="text-2xl font-semibold text-gray-900">{{ $header }}</h3>
-                        <p class="mt-2 text-gray-600 text-sm">{{ $subheader }}</p>
+                <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-red-200 overflow-hidden red-glow">
+                    <!-- Red Themed Header -->
+                    <div class="bg-red-gradient px-8 py-6 border-b border-red-300">
+                        <h3 class="text-2xl font-semibold text-white font-superline drop-shadow-lg">{{ $header }}</h3>
+                        <p class="mt-2 text-red-100 text-sm font-superline-line">{{ $subheader }}</p>
                     </div>
-                    
+
                     <!-- Form Content -->
-                    <div class="px-8 py-6">
+                    <div class="px-8 py-6 bg-white/90">
                         {{ $slot }}
                     </div>
                 </div>
