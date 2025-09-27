@@ -13,7 +13,7 @@
 
     <form action="{{ route('login') }}" method="POST" class="space-y-2">
         @csrf
-        
+
         <!-- Input Fields -->
         <div class="space-y-1">
             <x-auth.input type="email" name="email" id="email" label="Email" required />
@@ -24,24 +24,26 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <input type="checkbox" name="remember" id="remember"
-                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2" />
-                <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+                    class="w-4 h-4 text-red-600 bg-red-50 border-red-300 rounded focus:ring-red-500 focus:ring-2 red-glow" />
+                <label for="remember" class="ml-2 text-sm text-red-700 font-superline-line">Remember me</label>
             </div>
-            <a href="{{ route('password.request') }}" class="text-sm text-red-600 hover:text-red-500">Forgot password?</a>
+            <a href="{{ route('password.request') }}" class="text-sm text-red-600 hover:text-red-800 font-superline-line transition-colors duration-200">Forgot
+                password?</a>
         </div>
 
         <!-- Login Button -->
-        <div class="pt-1">
-            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+        <div class="pt-2">
+            <button type="submit"
+                class="w-full bg-red-gradient hover:bg-red-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 red-glow font-superline shadow-lg hover:shadow-red-500/25">
                 Sign In
             </button>
         </div>
 
         <!-- Register Link -->
-        <div class="text-center pt-2 border-t border-gray-200">
-            <p class="text-sm text-gray-600">
+        <div class="text-center pt-4 border-t border-red-200">
+            <p class="text-sm text-red-700 font-superline-line">
                 Don't have an account?
-                <a href="{{ route('register') }}" class="text-red-600 hover:text-red-500 font-medium ml-1">
+                <a href="{{ route('register') }}" class="text-red-600 hover:text-red-800 font-medium ml-1 font-superline transition-colors duration-200">
                     Register here
                 </a>
             </p>

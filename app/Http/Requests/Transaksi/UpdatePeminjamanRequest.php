@@ -1,17 +1,27 @@
 <?php
 
-namespace App\Http\Requests\Transaksi;
+namespace App\Http\Requests\transaksi;
 
+use App\Models\Transaksi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class UpdatePeminjamanRequest extends FormRequest
 {
+    public ?Transaksi $transaksi;
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        $this->transaksi = Transaksi::find($this->route('id'));
+
+        if (!$this->transaksi) {
+            return false;
+        }
+
+        return $this->transaksi->user_id == Auth::user()->id;
     }
 
     /**
@@ -22,10 +32,9 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'barang_id' => 'required|exists:barangs,id',
             'tanggal_peminjaman' => 'required|date',
             'tanggal_pengembalian' => 'required|date',
-            'file' => 'required|file|mimes:pdf|max:2048',
+            'file' => 'nullable|file|mimes:pdf|max:2048',
             'jumlah' => 'required|integer|min:1',
             'keterangan' => 'nullable|string',
         ];
@@ -34,13 +43,10 @@ class CreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'barang_id.required' => 'Barang harus dipilih',
-            'barang_id.exists' => 'Barang tidak ditemukan',
             'tanggal_peminjaman.required' => 'Tanggal peminjaman harus diisi',
             'tanggal_peminjaman.date' => 'Tanggal peminjaman harus berupa tanggal',
             'tanggal_pengembalian.required' => 'Tanggal pengembalian harus diisi',
             'tanggal_pengembalian.date' => 'Tanggal pengembalian harus berupa tanggal',
-            'file.required' => 'File harus diupload',
             'file.file' => 'File harus berupa file',
             'file.mimes' => 'File harus berupa pdf',
             'file.max' => 'File maksimal 2MB',
@@ -50,14 +56,5 @@ class CreateRequest extends FormRequest
             'keterangan.string' => 'Keterangan harus berupa teks',
         ];
     }
-
-    /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'barang_id' => $this->route('barang_id')
-        ]);
-    }
 }
+

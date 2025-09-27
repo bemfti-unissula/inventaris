@@ -28,6 +28,9 @@ class User extends Model implements Authenticatable
         'fakultas',
         'role',
         'password',
+        'email_verified_at',
+        'contacts',
+        'terms'
     ];
 
     /**
@@ -49,4 +52,16 @@ class User extends Model implements Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get email from contacts (handle both array and object)
+     */
+    public function getEmailAttribute()
+    {
+        if (!$this->contacts) {
+            return null;
+        }
+        
+        return is_array($this->contacts) ? $this->contacts['email'] : $this->contacts->email;
+    }
 }

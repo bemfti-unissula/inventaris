@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Transaksi;
+namespace App\Http\Requests\transaksi;
 
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReturnRequest extends FormRequest
+class UpdatePengembalianRequest extends FormRequest
 {
     public ?Transaksi $transaksi;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -18,7 +17,7 @@ class ReturnRequest extends FormRequest
         $this->transaksi = Transaksi::find($this->route('id'));
 
         if (!$this->transaksi) {
-            return false; // Transaksi tidak ditemukan
+            return false;
         }
 
         return $this->transaksi->user_id == Auth::id();
@@ -33,7 +32,7 @@ class ReturnRequest extends FormRequest
     {
         return [
             'jumlah' => 'required|integer|min:1',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tanggal_kembali' => 'required|date',
             'keterangan' => 'nullable|string',
         ];
@@ -45,7 +44,6 @@ class ReturnRequest extends FormRequest
             'jumlah.required' => 'Jumlah harus diisi.',
             'jumlah.integer' => 'Jumlah harus berupa angka.',
             'jumlah.min' => 'Jumlah minimal 1.',
-            'gambar.required' => 'Gambar harus diisi.',
             'gambar.image' => 'File harus berupa gambar.',
             'gambar.mimes' => 'Format gambar harus jpeg, png, jpg, gif, atau svg.',
             'gambar.max' => 'Ukuran gambar maksimal 2MB.',

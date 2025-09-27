@@ -5,9 +5,10 @@
         <x-auth.input type="email" name="email" id="email" label="Email" required />
         <x-auth.input type="tel" name="phone" id="phone" label="Nomor HP" required />
         <!-- Dropdown Fakultas -->
-        <div class="input-container">
-            <select name="fakultas" id="fakultas" required class="input-field">
-                <option value="" disabled selected hidden></option>
+        <div class="mb-4">
+            <label for="fakultas" class="block text-sm font-medium text-red-700 mb-2 font-poppins">Fakultas</label>
+            <select name="fakultas" id="fakultas" required class="w-full px-4 py-3 border border-red-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white/90 text-red-900 red-glow transition-all duration-200">
+                <option value="" disabled selected hidden>Pilih Fakultas</option>
                 <option value="FTI">Fakultas Teknologi Industri</option>
                 <option value="FE">Fakultas Ekonomi</option>
                 <option value="FH">Fakultas Hukum</option>
@@ -22,7 +23,9 @@
                 <option value="FT">Fakultas Teknik</option>
                 <option value="FF">Fakultas Farmasi</option>
             </select>
-            <label for="fakultas" class="input-label">Fakultas</label>
+            @error('fakultas')
+                <p class="mt-2 text-sm text-red-600 font-poppins">{{ $message }}</p>
+            @enderror
         </div>
         <x-auth.input type="password" name="password" id="password" label="Password" required />
         <x-auth.input type="password" name="password_confirmation" id="password_confirmation"
@@ -31,16 +34,16 @@
         <!-- Terms and Conditions -->
         <div class="mt-4 flex items-center gap-2">
             <input type="checkbox" name="terms" id="terms"
-                class="outline-none focus:outline focus:outline-sky-300" required />
-            <label for="terms" class="text-xs">I agree to the Terms and Conditions</label>
+                class="w-4 h-4 text-red-600 bg-red-50 border-red-300 rounded focus:ring-red-500 focus:ring-2 red-glow" required />
+            <label for="terms" class="text-sm text-red-700 font-poppins">I agree to the Terms and Conditions</label>
         </div>
 
         <!-- Tombol Register dan Login -->
-        <div class="mt-4 flex items-center justify-end gap-x-2">
-            <a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:ring hover:ring-white h-10 px-4 py-2 duration-200"
+        <div class="mt-6 flex items-center justify-between gap-x-4">
+            <a class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-red-50 text-red-600 border border-red-300 h-10 px-6 py-2 duration-200 font-poppins red-glow"
                 href="{{ route('login.page') }}">Login</a>
             <button
-                class="font-semibold hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black h-10 px-4 py-2"
+                class="font-semibold bg-red-gradient hover:bg-red-700 text-white transition duration-300 inline-flex items-center justify-center rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 py-2 font-poppins red-glow shadow-lg hover:shadow-red-500/25"
                 type="submit">Register</button>
         </div>
     </form>
