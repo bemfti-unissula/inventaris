@@ -21,12 +21,6 @@ class TransaksiController extends Controller
         return view('transaksi.index', compact('transaksis'));
     }
 
-    public function getByUser()
-    {
-        $transaksis = Transaksi::where('user_id', Auth::user()->id)->get();
-        return view('transaksi.history', compact('transaksis'));
-    }
-
     public function getDetail($id)
     {
         $transaksi = Transaksi::find($id);

@@ -15,12 +15,13 @@
         </div>
     </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl overflow-hidden">
-                <div class="px-6 py-4 border-b border-white/10">
-                    <h3 class="text-gray-200 font-semibold">Form Peminjaman Barang</h3>
-                    <p class="text-gray-400 text-sm mt-1">{{ $barang->nama_barang }}</p>
+    <div class="py-24 px-4 bg-gradient-to-br from-pink-100 to-red-100 min-h-screen">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div
+                class="bg-gradient-to-br from-black/95 to-gray-900/95 backdrop-blur-sm rounded-xl border border-gray-600/60 shadow-2xl overflow-hidden">
+                <div class="bg-gradient-to-r from-gray-900/90 to-gray-800/90 px-6 py-4 border-b border-gray-500/60">
+                    <h3 class="text-white font-semibold">Form Peminjaman Barang</h3>
+                    <p class="text-gray-300 text-sm mt-1">{{ $barang->nama_barang }}</p>
                 </div>
 
                 <form action="{{ route('transaksi.store', ['barang_id' => $barang->_id]) }}" method="POST"
@@ -29,32 +30,45 @@
                     <input type="hidden" name="barang_id" value="{{ $barang->_id }}">
 
                     <!-- Informasi Barang -->
-                    <div class="bg-white/5 border border-white/10 rounded-lg p-4">
-                        <h4 class="text-gray-200 font-medium mb-3">Informasi Barang</h4>
+                    <div
+                        class="bg-gradient-to-br from-red-900/40 to-red-800/30 border border-red-500/40 rounded-lg p-4">
+                        <h4 class="text-white font-medium mb-3 flex items-center gap-2">
+                            Informasi Barang
+                        </h4>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                             <div>
-                                <span class="text-gray-400">Nama:</span>
-                                <span class="text-gray-200 ml-2">{{ $barang->nama_barang }}</span>
+                                <span class="text-red-300">Nama:</span>
+                                <span class="text-white ml-2">{{ $barang->nama_barang }}</span>
                             </div>
                             <div>
-                                <span class="text-gray-400">Kategori:</span>
-                                <span class="text-gray-200 ml-2">{{ $barang->kategori }}</span>
+                                <span class="text-red-300">Kategori:</span>
+                                <span class="text-white ml-2">{{ $barang->kategori }}</span>
                             </div>
                             <div>
-                                <span class="text-gray-400">Stok Tersedia:</span>
-                                <span class="text-gray-200 ml-2">{{ $barang->stok }} unit</span>
+                                <span class="text-red-300">Stok Tersedia:</span>
+                                <span class="text-white ml-2">{{ $barang->stok }} unit</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <x-auth.input type="date" name="tanggal_peminjaman" id="tanggal_peminjaman"
-                            label="Tanggal Peminjaman" required />
+                        <label for="tanggal_peminjaman" class="block text-sm font-medium text-gray-300 mb-2">Tanggal
+                            Peminjaman</label>
+                        <input type="date" name="tanggal_peminjaman" id="tanggal_peminjaman" required
+                            class="w-full rounded-md bg-gray-900/80 border border-gray-500/60 text-white p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200">
+                        @error('tanggal_peminjaman')
+                            <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
-                        <x-auth.input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian"
-                            label="Tanggal Pengembalian" required />
+                        <label for="tanggal_pengembalian" class="block text-sm font-medium text-gray-300 mb-2">Tanggal
+                            Pengembalian</label>
+                        <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" required
+                            class="w-full rounded-md bg-gray-900/80 border border-gray-500/60 text-white p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200">
+                        @error('tanggal_pengembalian')
+                            <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -73,11 +87,11 @@
                         </label>
                         <input type="number" name="jumlah" id="jumlah" min="1" max="{{ $barang->stok }}"
                             required
-                            class="w-full rounded-md bg-white/10 border border-white/20 text-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200">
+                            class="w-full rounded-md bg-gray-900/80 border border-gray-500/60 text-white p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200">
                         @error('jumlah')
                             <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
                         @enderror
-                        <p class="text-xs text-gray-500 mt-1">Stok tersedia: <span
+                        <p class="text-xs text-gray-400 mt-1">Stok tersedia: <span
                                 class="text-green-400 font-semibold">{{ $barang->stok }} unit</span></p>
                     </div>
 
@@ -85,12 +99,12 @@
                         <label for="keterangan" class="block text-sm font-medium text-gray-300 mb-2">Keterangan
                             (opsional)</label>
                         <textarea id="keterangan" name="keterangan" rows="3"
-                            class="w-full rounded-md bg-white/10 border border-white/20 text-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                            class="w-full rounded-md bg-gray-900/80 border border-gray-500/60 text-white p-3 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
                     </div>
 
-                    <div class="flex items-center justify-between pt-4">
+                    <div class="flex items-center justify-between">
                         <a href="{{ route('barang.show', $barang->_id) }}"
-                            class="text-sm text-gray-400 hover:text-white">Batal</a>
+                            class="px-4 py-2 text-sm text-gray-400 hover:text-white">Batal</a>
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
                             Ajukan Peminjaman
@@ -100,6 +114,20 @@
             </div>
         </div>
     </div>
+
+    <style>
+        /* Styling untuk icon kalender menjadi putih */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        /* Untuk Firefox */
+        input[type="date"]::-moz-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

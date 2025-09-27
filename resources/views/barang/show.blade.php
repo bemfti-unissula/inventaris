@@ -28,17 +28,16 @@
         </div>
     </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="py-24 px-4 bg-gradient-to-br from-pink-100 to-red-100 min-h-screen">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Card Container -->
             <div
-                class="w-full bg-gradient-to-br from-red-900/20 to-red-800/10 backdrop-blur-sm rounded-xl border border-red-300/20 shadow-2xl overflow-hidden red-glow">
+                class="w-full bg-gradient-to-br from-black/95 to-gray-900/95 backdrop-blur-sm rounded-xl border border-gray-600/60 shadow-2xl overflow-hidden">
                 <!-- Header -->
-                <div
-                    class="bg-gradient-to-r from-red-600/20 to-red-700/20 px-6 py-4 border-b border-red-300/20 red-glow">
+                <div class="bg-gradient-to-r from-gray-900/90 to-gray-800/90 px-6 py-4 border-b border-gray-500/60">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center red-glow">
-                            <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 bg-red-500/30 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,8 +46,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-superline text-red-100 drop-shadow-lg">Detail Informasi Barang</h3>
-                            <p class="text-sm text-red-300 font-superline-line">Informasi lengkap tentang
+                            <h3 class="text-lg font-superline text-white drop-shadow-lg">Detail Informasi Barang</h3>
+                            <p class="text-sm text-gray-300 font-superline-line">Informasi lengkap tentang
                                 {{ $barang->nama_barang }}</p>
                         </div>
                     </div>
@@ -62,7 +61,7 @@
                         <div class="lg:col-span-2 space-y-6">
                             <!-- Nama Barang -->
                             <div>
-                                <label class="block text-sm font-superline-line text-red-200 mb-2">
+                                <label class="block text-sm font-superline-line text-gray-300 mb-2">
                                     <span class="flex items-center gap-2">
                                         <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
@@ -74,7 +73,7 @@
                                     </span>
                                 </label>
                                 <div
-                                    class="w-full h-12 px-4 py-3 bg-red-900/20 border border-red-300/20 rounded-lg text-red-100 flex items-center red-glow font-superline-line">
+                                    class="w-full h-12 px-4 py-3 bg-gray-900/80 border border-gray-500/60 rounded-lg text-white flex items-center font-superline-line">
                                     {{ $barang->nama_barang }}
                                 </div>
                             </div>
@@ -83,7 +82,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Kategori -->
                                 <div>
-                                    <label class="block text-sm font-superline-line text-red-200 mb-2">
+                                    <label class="block text-sm font-superline-line text-gray-300 mb-2">
                                         <span class="flex items-center gap-2">
                                             <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -95,9 +94,9 @@
                                         </span>
                                     </label>
                                     <div
-                                        class="w-full h-12 px-4 py-3 bg-red-900/20 border border-red-300/20 rounded-lg text-red-100 flex items-center red-glow">
+                                        class="w-full h-12 px-4 py-3 bg-gray-900/80 border border-gray-500/60 rounded-lg text-white flex items-center">
                                         <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-superline-line bg-red-500/20 text-red-300 border border-red-500/30 red-glow">
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-superline-line bg-red-500/50 text-red-300 border border-red-500/60">
                                             {{ $barang->kategori }}
                                         </span>
                                     </div>
@@ -105,7 +104,7 @@
 
                                 <!-- Stok -->
                                 <div>
-                                    <label class="block text-sm font-superline-line text-red-200 mb-2">
+                                    <label class="block text-sm font-superline-line text-gray-300 mb-2">
                                         <span class="flex items-center gap-2">
                                             <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -116,7 +115,7 @@
                                         </span>
                                     </label>
                                     <div
-                                        class="w-full h-12 px-4 py-3 bg-red-900/20 border border-red-300/20 rounded-lg text-red-100 flex items-center red-glow">
+                                        class="w-full h-12 px-4 py-3 bg-gray-900/80 border border-gray-500/60 rounded-lg text-white flex items-center">
                                         <span class="text-lg font-superline text-red-400">{{ $barang->stok }}</span>
                                         <span class="ml-2 text-red-300 font-superline-line">unit</span>
                                     </div>
@@ -125,7 +124,7 @@
 
                             <!-- Total Dimiliki -->
                             <div>
-                                <label class="block text-sm font-superline-line text-red-200 mb-2">
+                                <label class="block text-sm font-superline-line text-gray-300 mb-2">
                                     <span class="flex items-center gap-2">
                                         <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
@@ -137,16 +136,16 @@
                                     </span>
                                 </label>
                                 <div
-                                    class="w-full h-12 px-4 py-3 bg-red-900/20 border border-red-300/20 rounded-lg text-red-100 flex items-center red-glow">
+                                    class="w-full h-12 px-4 py-3 bg-gray-900/80 border border-gray-500/60 rounded-lg text-white flex items-center">
                                     <span
                                         class="text-lg font-superline text-red-400">{{ $barang->total_dimiliki }}</span>
-                                    <span class="ml-2 text-red-300 font-superline-line">unit</span>
+                                    <span class="ml-2 text-gray-300 font-superline-line">unit</span>
                                 </div>
                             </div>
 
                             <!-- Deskripsi -->
                             <div>
-                                <label class="block text-sm font-superline-line text-red-200 mb-2">
+                                <label class="block text-sm font-superline-line text-gray-300 mb-2">
                                     <span class="flex items-center gap-2">
                                         <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
@@ -157,7 +156,7 @@
                                     </span>
                                 </label>
                                 <div
-                                    class="w-full min-h-[120px] px-4 py-3 bg-red-900/20 border border-red-300/20 rounded-lg text-red-100 red-glow font-superline-line">
+                                    class="w-full min-h-[120px] px-4 py-3 bg-gray-900/80 border border-gray-500/60 rounded-lg text-white font-superline-line">
                                     {{ $barang->deskripsi ?? 'Tidak ada deskripsi' }}
                                 </div>
                             </div>
@@ -166,7 +165,7 @@
                         <!-- Right Column - Image -->
                         <div class="lg:col-span-1">
                             <div class="sticky top-6">
-                                <label class="block text-sm font-superline-line text-red-200 mb-2">
+                                <label class="block text-sm font-superline-line text-gray-300 mb-2">
                                     <span class="flex items-center gap-2">
                                         <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
@@ -179,7 +178,7 @@
                                 </label>
 
                                 <div
-                                    class="w-full bg-red-900/10 border border-red-300/20 rounded-lg overflow-hidden red-glow">
+                                    class="w-full bg-gray-800/80 border border-gray-500/60 rounded-lg overflow-hidden">
                                     @if (is_array($barang->gambar) && isset($barang->gambar['url']))
                                         <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
                                             class="w-full h-64 object-contain bg-transparent rounded-lg">
@@ -197,11 +196,11 @@
 
                     <!-- Tombol Pinjam -->
                     @if (Auth::check())
-                        <div class="mt-6 pt-6 border-t border-red-300/20">
+                        <div class="mt-6 pt-6 border-t border-gray-500/60">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <h4 class="text-lg font-superline text-red-100 mb-2">Peminjaman Barang</h4>
-                                    <p class="text-sm text-red-300 font-superline-line">
+                                    <h4 class="text-lg font-superline text-white mb-2">Peminjaman Barang</h4>
+                                    <p class="text-sm text-gray-300 font-superline-line">
                                         @if ($barang->stok > 0)
                                             Barang tersedia untuk dipinjam
                                         @else

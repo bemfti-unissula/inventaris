@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Admin\BarangController as AdminBarangController;
+use App\Http\Controllers\Admin\TransaksiController as AdminTransaksiController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login.page');
@@ -23,8 +24,6 @@ Route::middleware('guest')->group(function () {
 
 Route::get('/', [BarangController::class, 'index'])->name('inventaris');
 Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
-Route::get('/pinjaman', [BarangController::class, 'index'])->name('pinjaman');
-Route::get('/riwayat', [TransaksiController::class, 'getByUser'])->name('riwayat');
 
 // Profile routes
 Route::middleware(['auth'])->group(function () {
@@ -49,4 +48,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/barang/{barang}/edit', [AdminBarangController::class, 'edit'])->name('barang.edit');
     Route::put('/barang/{barang}', [AdminBarangController::class, 'update'])->name('barang.update');
     Route::delete('/barang/{barang}', [AdminBarangController::class, 'destroy'])->name('barang.destroy');
+
+    // Admin Transaksi routes
+    Route::get('/transaksi', [AdminTransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/{id}', [AdminTransaksiController::class, 'show'])->name('transaksi.detail');
+    Route::patch('/transaksi/{id}/status', [AdminTransaksiController::class, 'updateStatus'])->name('transaksi.update.status');
 });

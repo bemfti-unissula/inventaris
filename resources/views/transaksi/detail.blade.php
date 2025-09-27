@@ -16,7 +16,7 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             @php
                 $barang = \App\Models\Barang::find($transaksi->barang_id);
                 $statusColors = [
@@ -27,11 +27,9 @@
                     'ditolak' => 'border-red-400/30 bg-red-600/10',
                 ];
                 $statusTextColors = [
-                    'menunggu approval' => 'text-yellow-300',
-                    'disetujui' => 'text-green-300',
-                    'dipinjam' => 'text-blue-300',
-                    'dikembalikan' => 'text-purple-300',
-                    'ditolak' => 'text-red-300',
+                    'pending' => 'text-yellow-300 bg-yellow-700',
+                    'accepted' => 'text-green-300 bg-green-700',
+                    'rejected' => 'text-red-300 bg-red-700',
                 ];
             @endphp
 
@@ -48,7 +46,7 @@
                             <p class="text-sm text-red-300 font-superline-line">{{ $barang->kategori ?? '-' }}</p>
                         </div>
                         <span
-                            class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-superline {{ $statusTextColors[$transaksi->status] ?? 'text-red-300' }} border border-current">
+                            class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-superline {{ $statusTextColors[$transaksi->status] ?? 'text-red-300 bg-red-700' }}">
                             {{ ucfirst($transaksi->status) }}
                         </span>
                     </div>
@@ -98,7 +96,7 @@
                             <!-- File Surat Peminjaman -->
                             @if ($transaksi->file && isset($transaksi->file['url']))
                                 <div>
-                                    <h4 class="text-lg font-superline text-red-100 mb-3">Surat Peminjaman</h4>
+                                    <h4 class="text-lg font-superline text-red-100 mb-3 lg:pt-9">Surat Peminjaman</h4>
                                     <div class="bg-red-900/20 border border-red-300/20 rounded-lg p-4">
                                         <div class="flex items-center gap-3">
                                             <div
@@ -124,6 +122,71 @@
                                     </div>
                                 </div>
                             @endif
+
+                            <!-- Status History - Desktop only, setelah Surat Peminjaman -->
+                            <div class="hidden lg:block">
+                                <h4 class="text-lg font-superline text-red-100 mb-3">Timeline Status</h4>
+                                <div class="space-y-3">
+                                    <div
+                                        class="flex items-center gap-3 p-3 bg-yellow-600/10 border border-yellow-400/30 rounded-lg">
+                                        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                        <div>
+                                            <p class="text-yellow-300 font-superline text-sm">Menunggu Approval</p>
+                                            <p class="text-yellow-400 text-xs font-superline-line">
+                                                {{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    @if (in_array($transaksi->status, ['disetujui', 'dipinjam', 'dikembalikan']))
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-green-600/10 border border-green-400/30 rounded-lg">
+                                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                            <div>
+                                                <p class="text-green-300 font-superline text-sm">Disetujui</p>
+                                                <p class="text-green-400 text-xs font-superline-line">Disetujui oleh
+                                                    admin</p>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (in_array($transaksi->status, ['dipinjam', 'dikembalikan']))
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-blue-600/10 border border-blue-400/30 rounded-lg">
+                                            <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                            <div>
+                                                <p class="text-blue-300 font-superline text-sm">Dipinjam</p>
+                                                <p class="text-blue-400 text-xs font-superline-line">Barang sedang
+                                                    dipinjam</p>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if ($transaksi->status === 'dikembalikan')
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-purple-600/10 border border-purple-400/30 rounded-lg">
+                                            <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                            <div>
+                                                <p class="text-purple-300 font-superline text-sm">Dikembalikan</p>
+                                                <p class="text-purple-400 text-xs font-superline-line">Peminjaman
+                                                    selesai</p>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if ($transaksi->status === 'ditolak')
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-red-600/10 border border-red-400/30 rounded-lg">
+                                            <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                                            <div>
+                                                <p class="text-red-300 font-superline text-sm">Ditolak</p>
+                                                <p class="text-red-400 text-xs font-superline-line">Peminjaman ditolak
+                                                </p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Right Column - Item Details -->
@@ -163,17 +226,17 @@
                                     <div class="bg-red-900/20 border border-red-300/20 rounded-lg overflow-hidden">
                                         @if (is_array($barang->gambar) && isset($barang->gambar['url']))
                                             <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
-                                                class="w-full h-48 object-contain bg-transparent">
+                                                class="w-full h-50.5 object-contain bg-transparent">
                                         @elseif(is_string($barang->gambar) && $barang->gambar)
                                             <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}"
-                                                class="w-full h-48 object-contain bg-transparent">
+                                                class="w-full h-50.5 object-contain bg-transparent">
                                         @endif
                                     </div>
                                 </div>
                             @endif
 
-                            <!-- Status History -->
-                            <div>
+                            <!-- Status History - Mobile only -->
+                            <div class="lg:hidden">
                                 <h4 class="text-lg font-superline text-red-100 mb-3">Timeline Status</h4>
                                 <div class="space-y-3">
                                     <div

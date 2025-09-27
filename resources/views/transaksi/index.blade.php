@@ -21,10 +21,10 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 @php
                     $totalPinjaman = $transaksis->count();
-                    $menungguApproval = $transaksis->where('status', 'menunggu approval')->count();
-                    $disetujui = $transaksis->where('status', 'disetujui')->count();
-                    $dipinjam = $transaksis->where('status', 'dipinjam')->count();
-                    $dikembalikan = $transaksis->where('status', 'dikembalikan')->count();
+                    $menungguApproval = $transaksis->where('status', 'pending')->count();
+                    $disetujui = $transaksis->where('status', 'accepted')->count();
+                    $dipinjam = $transaksis->where('tipe', 'peminjaman')->where('status', 'accepted')->count();
+                    $dikembalikan = $transaksis->where('tipe', 'pengembalian')->count();
                 @endphp
 
                 <div
@@ -110,11 +110,9 @@
                                 'ditolak' => 'border-red-400/30 bg-red-600/10',
                             ];
                             $statusTextColors = [
-                                'menunggu approval' => 'text-yellow-300',
-                                'disetujui' => 'text-green-300',
-                                'dipinjam' => 'text-blue-300',
-                                'dikembalikan' => 'text-purple-300',
-                                'ditolak' => 'text-red-300',
+                                'pending' => 'text-yellow-300 bg-yellow-700',
+                                'accepted' => 'text-green-300 bg-green-700',
+                                'rejected' => 'text-red-300 bg-red-700',
                             ];
                         @endphp
 
@@ -130,7 +128,7 @@
                                             {{ $barang->kategori ?? '-' }}</p>
                                     </div>
                                     <span
-                                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-superline-line {{ $statusTextColors[$transaksi->status] ?? 'text-red-300' }} border border-current">
+                                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-superline-line {{ $statusTextColors[$transaksi->status] ?? 'text-red-800 bg-red-400' }}">
                                         {{ ucfirst($transaksi->status) }}
                                     </span>
                                 </div>
