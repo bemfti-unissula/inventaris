@@ -78,12 +78,37 @@
                                 </div>
                             </div>
 
-                            <!-- Total Dimiliki -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">Total Dimiliki</label>
-                                <div class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white flex items-center">
-                                    <span class="text-lg font-semibold text-red-400">{{ $barang->total_dimiliki }}</span>
-                                    <span class="ml-2 text-gray-400">unit</span>
+                            <!-- Grid for Total Dimiliki and Status Pembayaran -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Total Dimiliki -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Total Dimiliki</label>
+                                    <div class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white flex items-center">
+                                        <span class="text-lg font-semibold text-red-400">{{ $barang->total_dimiliki }}</span>
+                                        <span class="ml-2 text-gray-400">unit</span>
+                                    </div>
+                                </div>
+
+                                <!-- Status Pembayaran -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Status Pembayaran</label>
+                                    <div class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white flex items-center">
+                                        @if(isset($barang->is_paid) && $barang->is_paid)
+                                            <span class="inline-flex items-center px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">
+                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Berbayar
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
+                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Gratis
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
