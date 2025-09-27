@@ -157,9 +157,8 @@
                                             @php
                                                 $statusColors = [
                                                     'pending' => 'bg-yellow-500/20 text-yellow-300',
-                                                    'disetujui' => 'bg-green-500/20 text-green-300',
-                                                    'ditolak' => 'bg-red-500/20 text-red-300',
-                                                    'selesai' => 'bg-blue-500/20 text-blue-300',
+                                                    'accepted' => 'bg-green-500/20 text-green-300',
+                                                    'rejected' => 'bg-red-500/20 text-red-300',
                                                 ];
                                             @endphp
                                             <span
