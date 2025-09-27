@@ -141,8 +141,8 @@ class TransaksiController extends Controller
         // Update status barang jika diperlukan
         if ($request->status === 'accepted' && $transaksi->tipe === 'peminjaman') {
             $barang = Barang::find($transaksi->barang_id);
-            if ($barang && $barang->jumlah > 0) {
-                $barang->decrement('jumlah');
+            if ($barang && $barang->stok >= $transaksi->jumlah) {
+                $barang->decrement('stok', $transaksi->jumlah);
             } else {
                 // Jika stok barang tidak cukup, kembalikan status transaksi dan berikan pesan error
                 return redirect()->back()->with('error', 'Stok barang tidak mencukupi untuk peminjaman ini.');
@@ -151,25 +151,25 @@ class TransaksiController extends Controller
             // Jika status diubah dari accepted ke rejected, kembalikan jumlah barang
             $barang = Barang::find($transaksi->barang_id);
             if ($barang) {
-                $barang->increment('jumlah');
+                $barang->increment('stok', $transaksi->jumlah);
             }
         } elseif ($oldStatus === 'accepted' && $request->status === 'pending' && $transaksi->tipe === 'peminjaman') {
             // Jika status diubah dari accepted ke rejected, kembalikan jumlah barang
             $barang = Barang::find($transaksi->barang_id);
             if ($barang) {
-                $barang->increment('jumlah');
+                $barang->increment('stok', $transaksi->jumlah);
             }
         } elseif ($request->status === 'accepted' && $transaksi->tipe === 'pengembalian') {
             // Jika pengembalian selesai, tambah kembali jumlah barang
             $barang = Barang::find($transaksi->barang_id);
             if ($barang) {
-                $barang->increment('jumlah');
+                $barang->increment('stok', $transaksi->jumlah);
             }
         } elseif ($oldStatus === 'accepted' && $request->status === 'pending' && $transaksi->tipe === 'pengembalian') {
             // Jika pengembalian selesai, tambah kembali jumlah barang
             $barang = Barang::find($transaksi->barang_id);
             if ($barang) {
-                $barang->decrement('jumlah');
+                $barang->decrement('stok', $transaksi->jumlah);
             }
         }
 
