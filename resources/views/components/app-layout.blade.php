@@ -373,6 +373,37 @@
         </main>
     </div>
 
+    <!-- Global Alerts -->
+    @if (session('success'))
+        <x-alert type="success">
+            {{ session('success') }}
+        </x-alert>
+    @endif
+
+    @if (session('error'))
+        <x-alert type="error">
+            {{ session('error') }}
+        </x-alert>
+    @endif
+
+    @if (session('warning'))
+        <x-alert type="warning">
+            {{ session('warning') }}
+        </x-alert>
+    @endif
+
+    @if (session('info'))
+        <x-alert type="info">
+            {{ session('info') }}
+        </x-alert>
+    @endif
+
+    @if (session('status'))
+        <x-alert type="success">
+            {{ session('status') }}
+        </x-alert>
+    @endif
+
     <!-- Footer -->
     <footer class="bg-gray-900 border-t border-red-600 relative z-40 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -3,9 +3,29 @@
     <div class="min-h-screen bg-gradient-to-br from-black/95 via-gray-900/95 to-black/95 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
+            <!-- Header -->
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-white mb-2">Kelola Transaksi</h1>
-                <p class="text-gray-300">Kelola semua transaksi peminjaman dan pengembalian barang</p>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-3xl font-bold text-white mb-2">
+                                {{ __('Kelola Transaksi') }}
+                            </h1>
+                            <p class="text-gray-300">Kelola semua transaksi peminjaman dan pengembalian barang</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <p class="text-sm text-gray-400">Total Transaksi</p>
+                            <p class="text-lg font-bold text-white">{{ $transaksis->total() }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Filter Buttons -->
@@ -298,9 +318,8 @@
                     <select id="statusSelect" name="status"
                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
                         <option value="pending">Pending</option>
-                        <option value="disetujui">Disetujui</option>
-                        <option value="ditolak">Ditolak</option>
-                        <option value="selesai">Selesai</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
                     </select>
                 </div>
 

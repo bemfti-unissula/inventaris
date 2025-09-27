@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
+use App\Models\Barang;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,9 +19,9 @@ class TransaksiController extends Controller
 
         // Filter berdasarkan type
         if ($type === 'peminjaman') {
-            $query->where('jenis_transaksi', 'peminjaman');
+            $query->where('tipe', 'peminjaman');
         } elseif ($type === 'pengembalian') {
-            $query->where('jenis_transaksi', 'pengembalian');
+            $query->where('tipe', 'pengembalian');
         }
 
         // Search functionality
@@ -120,8 +122,8 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
 
         // Get related models
-        $barang = \App\Models\Barang::find($transaksi->barang_id);
-        $user = \App\Models\User::find($transaksi->user_id);
+        $barang = Barang::find($transaksi->barang_id);
+        $user = User::find($transaksi->user_id);
 
         return view('admin.transaksi.detail', compact('transaksi', 'barang', 'user'));
     }
@@ -129,39 +131,52 @@ class TransaksiController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,disetujui,ditolak,selesai',
+            'status' => 'required|in:pending,accepted,rejected',
             'catatan_admin' => 'nullable|string|max:500'
         ]);
 
         $transaksi = Transaksi::findOrFail($id);
         $oldStatus = $transaksi->status;
 
-        $transaksi->update([
-            'status' => $request->status,
-            'catatan_admin' => $request->catatan_admin,
-            'updated_at' => now()
-        ]);
-
         // Update status barang jika diperlukan
-        if ($request->status === 'disetujui' && $transaksi->jenis_transaksi === 'peminjaman') {
-            $barang = \App\Models\Barang::find($transaksi->barang_id);
+        if ($request->status === 'accepted' && $transaksi->tipe === 'peminjaman') {
+            $barang = Barang::find($transaksi->barang_id);
             if ($barang && $barang->jumlah > 0) {
                 $barang->decrement('jumlah');
+            } else {
+                // Jika stok barang tidak cukup, kembalikan status transaksi dan berikan pesan error
+                return redirect()->back()->with('error', 'Stok barang tidak mencukupi untuk peminjaman ini.');
             }
-        } elseif ($oldStatus === 'disetujui' && $request->status === 'ditolak' && $transaksi->jenis_transaksi === 'peminjaman') {
-            // Jika status diubah dari disetujui ke ditolak, kembalikan jumlah barang
-            $barang = \App\Models\Barang::find($transaksi->barang_id);
+        } elseif ($oldStatus === 'accepted' && $request->status === 'rejected' && $transaksi->tipe === 'peminjaman') {
+            // Jika status diubah dari accepted ke rejected, kembalikan jumlah barang
+            $barang = Barang::find($transaksi->barang_id);
             if ($barang) {
                 $barang->increment('jumlah');
             }
-        } elseif ($request->status === 'selesai' && $transaksi->jenis_transaksi === 'pengembalian') {
+        } elseif ($oldStatus === 'accepted' && $request->status === 'pending' && $transaksi->tipe === 'peminjaman') {
+            // Jika status diubah dari accepted ke rejected, kembalikan jumlah barang
+            $barang = Barang::find($transaksi->barang_id);
+            if ($barang) {
+                $barang->increment('jumlah');
+            }
+        } elseif ($request->status === 'accepted' && $transaksi->tipe === 'pengembalian') {
             // Jika pengembalian selesai, tambah kembali jumlah barang
-            $barang = \App\Models\Barang::find($transaksi->barang_id);
+            $barang = Barang::find($transaksi->barang_id);
             if ($barang) {
                 $barang->increment('jumlah');
+            }
+        } elseif ($oldStatus === 'accepted' && $request->status === 'pending' && $transaksi->tipe === 'pengembalian') {
+            // Jika pengembalian selesai, tambah kembali jumlah barang
+            $barang = Barang::find($transaksi->barang_id);
+            if ($barang) {
+                $barang->decrement('jumlah');
             }
         }
 
-        return redirect()->back()->with('success', 'Status transaksi berhasil diperbarui.');
+        $transaksi->status = $request->status;
+        $transaksi->catatan_admin = $request->catatan_admin;
+        $transaksi->save();
+
+        return redirect()->route('admin.transaksi.index')->with('success', 'Status transaksi berhasil diperbarui.');
     }
 }

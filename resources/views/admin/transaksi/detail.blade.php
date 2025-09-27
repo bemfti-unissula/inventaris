@@ -79,7 +79,7 @@
                                                 'color' => 'bg-green-500/20 text-green-300 border-green-400/30',
                                                 'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
                                             ],
-                                            'canceled' => [
+                                            'rejected' => [
                                                 'color' => 'bg-red-500/20 text-red-300 border-red-400/30',
                                                 'icon' =>
                                                     'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
@@ -338,7 +338,7 @@
                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
                         <option value="pending">Pending</option>
                         <option value="accepted">Accepted</option>
-                        <option value="canceled">Canceled</option>
+                        <option value="rejected">Rejected</option>
                     </select>
                 </div>
 
