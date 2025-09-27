@@ -63,15 +63,15 @@
         "CACHE_STORE": "array",
         "CACHE_DRIVER": "array",
         "QUEUE_CONNECTION": "sync",
-        "MAILJET_APIKEY": "61edf8a2342e5fe39ff335ac4f01c76b",
-        "MAILJET_APISECRET": "a318e583dc50e0a7a475f5ec15e58aa3",
+        "MAILJET_APIKEY": "08775d2600b7cb1496cd3008660a13e2",
+        "MAILJET_APISECRET": "58f9ed2703a140053f6018fb5606cae9",
         "MAIL_MAILER": "mailjet",
         "MAIL_HOST": "in-v3.mailjet.com",
         "MAIL_PORT": "587",
-        "MAIL_USERNAME": "61edf8a2342e5fe39ff335ac4f01c76b",
-        "MAIL_PASSWORD": "a318e583dc50e0a7a475f5ec15e58aa3",
-        "MAIL_FROM_ADDRESS": "bemfti@unissula.ac.id",
-        "MAIL_FROM_NAME": "BEM FTI",
+        "MAIL_USERNAME": "08775d2600b7cb1496cd3008660a13e2",
+        "MAIL_PASSWORD": "58f9ed2703a140053f6018fb5606cae9",
+        "MAIL_FROM_ADDRESS": "adit.bachtiar091@gmail.com",
+        "MAIL_FROM_NAME": "${APP_NAME}",
 
         "JWT_SECRET": "xGNl4iiKcMvZyOVyMEJ0wb8ztoNawmCuutKxJex8ENx1sREgNdtn1PK50SKGY7q7"
     }
