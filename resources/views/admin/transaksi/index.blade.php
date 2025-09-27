@@ -3,7 +3,6 @@
     <div class="min-h-screen bg-gradient-to-br from-black/95 via-gray-900/95 to-black/95 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
-            <!-- Header -->
             <div class="mb-8">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3">
