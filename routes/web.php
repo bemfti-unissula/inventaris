@@ -53,4 +53,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/transaksi', [AdminTransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/{id}', [AdminTransaksiController::class, 'show'])->name('transaksi.detail');
     Route::patch('/transaksi/{id}/status', [AdminTransaksiController::class, 'updateStatus'])->name('transaksi.update.status');
+
+    // Admin User routes
+    Route::get('/user', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.index');
+    Route::get('/user/{id}', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
+    Route::delete('/user/{id}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
 });

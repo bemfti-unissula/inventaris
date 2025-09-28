@@ -206,7 +206,7 @@
                             <!-- Kotak 1: Gambar Barang -->
                             <div>
                                 @if ($barang->gambar)
-                                    <div class="w-full h-50 rounded-lg overflow-hidden bg-gray-700">
+                                    <div class="w-full h-60 rounded-lg overflow-hidden bg-gray-700">
                                         @if (is_array($barang->gambar) && isset($barang->gambar['url']))
                                             <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
                                                 class="w-full h-full object-cover">
@@ -228,28 +228,51 @@
                             </div>
 
                             <!-- Kotak 2: Info Barang -->
-                            <div class="flex flex-wrap gap-6">
-                                <!-- Nama Barang -->
-                                <div class="flex-shrink-0">
-                                    <label class="block text-sm text-gray-400 mb-2">Nama Barang</label>
-                                    <p class="text-white font-medium text-lg">{{ $barang->nama_barang }}</p>
+                            <div class="space-y-6">
+                                <!-- Info Utama Barang -->
+                                <div class="flex flex-wrap gap-6">
+                                    <!-- Nama Barang -->
+                                    <div class="flex-shrink-0">
+                                        <label class="block text-sm text-gray-400 mb-2">Nama Barang</label>
+                                        <p class="text-white font-medium text-lg">{{ $barang->nama_barang }}</p>
+                                    </div>
+
+                                    <!-- Kategori -->
+                                    <div class="flex-shrink-0">
+                                        <label class="block text-sm text-gray-400 mb-2">Kategori</label>
+                                        <span
+                                            class="inline-block px-3 py-1 bg-red-500/20 text-red-300 text-sm rounded-full">{{ $barang->kategori }}</span>
+                                    </div>
+
+                                    <!-- Stok -->
+                                    <div class="flex-shrink-0">
+                                        <label class="block text-sm text-gray-400 mb-2">Stok Tersedia</label>
+                                        <p class="text-white font-semibold text-xl">{{ $barang->stok }}</p>
+                                    </div>
+
+                                    <!-- Status Pembayaran -->
+                                    <div class="flex-shrink-0">
+                                        <label class="block text-sm text-gray-400 mb-2">Status Pembayaran</label>
+                                        @if (isset($transaksi->is_paid) && $transaksi->is_paid)
+                                            <span class="inline-flex items-center px-2 py-1 bg-green-500/20 text-green-300 border border-green-400/30 rounded-lg font-medium">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                                </svg>
+                                                Berbayar
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center px-2 py-1 bg-blue-500/20 text-blue-300 border border-blue-400/30 rounded-lg font-medium">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                                                </svg>
+                                                Gratis
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
 
-                                <!-- Kategori -->
-                                <div class="flex-shrink-0">
-                                    <label class="block text-sm text-gray-400 mb-2">Kategori</label>
-                                    <span
-                                        class="inline-block px-3 py-1 bg-red-500/20 text-red-300 text-sm rounded-full">{{ $barang->kategori }}</span>
-                                </div>
-
-                                <!-- Stok -->
-                                <div class="flex-shrink-0">
-                                    <label class="block text-sm text-gray-400 mb-2">Stok Tersedia</label>
-                                    <p class="text-white font-semibold text-xl">{{ $barang->stok }}</p>
-                                </div>
-
-                                <!-- Deskripsi -->
-                                <div class="flex-1 min-w-0">
+                                <!-- Deskripsi - Separate Section -->
+                                <div class="w-full border-t border-gray-800/50">
                                     <label class="block text-sm text-gray-400 mb-2">Deskripsi</label>
                                     <p class="text-gray-300 text-sm leading-relaxed">{{ $barang->deskripsi }}</p>
                                 </div>
