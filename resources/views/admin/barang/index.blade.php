@@ -53,7 +53,8 @@
                     <!-- Add Button (Left) -->
                     <a href="{{ route('admin.barang.create') }}"
                         class="premium-button inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/25 group flex-shrink-0">
-                        <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-90" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
                         </svg>
@@ -88,7 +89,8 @@
                                 <div class="relative dropdown-wrapper">
                                     <select name="category" id="category" onchange="this.form.submit()"
                                         class="premium-dropdown w-full bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm rounded-lg pl-4 pr-10 py-3 border border-gray-700/50 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 hover:border-red-400/70 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300 cursor-pointer appearance-none transform">
-                                        <option value="" class="bg-gray-800 text-gray-300">📦 Semua Kategori</option>
+                                        <option value="" class="bg-gray-800 text-gray-300">📦 Semua Kategori
+                                        </option>
                                         @foreach ($categories as $cat)
                                             @php
                                                 $categoryEmojis = [
@@ -106,11 +108,11 @@
                                                     'musik' => '🎵',
                                                     'fotografi' => '📸',
                                                     'dapur' => '🍳',
-                                                    'perlengkapan kantor' => '📋'
+                                                    'perlengkapan kantor' => '📋',
                                                 ];
                                                 $emoji = $categoryEmojis[strtolower(trim($cat))] ?? '📄';
                                             @endphp
-                                            <option value="{{ $cat }}" 
+                                            <option value="{{ $cat }}"
                                                 {{ request()->get('category') == $cat ? 'selected' : '' }}
                                                 class="bg-gray-800 text-white hover:bg-gray-700 py-2">
                                                 {{ $emoji }} {{ $cat }}
@@ -119,8 +121,8 @@
                                     </select>
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <div class="dropdown-arrow-wrapper">
-                                            <svg class="h-4 w-4 text-gray-400 dropdown-arrow transition-all duration-300" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
+                                            <svg class="h-4 w-4 text-gray-400 dropdown-arrow transition-all duration-300"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M19 9l-7 7-7-7"></path>
                                             </svg>
@@ -203,9 +205,10 @@
                                         'musik' => '🎵',
                                         'fotografi' => '📸',
                                         'dapur' => '🍳',
-                                        'perlengkapan kantor' => '📋'
+                                        'perlengkapan kantor' => '📋',
                                     ];
-                                    $filterEmoji = $categoryEmojis[strtolower(trim($currentFilters['category']))] ?? '📄';
+                                    $filterEmoji =
+                                        $categoryEmojis[strtolower(trim($currentFilters['category']))] ?? '📄';
                                 @endphp
                                 {{ $filterEmoji }} Kategori: {{ $currentFilters['category'] }}
                             </span>
@@ -221,7 +224,8 @@
                         </span>
                         <a href="{{ route('admin.barang.index') }}"
                             class="inline-flex items-center gap-1 px-3 py-1.5 text-xs text-gray-400 hover:text-red-300 bg-gray-800/30 hover:bg-red-500/20 border border-gray-600/50 hover:border-red-400/50 rounded-lg transition-all duration-300 transform hover:scale-105 group">
-                            <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-90"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -411,17 +415,23 @@
                                             </svg>
                                             <span class="text-sm text-gray-400">Status Pembayaran</span>
                                         </div>
-                                        @if(isset($barang->is_paid) && $barang->is_paid)
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-green-500/20 text-green-300 border border-green-400/30">
+                                        @if (isset($barang->is_paid) && $barang->is_paid)
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-green-500/20 text-green-300 border border-green-400/30">
                                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd"
+                                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                                                        clip-rule="evenodd"></path>
                                                 </svg>
                                                 Berbayar
                                             </span>
                                         @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-blue-500/20 text-blue-300 border border-blue-400/30">
                                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                        clip-rule="evenodd"></path>
                                                 </svg>
                                                 Gratis
                                             </span>
@@ -634,17 +644,17 @@
         // Enhanced Dropdown Interactions
         document.addEventListener('DOMContentLoaded', function() {
             const dropdowns = document.querySelectorAll('.premium-dropdown');
-            
+
             dropdowns.forEach(dropdown => {
                 // Add focus and blur effects
                 dropdown.addEventListener('focus', function() {
                     this.parentNode.classList.add('dropdown-focused');
                 });
-                
+
                 dropdown.addEventListener('blur', function() {
                     this.parentNode.classList.remove('dropdown-focused');
                 });
-                
+
                 // Add hover effects to arrow
                 dropdown.addEventListener('mouseenter', function() {
                     const arrow = this.parentNode.querySelector('.dropdown-arrow');
@@ -653,7 +663,7 @@
                         arrow.style.color = '#ef4444';
                     }
                 });
-                
+
                 dropdown.addEventListener('mouseleave', function() {
                     const arrow = this.parentNode.querySelector('.dropdown-arrow');
                     if (arrow) {
@@ -666,7 +676,8 @@
                 dropdown.addEventListener('change', function() {
                     if (this.value) {
                         this.classList.add('has-value');
-                        this.style.background = 'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                        this.style.background =
+                            'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
                         this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
                     } else {
                         this.classList.remove('has-value');
@@ -674,10 +685,11 @@
                         this.style.borderColor = '';
                     }
                 });
-                
+
                 // Initialize dropdown state
                 if (dropdown.value) {
-                    dropdown.style.background = 'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                    dropdown.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
                     dropdown.style.borderColor = 'rgba(220, 38, 38, 0.5)';
                 }
             });
@@ -689,7 +701,8 @@
                 searchInput.addEventListener('input', function() {
                     if (this.value.length > 0) {
                         this.classList.add('has-value');
-                        this.style.background = 'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
+                        this.style.background =
+                            'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
                         this.style.borderColor = 'rgba(220, 38, 38, 0.6)';
                         this.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
                     } else {
@@ -699,11 +712,12 @@
                         this.style.boxShadow = '';
                     }
                 });
-                
+
                 // Initialize search input state
                 if (searchInput.value) {
                     searchInput.classList.add('has-value');
-                    searchInput.style.background = 'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
+                    searchInput.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
                     searchInput.style.borderColor = 'rgba(220, 38, 38, 0.6)';
                     searchInput.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
                 }
@@ -712,7 +726,7 @@
                 searchInput.addEventListener('focus', function() {
                     this.style.transform = 'scale(1.02)';
                 });
-                
+
                 searchInput.addEventListener('blur', function() {
                     this.style.transform = 'scale(1)';
                 });
@@ -789,8 +803,15 @@
 
         /* Animated border effect */
         @keyframes borderGlow {
-            0%, 100% { border-color: rgba(107, 114, 128, 0.5); }
-            50% { border-color: rgba(239, 68, 68, 0.8); }
+
+            0%,
+            100% {
+                border-color: rgba(107, 114, 128, 0.5);
+            }
+
+            50% {
+                border-color: rgba(239, 68, 68, 0.8);
+            }
         }
 
         .premium-dropdown:focus {
@@ -862,8 +883,15 @@
 
         /* Animated glow effect */
         @keyframes inputGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
-            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 30px rgba(239, 68, 68, 0.1); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(239, 68, 68, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 30px rgba(239, 68, 68, 0.1);
+            }
         }
 
         .premium-input:focus {

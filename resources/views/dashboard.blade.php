@@ -8,22 +8,25 @@
                 class="relative mb-12 lg:mb-16 bg-gradient-to-br from-rose-500/85 via-red-600/80 to-red-700/85 backdrop-blur-md border border-rose-400/30 rounded-3xl overflow-hidden shadow-2xl shadow-rose-500/20">
                 <!-- Refined Background Pattern -->
                 <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.02]"></div>
-                
+
                 <!-- Subtle Texture Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.05]"></div>
-                
+
                 <!-- Elegant Floating Elements -->
                 <div class="absolute inset-0 overflow-hidden pointer-events-none">
                     <div class="absolute top-24 left-16 w-1.5 h-1.5 bg-white/40 rounded-full animate-pulse"></div>
-                    <div class="absolute top-48 right-20 w-1 h-1 bg-rose-100/50 rounded-full animate-pulse" style="animation-delay: 1s"></div>
-                    <div class="absolute bottom-40 left-24 w-2 h-2 bg-white/30 rounded-full animate-pulse" style="animation-delay: 2s"></div>
-                    <div class="absolute top-72 right-40 w-1 h-1 bg-rose-200/60 rounded-full animate-pulse" style="animation-delay: 3s"></div>
+                    <div class="absolute top-48 right-20 w-1 h-1 bg-rose-100/50 rounded-full animate-pulse"
+                        style="animation-delay: 1s"></div>
+                    <div class="absolute bottom-40 left-24 w-2 h-2 bg-white/30 rounded-full animate-pulse"
+                        style="animation-delay: 2s"></div>
+                    <div class="absolute top-72 right-40 w-1 h-1 bg-rose-200/60 rounded-full animate-pulse"
+                        style="animation-delay: 3s"></div>
                 </div>
 
                 <!-- Sophisticated Color Layers -->
                 <div class="absolute inset-0 bg-gradient-to-br from-rose-400/20 via-transparent to-red-600/30"></div>
                 <div class="absolute inset-0 bg-gradient-to-tl from-transparent via-rose-500/10 to-red-500/20"></div>
-                
+
                 <!-- Refined Ambient Lighting -->
                 <div class="absolute top-0 left-1/3 w-80 h-80 bg-rose-300/15 rounded-full blur-3xl opacity-60"></div>
                 <div class="absolute bottom-0 right-1/3 w-72 h-72 bg-red-400/12 rounded-full blur-3xl opacity-50"></div>
@@ -34,13 +37,16 @@
                     <div class="lg:hidden space-y-6 sm:space-y-8">
                         <!-- Mobile: Main Heading -->
                         <div class="space-y-4 text-center">
-                            <h1 class="text-3xl sm:text-4xl font-poppins font-bold text-white leading-tight drop-shadow-lg">
+                            <h1
+                                class="text-3xl sm:text-4xl font-poppins font-bold text-white leading-tight drop-shadow-lg">
                                 Inventaris
                                 <span class="block text-gray-200 mt-1 sm:mt-2 font-poppins">
                                     BEM FTI
                                 </span>
                             </h1>
-                            <div class="w-20 sm:w-24 h-1 bg-gradient-to-r from-white to-gray-200 rounded-full shadow-lg mx-auto"></div>
+                            <div
+                                class="w-20 sm:w-24 h-1 bg-gradient-to-r from-white to-gray-200 rounded-full shadow-lg mx-auto">
+                            </div>
                         </div>
 
                         <!-- Mobile: Logo Section -->
@@ -63,11 +69,14 @@
                                         </div>
                                     </div>
                                     <!-- Enhanced Text Section -->
-                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/90 to-transparent p-3 sm:p-4">
-                                        <h3 class="text-white font-poppins font-bold text-base sm:text-lg drop-shadow-lg text-center">
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/90 to-transparent p-3 sm:p-4">
+                                        <h3
+                                            class="text-white font-poppins font-bold text-base sm:text-lg drop-shadow-lg text-center">
                                             BEM FTI UNISSULA
                                         </h3>
-                                        <p class="text-gray-200 text-xs sm:text-sm font-medium drop-shadow-md font-poppins text-center">
+                                        <p
+                                            class="text-gray-200 text-xs sm:text-sm font-medium drop-shadow-md font-poppins text-center">
                                             Badan Eksekutif Mahasiswa
                                         </p>
                                     </div>
@@ -77,7 +86,8 @@
 
                         <!-- Mobile: Description -->
                         <div class="text-center px-2">
-                            <p class="text-base sm:text-lg text-gray-200 leading-relaxed drop-shadow-md max-w-md mx-auto">
+                            <p
+                                class="text-base sm:text-lg text-gray-200 leading-relaxed drop-shadow-md max-w-md mx-auto">
                                 Kelola inventaris Badan Eksekutif Mahasiswa Fakultas Teknologi Industri dengan sistem
                                 yang modern, efisien, dan terintegrasi.
                             </p>
@@ -88,9 +98,12 @@
                             <a href="#inventory-section"
                                 class="group premium-button flex-1 inline-flex items-center justify-center px-6 py-4 bg-white/95 hover:bg-white text-rose-700 font-poppins font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-white/20 border border-white/50 hover:border-white relative overflow-hidden">
                                 <!-- Subtle Shine -->
-                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
-                                
-                                <svg class="w-4 h-4 mr-2 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500">
+                                </div>
+
+                                <svg class="w-4 h-4 mr-2 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-200"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -100,7 +113,8 @@
                                 @if (Auth::user()->role === 'admin')
                                     <a href="{{ route('admin.barang.index') }}"
                                         class="group premium-button flex-1 inline-flex items-center justify-center px-6 py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white font-poppins font-medium rounded-xl border border-white/30 hover:border-white/50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-white/10 relative">
-                                        <svg class="w-4 h-4 mr-2 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 mr-2 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-200"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                                             </path>
@@ -121,51 +135,71 @@
                             <!-- Polished Main Heading -->
                             <div class="space-y-5">
                                 <div class="space-y-3">
-                                    <h1 class="text-5xl lg:text-6xl xl:text-7xl font-poppins font-bold leading-[0.95] tracking-tight">
-                                        <span class="bg-gradient-to-br from-white via-gray-50 to-white bg-clip-text text-transparent drop-shadow-xl">
+                                    <h1
+                                        class="text-5xl lg:text-6xl xl:text-7xl font-poppins font-bold leading-[0.95] tracking-tight">
+                                        <span
+                                            class="bg-gradient-to-br from-white via-gray-50 to-white bg-clip-text text-transparent drop-shadow-xl">
                                             Inventaris
                                         </span>
-                                        <span class="block text-2xl lg:text-3xl xl:text-4xl bg-gradient-to-r from-rose-100 via-white to-rose-100 bg-clip-text text-transparent font-semibold mt-1 font-poppins tracking-wide">
+                                        <span
+                                            class="block text-2xl lg:text-3xl xl:text-4xl bg-gradient-to-r from-rose-100 via-white to-rose-100 bg-clip-text text-transparent font-semibold mt-1 font-poppins tracking-wide">
                                             BEM FTI
                                         </span>
                                     </h1>
-                                    
+
                                     <!-- Refined Divider -->
                                     <div class="flex items-center justify-center lg:justify-start space-x-3 pt-3">
-                                        <div class="h-px bg-gradient-to-r from-transparent via-white/70 to-transparent w-16 shadow-sm"></div>
+                                        <div
+                                            class="h-px bg-gradient-to-r from-transparent via-white/70 to-transparent w-16 shadow-sm">
+                                        </div>
                                         <div class="w-2 h-2 bg-white/80 rounded-full shadow-md"></div>
-                                        <div class="h-px bg-gradient-to-r from-transparent via-white/70 to-transparent w-16 shadow-sm"></div>
+                                        <div
+                                            class="h-px bg-gradient-to-r from-transparent via-white/70 to-transparent w-16 shadow-sm">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Clean Status Badge -->
-                                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-white/15 backdrop-blur-md border border-white/25 rounded-full shadow-lg">
+                                <div
+                                    class="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-white/15 backdrop-blur-md border border-white/25 rounded-full shadow-lg">
                                     <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shadow-sm"></div>
-                                    <span class="text-xs font-medium text-white/95 font-poppins tracking-wide">Sistem Terintegrasi</span>
+                                    <span class="text-xs font-medium text-white/95 font-poppins tracking-wide">Sistem
+                                        Terintegrasi</span>
                                 </div>
                             </div>
 
                             <!-- Clean Description Section -->
                             <div class="space-y-6">
                                 <p class="text-lg lg:text-xl text-white/95 leading-relaxed max-w-2xl font-normal">
-                                    Kelola inventaris <span class="font-semibold text-white">Badan Eksekutif Mahasiswa</span> 
-                                    Fakultas Teknologi Industri dengan sistem yang 
-                                    <span class="font-semibold bg-gradient-to-r from-rose-100 to-white bg-clip-text text-transparent">modern, efisien, dan terintegrasi.</span>
+                                    Kelola inventaris <span class="font-semibold text-white">Badan Eksekutif
+                                        Mahasiswa</span>
+                                    Fakultas Teknologi Industri dengan sistem yang
+                                    <span
+                                        class="font-semibold bg-gradient-to-r from-rose-100 to-white bg-clip-text text-transparent">modern,
+                                        efisien, dan terintegrasi.</span>
                                 </p>
-                                
+
                                 <!-- Refined Stats Preview -->
                                 <div class="grid grid-cols-3 gap-4 max-w-md">
-                                    <div class="flex flex-col items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                                    <div
+                                        class="flex flex-col items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
                                         <div class="w-2 h-2 bg-emerald-400 rounded-full mb-2 shadow-sm"></div>
-                                        <span class="text-xs font-medium text-white/90 text-center font-poppins">{{ $barangs->total() }}+ Barang</span>
+                                        <span
+                                            class="text-xs font-medium text-white/90 text-center font-poppins">{{ $barangs->total() }}+
+                                            Barang</span>
                                     </div>
-                                    <div class="flex flex-col items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                                    <div
+                                        class="flex flex-col items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
                                         <div class="w-2 h-2 bg-sky-400 rounded-full mb-2 shadow-sm"></div>
-                                        <span class="text-xs font-medium text-white/90 text-center font-poppins">{{ count($categories) }} Kategori</span>
+                                        <span
+                                            class="text-xs font-medium text-white/90 text-center font-poppins">{{ count($categories) }}
+                                            Kategori</span>
                                     </div>
-                                    <div class="flex flex-col items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                                    <div
+                                        class="flex flex-col items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
                                         <div class="w-2 h-2 bg-amber-400 rounded-full mb-2 shadow-sm"></div>
-                                        <span class="text-xs font-medium text-white/90 text-center font-poppins">Real-time</span>
+                                        <span
+                                            class="text-xs font-medium text-white/90 text-center font-poppins">Real-time</span>
                                     </div>
                                 </div>
                             </div>
@@ -175,20 +209,24 @@
                                 <a href="#inventory-section"
                                     class="group premium-button inline-flex items-center justify-center px-8 py-4 bg-white/95 hover:bg-white text-rose-700 font-poppins font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/25 border border-white/50 hover:border-white relative overflow-hidden">
                                     <!-- Subtle Glow -->
-                                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    
-                                    <svg class="w-5 h-5 mr-2.5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    </div>
+
+                                    <svg class="w-5 h-5 mr-2.5 group-hover:scale-110 transition-transform duration-200"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                     </svg>
                                     <span class="relative z-10 font-medium">Jelajahi Inventaris</span>
                                 </a>
-                                
+
                                 @auth
                                     @if (Auth::user()->role === 'admin')
                                         <a href="{{ route('admin.barang.index') }}"
                                             class="group premium-button inline-flex items-center justify-center px-8 py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white font-poppins font-medium rounded-xl border border-white/30 hover:border-white/50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-white/15 relative">
-                                            <svg class="w-5 h-5 mr-2.5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 mr-2.5 group-hover:scale-110 transition-transform duration-200"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                                                 </path>
@@ -206,41 +244,50 @@
                         <div class="relative">
                             <!-- Subtle Background Elements -->
                             <div class="absolute -top-8 -right-8 w-32 h-32 bg-white/8 rounded-full blur-2xl"></div>
-                            <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-rose-200/10 rounded-full blur-2xl"></div>
-                            
+                            <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-rose-200/10 rounded-full blur-2xl">
+                            </div>
+
                             <!-- Clean Logo Container -->
                             <div class="relative group">
                                 <!-- Refined Glow -->
-                                <div class="absolute -inset-3 bg-gradient-to-r from-white/20 via-rose-200/25 to-white/20 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition duration-500"></div>
-                                
+                                <div
+                                    class="absolute -inset-3 bg-gradient-to-r from-white/20 via-rose-200/25 to-white/20 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition duration-500">
+                                </div>
+
                                 <!-- Main Card -->
-                                <div class="relative bg-white/12 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl border border-white/25 group-hover:border-white/40 transition-all duration-300 hover:shadow-white/10">
+                                <div
+                                    class="relative bg-white/12 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl border border-white/25 group-hover:border-white/40 transition-all duration-300 hover:shadow-white/10">
                                     <!-- Logo Area -->
                                     <div class="relative p-8 lg:p-10">
                                         <!-- Logo Image -->
                                         <img src="{{ asset('images/Logo-BEM-FTI.png') }}" alt="Logo BEM FTI"
                                             class="w-full h-64 lg:h-72 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500">
-                                        
+
                                         <!-- Clean Decorative Dot -->
-                                        <div class="absolute top-4 right-4 w-2 h-2 bg-white/60 rounded-full shadow-sm"></div>
-                                    </div>
-                                    
-                                    <!-- Information Panel -->
-                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent backdrop-blur-sm p-6">
-                                        <!-- University Tag -->
-                                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-sm rounded-lg mb-3">
-                                            <div class="w-1.5 h-1.5 bg-amber-400 rounded-full"></div>
-                                            <span class="text-xs font-medium text-white/95 font-poppins">UNIVERSITAS SULTAN AGUNG</span>
+                                        <div class="absolute top-4 right-4 w-2 h-2 bg-white/60 rounded-full shadow-sm">
                                         </div>
-                                        
+                                    </div>
+
+                                    <!-- Information Panel -->
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent backdrop-blur-sm p-6">
+                                        <!-- University Tag -->
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-sm rounded-lg mb-3">
+                                            <div class="w-1.5 h-1.5 bg-amber-400 rounded-full"></div>
+                                            <span class="text-xs font-medium text-white/95 font-poppins">UNIVERSITAS
+                                                SULTAN AGUNG</span>
+                                        </div>
+
                                         <!-- Main Info -->
-                                        <h3 class="text-white font-poppins font-bold text-xl lg:text-2xl drop-shadow-lg mb-1">
+                                        <h3
+                                            class="text-white font-poppins font-bold text-xl lg:text-2xl drop-shadow-lg mb-1">
                                             BEM FTI UNISSULA
                                         </h3>
                                         <p class="text-white/90 text-sm lg:text-base font-medium font-poppins mb-3">
                                             Badan Eksekutif Mahasiswa
                                         </p>
-                                        
+
                                         <!-- Clean Status Row -->
                                         <div class="flex items-center gap-4 text-sm">
                                             <div class="flex items-center gap-1.5">
@@ -261,15 +308,19 @@
 
                 <!-- Clean Scroll Indicator -->
                 <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2">
-                    <div class="flex flex-col items-center space-y-3 group cursor-pointer" onclick="document.getElementById('inventory-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="flex flex-col items-center space-y-3 group cursor-pointer"
+                        onclick="document.getElementById('inventory-section').scrollIntoView({behavior: 'smooth'})">
                         <!-- Simple Text -->
-                        <span class="text-white/70 text-xs font-poppins font-medium opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
+                        <span
+                            class="text-white/70 text-xs font-poppins font-medium opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
                             Lihat Inventaris
                         </span>
-                        
+
                         <!-- Clean Button -->
-                        <div class="bg-white/20 backdrop-blur-sm rounded-full p-3 border border-white/30 group-hover:bg-white/30 group-hover:border-white/50 transition-all duration-300 animate-bounce">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div
+                            class="bg-white/20 backdrop-blur-sm rounded-full p-3 border border-white/30 group-hover:bg-white/30 group-hover:border-white/50 transition-all duration-300 animate-bounce">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                             </svg>
@@ -281,14 +332,18 @@
             <!-- Professional Statistics Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12">
                 <!-- Total Items Card -->
-                <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-4 sm:p-6 group hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:border-red-500/30">
+                <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-4 sm:p-6 group hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:border-red-500/30">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <p class="text-gray-400 text-xs sm:text-sm font-medium font-poppins mb-1">Total Barang</p>
-                            <p class="text-xl sm:text-2xl font-bold text-white font-poppins">{{ $barangs->total() }}</p>
+                            <p class="text-xl sm:text-2xl font-bold text-white font-poppins">{{ $barangs->total() }}
+                            </p>
                         </div>
-                        <div class="p-2 sm:p-3 bg-gradient-to-r from-red-600 to-red-700 rounded-lg group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div
+                            class="p-2 sm:p-3 bg-gradient-to-r from-red-600 to-red-700 rounded-lg group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                             </svg>
@@ -297,13 +352,16 @@
                 </div>
 
                 <!-- Available Items Card -->
-                <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-4 sm:p-6 group hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:border-red-500/30">
+                <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-4 sm:p-6 group hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:border-red-500/30">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <p class="text-gray-400 text-xs sm:text-sm font-medium font-poppins mb-1">Tersedia</p>
-                            <p class="text-xl sm:text-2xl font-bold text-white font-poppins">{{ $barangs->where('stok', '>', 0)->count() }}</p>
+                            <p class="text-xl sm:text-2xl font-bold text-white font-poppins">
+                                {{ $barangs->where('stok', '>', 0)->count() }}</p>
                         </div>
-                        <div class="p-2 sm:p-3 bg-gradient-to-r from-green-600 to-green-700 rounded-lg group-hover:from-green-700 group-hover:to-green-800 transition-all duration-300">
+                        <div
+                            class="p-2 sm:p-3 bg-gradient-to-r from-green-600 to-green-700 rounded-lg group-hover:from-green-700 group-hover:to-green-800 transition-all duration-300">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -314,13 +372,16 @@
                 </div>
 
                 <!-- Categories Card -->
-                <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-4 sm:p-6 group hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:border-red-500/30 sm:col-span-2 lg:col-span-1">
+                <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-4 sm:p-6 group hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:border-red-500/30 sm:col-span-2 lg:col-span-1">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <p class="text-gray-400 text-xs sm:text-sm font-medium font-poppins mb-1">Kategori</p>
-                            <p class="text-xl sm:text-2xl font-bold text-white font-poppins">{{ count($categories) }}</p>
+                            <p class="text-xl sm:text-2xl font-bold text-white font-poppins">{{ count($categories) }}
+                            </p>
                         </div>
-                        <div class="p-2 sm:p-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg group-hover:from-blue-700 group-hover:to-blue-800 transition-all duration-300">
+                        <div
+                            class="p-2 sm:p-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg group-hover:from-blue-700 group-hover:to-blue-800 transition-all duration-300">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -333,10 +394,13 @@
             </div>
 
             <!-- Search and Filter Section -->
-            <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-800/50 p-4 sm:p-6 mb-6 lg:mb-8 shadow-lg">
+            <div
+                class="bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-800/50 p-4 sm:p-6 mb-6 lg:mb-8 shadow-lg">
                 <div class="flex items-center gap-3 mb-4 sm:mb-6">
-                    <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div
+                        class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
@@ -348,12 +412,14 @@
                     <div class="flex flex-col lg:flex-row gap-4">
                         <!-- Search Input -->
                         <div class="flex-1">
-                            <label class="block text-xs sm:text-sm font-medium text-gray-300 mb-2 font-poppins">Cari Barang</label>
+                            <label class="block text-xs sm:text-sm font-medium text-gray-300 mb-2 font-poppins">Cari
+                                Barang</label>
                             <div class="relative group">
                                 <input type="text" name="search" value="{{ request('search') }}"
                                     class="premium-input w-full h-10 sm:h-12 bg-gray-800/50 rounded-lg pl-10 sm:pl-12 pr-4 py-2 sm:py-3 text-sm sm:text-base text-white border border-gray-700/50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-300 hover:border-red-400/70"
                                     placeholder="Masukkan nama barang...">
-                                <div class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+                                <div
+                                    class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                                     <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-red-400 transition-colors"
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd"
@@ -366,7 +432,8 @@
 
                         <!-- Category Filter -->
                         <div class="w-full lg:w-64">
-                            <label class="block text-xs sm:text-sm font-medium text-gray-300 mb-2 font-poppins">Filter Kategori</label>
+                            <label class="block text-xs sm:text-sm font-medium text-gray-300 mb-2 font-poppins">Filter
+                                Kategori</label>
                             <div class="relative">
                                 <select name="category" id="category" onchange="this.form.submit()"
                                     class="premium-dropdown w-full h-10 sm:h-12 bg-gray-800/50 rounded-lg px-3 sm:px-4 py-2 sm:py-3 border border-gray-700/50 text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-300 cursor-pointer appearance-none">
@@ -379,8 +446,8 @@
                                     @endforeach
                                 </select>
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 9l-7 7-7-7"></path>
                                     </svg>
@@ -431,15 +498,18 @@
             <!-- Items Grid Header -->
             <div id="inventory-section" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div class="flex items-center gap-3">
-                    <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div
+                        class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
                     </div>
                     <div>
                         <h3 class="text-lg sm:text-xl font-bold text-white font-poppins">Daftar Inventaris</h3>
-                        <p class="text-xs sm:text-sm text-gray-300 font-poppins">{{ $barangs->total() }} barang ditemukan</p>
+                        <p class="text-xs sm:text-sm text-gray-300 font-poppins">{{ $barangs->total() }} barang
+                            ditemukan</p>
                     </div>
                 </div>
 
@@ -448,7 +518,8 @@
                     <button id="gridViewBtn"
                         class="view-toggle active flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium font-poppins"
                         style="color: white !important;">
-                        <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: inherit !important;">
+                        <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            style="color: inherit !important;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
                             </path>
@@ -458,7 +529,8 @@
                     <button id="listViewBtn"
                         class="view-toggle flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium font-poppins"
                         style="color: white !important;">
-                        <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: inherit !important;">
+                        <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            style="color: inherit !important;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                         </svg>
@@ -471,7 +543,8 @@
             <x-skeleton-loader />
 
             <!-- Grid View -->
-            <div id="gridView" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+            <div id="gridView"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
                 @forelse ($barangs as $barang)
                     <div class="transform transition-all duration-300 hover:scale-105">
                         <a href="{{ route('barang.show', $barang) }}" class="block">
@@ -541,7 +614,8 @@
                                     </path>
                                 </svg>
                             </div>
-                            <h3 class="text-lg font-semibold text-white mb-2 font-poppins">Tidak Ada Barang Ditemukan</h3>
+                            <h3 class="text-lg font-semibold text-white mb-2 font-poppins">Tidak Ada Barang Ditemukan
+                            </h3>
                             <p class="text-gray-400 mb-4">Coba ubah kata kunci pencarian atau filter kategori</p>
                             <a href="{{ route('inventaris') }}"
                                 class="premium-button inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-poppins">
@@ -589,12 +663,14 @@
                                                 <span class="description-text-list">{{ $barang->deskripsi }}</span>
                                             </p>
                                             <div class="flex items-center gap-4">
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white border border-red-500 font-poppins">
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white border border-red-500 font-poppins">
                                                     {{ $barang->kategori }}
                                                 </span>
                                                 <span class="text-sm text-gray-300">
                                                     <span class="font-medium font-poppins">Stok:</span>
-                                                    <span class="{{ $barang->stok > 0 ? 'text-green-400' : 'text-red-400' }} font-poppins">
+                                                    <span
+                                                        class="{{ $barang->stok > 0 ? 'text-green-400' : 'text-red-400' }} font-poppins">
                                                         {{ $barang->stok }}
                                                     </span>
                                                 </span>
@@ -603,8 +679,10 @@
 
                                         <!-- Arrow -->
                                         <div class="ml-4 flex-shrink-0 flex items-center">
-                                            <svg class="w-5 h-5 text-gray-400 group-hover:text-red-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                            <svg class="w-5 h-5 text-gray-400 group-hover:text-red-400 transition-colors"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 5l7 7-7 7"></path>
                                             </svg>
                                         </div>
                                     </div>
@@ -615,7 +693,8 @@
                 @empty
                     <div
                         class="bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50 p-12 text-center shadow-lg">
-                        <div class="w-16 h-16 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-16 h-16 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -624,7 +703,8 @@
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-white mb-2 font-poppins">Tidak Ada Barang Ditemukan</h3>
-                        <p class="text-gray-400 mb-4 font-poppins">Coba ubah kata kunci pencarian atau filter kategori</p>
+                        <p class="text-gray-400 mb-4 font-poppins">Coba ubah kata kunci pencarian atau filter kategori
+                        </p>
                         <a href="{{ route('inventaris') }}"
                             class="premium-button inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-poppins">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -659,41 +739,51 @@
 
                     <div class="flex items-center space-x-1">
                         @if ($barangs->onFirstPage())
-                            <span class="px-3 py-2 text-sm font-medium text-gray-500 bg-gray-800/50 border border-gray-700 rounded-l-lg cursor-not-allowed">
+                            <span
+                                class="px-3 py-2 text-sm font-medium text-gray-500 bg-gray-800/50 border border-gray-700 rounded-l-lg cursor-not-allowed">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7"></path>
                                 </svg>
                             </span>
                         @else
-                            <a href="{{ $barangs->previousPageUrl() }}" class="px-3 py-2 text-sm font-medium text-gray-300 bg-gray-800/50 border border-gray-700 rounded-l-lg hover:bg-gray-700 hover:text-white hover:border-red-400 transition-all duration-300">
+                            <a href="{{ $barangs->previousPageUrl() }}"
+                                class="px-3 py-2 text-sm font-medium text-gray-300 bg-gray-800/50 border border-gray-700 rounded-l-lg hover:bg-gray-700 hover:text-white hover:border-red-400 transition-all duration-300">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7"></path>
                                 </svg>
                             </a>
                         @endif
 
                         @foreach ($barangs->getUrlRange(1, $barangs->lastPage()) as $page => $url)
                             @if ($page == $barangs->currentPage())
-                                <span class="px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-600 to-red-700 border border-red-600 shadow-lg shadow-red-500/25 font-poppins">
+                                <span
+                                    class="px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-600 to-red-700 border border-red-600 shadow-lg shadow-red-500/25 font-poppins">
                                     {{ $page }}
                                 </span>
                             @else
-                                <a href="{{ $url }}" class="px-3 py-2 text-sm font-medium text-gray-300 bg-gray-800/50 border border-gray-700 hover:bg-gray-700 hover:text-white hover:border-red-400 transition-all duration-300 font-poppins">
+                                <a href="{{ $url }}"
+                                    class="px-3 py-2 text-sm font-medium text-gray-300 bg-gray-800/50 border border-gray-700 hover:bg-gray-700 hover:text-white hover:border-red-400 transition-all duration-300 font-poppins">
                                     {{ $page }}
                                 </a>
                             @endif
                         @endforeach
 
                         @if ($barangs->hasMorePages())
-                            <a href="{{ $barangs->nextPageUrl() }}" class="px-3 py-2 text-sm font-medium text-gray-300 bg-gray-800/50 border border-gray-700 rounded-r-lg hover:bg-gray-700 hover:text-white hover:border-red-400 transition-all duration-300">
+                            <a href="{{ $barangs->nextPageUrl() }}"
+                                class="px-3 py-2 text-sm font-medium text-gray-300 bg-gray-800/50 border border-gray-700 rounded-r-lg hover:bg-gray-700 hover:text-white hover:border-red-400 transition-all duration-300">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </a>
                         @else
-                            <span class="px-3 py-2 text-sm font-medium text-gray-500 bg-gray-800/50 border border-gray-700 rounded-r-lg cursor-not-allowed">
+                            <span
+                                class="px-3 py-2 text-sm font-medium text-gray-500 bg-gray-800/50 border border-gray-700 rounded-r-lg cursor-not-allowed">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </span>
                         @endif

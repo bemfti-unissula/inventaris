@@ -39,7 +39,7 @@ class UserController extends Controller
         });
 
         // Remove null/empty values and sort
-        $fakultasList = array_filter($fakultasList, function($value) {
+        $fakultasList = array_filter($fakultasList, function ($value) {
             return !empty($value);
         });
         sort($fakultasList);
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            
+
             if (!$user) {
                 return redirect()->route('admin.user.index')->with('error', 'User tidak ditemukan');
             }

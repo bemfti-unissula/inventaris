@@ -11,8 +11,11 @@
                     </svg>
                 </a>
                 <div class="flex-1">
-                    <h1 class="text-3xl font-bold text-white">{{ isset($barang) ? 'Edit Barang' : 'Tambah Barang Baru' }}</h1>
-                    <p class="text-gray-400">{{ isset($barang) ? 'Perbarui informasi barang inventaris' : 'Lengkapi informasi barang yang akan ditambahkan' }}</p>
+                    <h1 class="text-3xl font-bold text-white">
+                        {{ isset($barang) ? 'Edit Barang' : 'Tambah Barang Baru' }}</h1>
+                    <p class="text-gray-400">
+                        {{ isset($barang) ? 'Perbarui informasi barang inventaris' : 'Lengkapi informasi barang yang akan ditambahkan' }}
+                    </p>
                 </div>
             </div>
 
@@ -27,15 +30,18 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-xl font-semibold text-white">{{ isset($barang) ? 'Form Edit Barang' : 'Form Tambah Barang' }}</h2>
-                        <p class="text-gray-400">{{ isset($barang) ? 'Perbarui informasi barang' : 'Lengkapi data barang inventaris' }}</p>
+                        <h2 class="text-xl font-semibold text-white">
+                            {{ isset($barang) ? 'Form Edit Barang' : 'Form Tambah Barang' }}</h2>
+                        <p class="text-gray-400">
+                            {{ isset($barang) ? 'Perbarui informasi barang' : 'Lengkapi data barang inventaris' }}</p>
                     </div>
                 </div>
 
-                <form action="{{ isset($barang) ? route('admin.barang.update', $barang) : route('admin.barang.store') }}" method="POST" enctype="multipart/form-data"
-                    class="space-y-6">
+                <form
+                    action="{{ isset($barang) ? route('admin.barang.update', $barang) : route('admin.barang.store') }}"
+                    method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
-                    @if(isset($barang))
+                    @if (isset($barang))
                         @method('PUT')
                     @endif
 
@@ -43,7 +49,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nama Barang -->
                         <div class="md:col-span-2">
-                            <label for="nama_barang" class="block text-sm font-medium text-gray-300 mb-2">Nama Barang</label>
+                            <label for="nama_barang" class="block text-sm font-medium text-gray-300 mb-2">Nama
+                                Barang</label>
                             <input type="text" name="nama_barang" id="nama_barang"
                                 value="{{ old('nama_barang', isset($barang) ? $barang->nama_barang : '') }}"
                                 class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
@@ -63,7 +70,8 @@
                         <!-- Kategori -->
                         <div>
                             <label for="kategori" class="block text-sm font-medium text-gray-300 mb-2">Kategori</label>
-                            <input type="text" name="kategori" id="kategori" value="{{ old('kategori', isset($barang) ? $barang->kategori : '') }}"
+                            <input type="text" name="kategori" id="kategori"
+                                value="{{ old('kategori', isset($barang) ? $barang->kategori : '') }}"
                                 class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
                                 placeholder="Contoh: Elektronik, Furniture...">
                             @error('kategori')
@@ -118,9 +126,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- Stok -->
                         <div>
-                            <label for="stok" class="block text-sm font-medium text-gray-300 mb-2">Stok Tersedia</label>
-                            <input type="number" name="stok" id="stok" value="{{ old('stok', isset($barang) ? $barang->stok : '') }}"
-                                min="0"
+                            <label for="stok" class="block text-sm font-medium text-gray-300 mb-2">Stok
+                                Tersedia</label>
+                            <input type="number" name="stok" id="stok"
+                                value="{{ old('stok', isset($barang) ? $barang->stok : '') }}" min="0"
                                 class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
                                 placeholder="0">
                             @error('stok')
@@ -137,9 +146,11 @@
 
                         <!-- Total Dimiliki -->
                         <div>
-                            <label for="total_dimiliki" class="block text-sm font-medium text-gray-300 mb-2">Total Dimiliki</label>
+                            <label for="total_dimiliki" class="block text-sm font-medium text-gray-300 mb-2">Total
+                                Dimiliki</label>
                             <input type="number" name="total_dimiliki" id="total_dimiliki"
-                                value="{{ old('total_dimiliki', isset($barang) ? $barang->total_dimiliki : '') }}" min="0"
+                                value="{{ old('total_dimiliki', isset($barang) ? $barang->total_dimiliki : '') }}"
+                                min="0"
                                 class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
                                 placeholder="0">
                             @error('total_dimiliki')
@@ -156,20 +167,25 @@
 
                         <!-- Status Pembayaran -->
                         <div>
-                            <label for="is_paid" class="block text-sm font-medium text-gray-300 mb-2">Status Pembayaran</label>
+                            <label for="is_paid" class="block text-sm font-medium text-gray-300 mb-2">Status
+                                Pembayaran</label>
                             <div class="relative">
                                 <select name="is_paid" id="is_paid"
                                     class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200 appearance-none cursor-pointer">
-                                    <option value="0" {{ old('is_paid', isset($barang) && $barang->is_paid ? '0' : '0') == '0' ? 'selected' : '' }}>
+                                    <option value="0"
+                                        {{ old('is_paid', isset($barang) && $barang->is_paid ? '0' : '0') == '0' ? 'selected' : '' }}>
                                         Gratis
                                     </option>
-                                    <option value="1" {{ old('is_paid', isset($barang) && $barang->is_paid ? '1' : '0') == '1' ? 'selected' : '' }}>
+                                    <option value="1"
+                                        {{ old('is_paid', isset($barang) && $barang->is_paid ? '1' : '0') == '1' ? 'selected' : '' }}>
                                         Berbayar
                                     </option>
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -187,11 +203,12 @@
                     </div>
 
                     <!-- Image Preview Section (for Edit Mode) -->
-                    @if(isset($barang) && $barang->gambar)
+                    @if (isset($barang) && $barang->gambar)
                         <div class="bg-gray-800/30 border border-gray-700/50 rounded-xl pt-4 p-6">
                             <div class="flex items-center gap-3 mb-4">
                                 <div class="w-8 h-8 bg-gray-700/50 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
                                         </path>
@@ -203,11 +220,11 @@
                                 </div>
                             </div>
                             <div class="flex justify-center">
-                                @if(is_array($barang->gambar) && isset($barang->gambar['url']))
-                                    <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}" 
+                                @if (is_array($barang->gambar) && isset($barang->gambar['url']))
+                                    <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
                                         class="w-48 h-48 object-cover rounded-lg border border-gray-600/50">
                                 @elseif(is_string($barang->gambar) && $barang->gambar)
-                                    <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}" 
+                                    <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}"
                                         class="w-48 h-48 object-cover rounded-lg border border-gray-600/50">
                                 @endif
                             </div>
@@ -226,10 +243,11 @@
                         </a>
                         <button type="submit"
                             class="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors duration-200">
-                            @if(isset($barang))
+                            @if (isset($barang))
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
                                 </svg>
                                 Update Barang
                             @else

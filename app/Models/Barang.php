@@ -39,5 +39,4 @@ class Barang extends Model
         'total_dimiliki' => 'integer',
         'is_paid' => 'boolean',
     ];
-
 }

@@ -6,25 +6,25 @@
             'bg' => 'bg-gradient-to-r from-emerald-600 to-green-600',
             'border' => 'border-emerald-400/30',
             'icon' => 'fas fa-check-circle',
-            'iconColor' => 'text-emerald-200'
+            'iconColor' => 'text-emerald-200',
         ],
         'error' => [
             'bg' => 'bg-gradient-to-r from-rose-600 to-red-600',
             'border' => 'border-rose-400/30',
             'icon' => 'fas fa-exclamation-circle',
-            'iconColor' => 'text-rose-200'
+            'iconColor' => 'text-rose-200',
         ],
         'warning' => [
             'bg' => 'bg-gradient-to-r from-amber-600 to-yellow-600',
             'border' => 'border-amber-400/30',
             'icon' => 'fas fa-exclamation-triangle',
-            'iconColor' => 'text-amber-200'
+            'iconColor' => 'text-amber-200',
         ],
         default => [
             'bg' => 'bg-gradient-to-r from-blue-600 to-indigo-600',
             'border' => 'border-blue-400/30',
             'icon' => 'fas fa-info-circle',
-            'iconColor' => 'text-blue-200'
+            'iconColor' => 'text-blue-200',
         ],
     };
 @endphp
@@ -35,7 +35,8 @@
         <div class="text-white font-poppins text-sm font-medium leading-relaxed">
             {{ $slot }}
         </div>
-        <button class="ml-auto text-white/70 hover:text-white transition-colors duration-200" onclick="this.closest('.premium-alert').remove()">
+        <button class="ml-auto text-white/70 hover:text-white transition-colors duration-200"
+            onclick="this.closest('.premium-alert').remove()">
             <i class="fas fa-times text-sm"></i>
         </button>
     </div>
@@ -53,8 +54,8 @@
         border-radius: 0.75rem;
         border: 1px solid;
         backdrop-filter: blur(12px);
-        box-shadow: 
-            0 20px 25px -5px rgba(0, 0, 0, 0.3), 
+        box-shadow:
+            0 20px 25px -5px rgba(0, 0, 0, 0.3),
             0 10px 10px -5px rgba(0, 0, 0, 0.1),
             0 0 0 1px rgba(255, 255, 255, 0.05);
         min-width: 320px;
@@ -71,6 +72,7 @@
             opacity: 0;
             transform: translateX(-50%) translateY(-20px) !important;
         }
+
         100% {
             top: 1.5rem !important;
             opacity: 1;
@@ -84,6 +86,7 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0) !important;
         }
+
         100% {
             top: -120px !important;
             opacity: 0;
@@ -98,8 +101,8 @@
     /* Enhanced hover effects */
     .premium-alert:hover {
         transform: translateX(-50%) translateY(-2px) !important;
-        box-shadow: 
-            0 25px 35px -5px rgba(0, 0, 0, 0.4), 
+        box-shadow:
+            0 25px 35px -5px rgba(0, 0, 0, 0.4),
             0 15px 15px -5px rgba(0, 0, 0, 0.15),
             0 0 0 1px rgba(255, 255, 255, 0.08);
     }
@@ -125,16 +128,16 @@
         // Wait a bit for the DOM to be fully ready
         setTimeout(() => {
             const alerts = document.querySelectorAll('.premium-alert');
-            
+
             alerts.forEach((alert, index) => {
                 // Move alert to body to ensure proper positioning
                 if (alert.parentNode !== document.body) {
                     document.body.appendChild(alert);
                 }
-                
+
                 // Force reflow to ensure positioning is applied
                 alert.offsetHeight;
-                
+
                 // Stagger multiple alerts if present
                 setTimeout(() => {
                     // Auto-hide after 4 seconds
@@ -148,7 +151,7 @@
 
     function hideAlert(alert) {
         alert.classList.add('hide');
-        
+
         setTimeout(() => {
             if (alert.parentNode) {
                 alert.remove();
@@ -160,7 +163,8 @@
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             mutation.addedNodes.forEach(function(node) {
-                if (node.nodeType === 1 && node.classList && node.classList.contains('premium-alert')) {
+                if (node.nodeType === 1 && node.classList && node.classList.contains(
+                        'premium-alert')) {
                     initializeAlert(node);
                 }
             });
@@ -177,10 +181,10 @@
         if (alert.parentNode !== document.body) {
             document.body.appendChild(alert);
         }
-        
+
         // Force reflow
         alert.offsetHeight;
-        
+
         // Auto-hide after 4 seconds
         setTimeout(() => {
             hideAlert(alert);

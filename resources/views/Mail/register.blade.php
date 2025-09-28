@@ -30,7 +30,7 @@
             background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 
+            box-shadow:
                 0 25px 50px -12px rgba(0, 0, 0, 0.5),
                 0 0 0 1px rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(229, 231, 235, 0.1);
@@ -119,7 +119,7 @@
             border-radius: 12px;
             font-weight: 600;
             font-size: 16px;
-            box-shadow: 
+            box-shadow:
                 0 10px 25px -3px rgba(5, 150, 105, 0.4),
                 0 4px 6px -2px rgba(5, 150, 105, 0.1);
             transition: all 0.3s ease;
@@ -231,15 +231,15 @@
             body {
                 padding: 10px;
             }
-            
+
             .content {
                 padding: 30px 20px;
             }
-            
+
             .header {
                 padding: 30px 20px;
             }
-            
+
             .header h1 {
                 font-size: 24px;
             }
@@ -265,8 +265,9 @@
             <div class="greeting">Halo dan Selamat Datang!</div>
 
             <div class="message">
-                Terima kasih telah bergabung dengan sistem <strong>Inventaris BEM FTI</strong>. 
-                Untuk menyelesaikan proses pendaftaran dan mengaktifkan akun Anda, silakan klik tombol aktivasi di bawah ini.
+                Terima kasih telah bergabung dengan sistem <strong>Inventaris BEM FTI</strong>.
+                Untuk menyelesaikan proses pendaftaran dan mengaktifkan akun Anda, silakan klik tombol aktivasi di bawah
+                ini.
             </div>
 
             <!-- Welcome Benefits -->
@@ -297,13 +298,15 @@
             <!-- Warning Alert -->
             <div class="alert-box warning">
                 <i class="fas fa-clock" style="margin-right: 8px;"></i>
-                <strong>Penting:</strong> Link aktivasi ini hanya berlaku selama <strong>30 menit</strong> dari waktu pengiriman email ini. Segera lakukan aktivasi untuk menggunakan akun Anda.
+                <strong>Penting:</strong> Link aktivasi ini hanya berlaku selama <strong>30 menit</strong> dari waktu
+                pengiriman email ini. Segera lakukan aktivasi untuk menggunakan akun Anda.
             </div>
 
             <!-- Welcome Note -->
             <div class="alert-box welcome-note">
                 <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
-                <strong>Catatan:</strong> Setelah aktivasi berhasil, Anda dapat langsung login dan mulai menggunakan semua fitur yang tersedia dalam sistem inventaris.
+                <strong>Catatan:</strong> Setelah aktivasi berhasil, Anda dapat langsung login dan mulai menggunakan
+                semua fitur yang tersedia dalam sistem inventaris.
             </div>
 
             <div class="divider"></div>
@@ -318,7 +321,7 @@
             <!-- Additional Info -->
             <div class="message" style="font-size: 14px; color: #9ca3af; margin-top: 24px;">
                 <strong>Tidak mendaftar untuk akun ini?</strong><br>
-                Jika Anda tidak pernah mendaftar di sistem Inventaris BEM FTI, silakan abaikan email ini dengan aman. 
+                Jika Anda tidak pernah mendaftar di sistem Inventaris BEM FTI, silakan abaikan email ini dengan aman.
                 Tidak ada tindakan lebih lanjut yang diperlukan.
             </div>
         </div>

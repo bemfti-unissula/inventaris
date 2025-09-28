@@ -30,7 +30,7 @@
             background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 
+            box-shadow:
                 0 25px 50px -12px rgba(0, 0, 0, 0.5),
                 0 0 0 1px rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(229, 231, 235, 0.1);
@@ -125,7 +125,7 @@
             border-radius: 12px;
             font-weight: 600;
             font-size: 16px;
-            box-shadow: 
+            box-shadow:
                 0 10px 25px -3px rgba(220, 38, 38, 0.4),
                 0 4px 6px -2px rgba(220, 38, 38, 0.1);
             transition: all 0.3s ease;
@@ -239,15 +239,15 @@
             body {
                 padding: 10px;
             }
-            
+
             .content {
                 padding: 30px 20px;
             }
-            
+
             .header {
                 padding: 30px 20px;
             }
-            
+
             .header h1 {
                 font-size: 24px;
             }
@@ -273,8 +273,9 @@
             <div class="greeting">Halo!</div>
 
             <div class="message">
-                Kami menerima permintaan untuk mereset password akun Anda di sistem <strong>Inventaris BEM FTI</strong>. 
-                Jika Anda yang melakukan permintaan ini, silakan klik tombol di bawah untuk melanjutkan proses reset password.
+                Kami menerima permintaan untuk mereset password akun Anda di sistem <strong>Inventaris BEM FTI</strong>.
+                Jika Anda yang melakukan permintaan ini, silakan klik tombol di bawah untuk melanjutkan proses reset
+                password.
             </div>
 
             <!-- CTA Button -->
@@ -288,13 +289,15 @@
             <!-- Warning Alert -->
             <div class="alert-box warning">
                 <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
-                <strong>Penting:</strong> Link reset password ini hanya berlaku selama <strong>30 menit</strong> dari waktu pengiriman email ini. Pastikan Anda menggunakannya sebelum expired.
+                <strong>Penting:</strong> Link reset password ini hanya berlaku selama <strong>30 menit</strong> dari
+                waktu pengiriman email ini. Pastikan Anda menggunakannya sebelum expired.
             </div>
 
             <!-- Security Note -->
             <div class="alert-box security-note">
                 <i class="fas fa-shield-alt" style="margin-right: 8px;"></i>
-                <strong>Catatan Keamanan:</strong> Jika Anda tidak meminta reset password ini, abaikan email ini dengan aman. Password Anda tidak akan berubah dan akun tetap terlindungi.
+                <strong>Catatan Keamanan:</strong> Jika Anda tidak meminta reset password ini, abaikan email ini dengan
+                aman. Password Anda tidak akan berubah dan akun tetap terlindungi.
             </div>
 
             <div class="divider"></div>
