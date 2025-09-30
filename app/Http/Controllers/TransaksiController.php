@@ -279,12 +279,12 @@ class TransaksiController extends Controller
                 return redirect()->route('transaksi.index')->with('error', 'Transaksi ini tidak dapat diupdate.');
             }
 
-            // Buat atau update objek 'return'
+            // Buat atau update array 'return'
             $return = $transaksi->return;
-            $return->jumlah = (int) $request->validated('jumlah');
-            $return->tanggal_kembali = date('Y-m-d', strtotime($request->validated('tanggal_kembali')));
+            $return['jumlah'] = (int) $request->validated('jumlah');
+            $return['tanggal_kembali'] = date('Y-m-d', strtotime($request->validated('tanggal_kembali')));
             if ($request->validated('keterangan')) {
-                $return->keterangan = $request->validated('keterangan');
+                $return['keterangan'] = $request->validated('keterangan');
             }
 
             // Handle file upload jika ada file baru
