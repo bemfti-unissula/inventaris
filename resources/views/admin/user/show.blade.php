@@ -232,18 +232,15 @@
 
     @if ($user->_id !== auth()->id())
         <!-- Delete Confirmation Modal -->
-        <form action="{{ route('admin.user.destroy', $user->_id) }}" method="POST" id="deleteFormuserShowDeleteModal">
+        <form action="{{ route('admin.user.destroy', $user->_id) }}" method="POST"
+            id="deleteFormuserShowDeleteModal">
             @csrf
             @method('DELETE')
         </form>
-        
-        <x-delete-confirmation-modal 
-            modal-id="userShowDeleteModal"
-            title="Konfirmasi Hapus User"
-            subtitle="Tindakan ini tidak dapat dibatalkan"
-            item-type="user"
+
+        <x-delete-confirmation-modal modal-id="userShowDeleteModal" title="Konfirmasi Hapus User"
+            subtitle="Tindakan ini tidak dapat dibatalkan" item-type="user"
             warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
-            confirm-button-text="Ya, Hapus User"
-            cancel-button-text="Batal" />
+            confirm-button-text="Ya, Hapus User" cancel-button-text="Batal" />
     @endif
 </x-app-layout>

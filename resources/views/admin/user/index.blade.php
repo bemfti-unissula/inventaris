@@ -480,62 +480,58 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <x-delete-confirmation-modal 
-        modal-id="deleteUserModal"
-        title="Konfirmasi Hapus User"
-        subtitle="Tindakan ini tidak dapat dibatalkan"
-        item-type="user"
+    <x-delete-confirmation-modal modal-id="deleteUserModal" title="Konfirmasi Hapus User"
+        subtitle="Tindakan ini tidak dapat dibatalkan" item-type="user"
         warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
-        confirm-button-text="Ya, Hapus User"
-        cancel-button-text="Batal" />
+        confirm-button-text="Ya, Hapus User" cancel-button-text="Batal" />
 
     <script>
-            const dropdowns = document.querySelectorAll('select');
+        const dropdowns = document.querySelectorAll('select');
 
-            dropdowns.forEach(dropdown => {
-                dropdown.addEventListener('change', function() {
-                    // Add selected effect
-                    if (this.value) {
-                        this.classList.add('has-value');
-                        this.style.background =
-                            'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
-                        this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
-                    } else {
-                        this.classList.remove('has-value');
-                        this.style.background = '';
-                        this.style.borderColor = '';
-                    }
-                });
-
-                // Initialize state
-                if (dropdown.value) {
-                    dropdown.style.background =
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('change', function() {
+                // Add selected effect
+                if (this.value) {
+                    this.classList.add('has-value');
+                    this.style.background =
                         'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
-                    dropdown.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+                    this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+                } else {
+                    this.classList.remove('has-value');
+                    this.style.background = '';
+                    this.style.borderColor = '';
                 }
             });
 
-            // Search input enhancements
-            const searchInput = document.querySelector('input[name="search"]');
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    if (this.value.length > 0) {
-                        this.style.background =
-                            'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
-                        this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
-                    } else {
-                        this.style.background = '';
-                        this.style.borderColor = '';
-                    }
-                });
-
-                // Initialize search input state
-                if (searchInput.value) {
-                    searchInput.style.background =
-                        'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
-                    searchInput.style.borderColor = 'rgba(220, 38, 38, 0.5)';
-                }
+            // Initialize state
+            if (dropdown.value) {
+                dropdown.style.background =
+                    'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                dropdown.style.borderColor = 'rgba(220, 38, 38, 0.5)';
             }
+        });
+
+        // Search input enhancements
+        const searchInput = document.querySelector('input[name="search"]');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    this.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                    this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+                } else {
+                    this.style.background = '';
+                    this.style.borderColor = '';
+                }
+            });
+
+            // Initialize search input state
+            if (searchInput.value) {
+                searchInput.style.background =
+                    'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                searchInput.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+            }
+        }
         });
     </script>
 </x-app-layout>

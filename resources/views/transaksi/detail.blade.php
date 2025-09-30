@@ -273,19 +273,15 @@
     </div>
 
     <!-- Hidden form for cancel transaction -->
-    <form action="{{ route('transaksi.cancel', $transaksi->id) }}" method="POST" 
-          id="deleteFormdeleteModal{{ $transaksi->id }}" style="display: none;">
+    <form action="{{ route('transaksi.cancel', $transaksi->id) }}" method="POST"
+        id="deleteFormdeleteModal{{ $transaksi->id }}" style="display: none;">
         @csrf
         @method('DELETE')
     </form>
 
     <!-- Delete Confirmation Modal -->
-    <x-delete-confirmation-modal 
-        modal-id="deleteModal"
-        title="Konfirmasi Batalkan Transaksi"
-        subtitle="Tindakan ini akan membatalkan transaksi"
-        item-type="transaksi untuk barang"
+    <x-delete-confirmation-modal modal-id="deleteModal" title="Konfirmasi Batalkan Transaksi"
+        subtitle="Tindakan ini akan membatalkan transaksi" item-type="transaksi untuk barang"
         warning-text="Transaksi yang sudah dibatalkan tidak dapat dikembalikan. Stok barang akan dikembalikan jika transaksi masih dalam status pending."
-        confirm-button-text="Ya, Batalkan Transaksi"
-        cancel-button-text="Tidak, Kembali" />
+        confirm-button-text="Ya, Batalkan Transaksi" cancel-button-text="Tidak, Kembali" />
 </x-app-layout>

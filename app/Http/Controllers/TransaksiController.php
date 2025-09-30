@@ -45,12 +45,12 @@ class TransaksiController extends Controller
         if ($transaksi->tipe != 'peminjaman' || $transaksi->status == 'accepted' || $transaksi->status == 'canceled') {
             return redirect()->route('transaksi.detail', $id)->with('error', 'Transaksi tidak dapat diedit');
         }
-        
+
         $barang = Barang::find($transaksi->barang_id);
         if (!$barang) {
             return redirect()->route('transaksi.index')->with('error', 'Barang tidak ditemukan');
         }
-        
+
         return view('transaksi.create', compact('transaksi', 'barang'));
     }
 
@@ -300,19 +300,19 @@ class TransaksiController extends Controller
             if (!$transaksi) {
                 return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak ditemukan');
             }
-            
+
             if ($transaksi->user_id != Auth::user()->id) {
                 return abort(403);
             }
-            
+
             if ($transaksi->status == 'accepted') {
                 return redirect()->route('transaksi.index')->with('error', 'Transaksi sudah diterima dan tidak dapat dibatalkan');
             }
-            
+
             if ($transaksi->status == 'canceled') {
                 return redirect()->route('transaksi.index')->with('error', 'Transaksi sudah dibatalkan sebelumnya');
             }
-            
+
             // Kembalikan stok barang jika status sebelumnya pending
             if ($transaksi->status == 'pending') {
                 $barang = Barang::find($transaksi->barang_id);
@@ -321,10 +321,10 @@ class TransaksiController extends Controller
                     $barang->save();
                 }
             }
-            
+
             $transaksi->status = 'canceled';
             $transaksi->save();
-            
+
             return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibatalkan');
         } catch (\Exception $e) {
             return redirect()->route('transaksi.index')->with('error', 'Gagal membatalkan transaksi: ' . $e->getMessage());

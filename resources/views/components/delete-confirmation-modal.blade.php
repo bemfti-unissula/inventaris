@@ -5,18 +5,18 @@
     'itemType' => 'item',
     'warningText' => 'Data yang sudah dihapus tidak dapat dikembalikan lagi.',
     'confirmButtonText' => 'Ya, Hapus',
-    'cancelButtonText' => 'Batal'
+    'cancelButtonText' => 'Batal',
 ])
 
 <script>
-// Delete confirmation modal functionality for {{ $modalId }}
-let currentDeleteId_{{ $modalId }} = null;
-let modal_{{ $modalId }}_created = false;
+    // Delete confirmation modal functionality for {{ $modalId }}
+    let currentDeleteId_{{ $modalId }} = null;
+    let modal_{{ $modalId }}_created = false;
 
-function createModal_{{ $modalId }}() {
-    if (modal_{{ $modalId }}_created) return;
-    
-    const modalHTML = `
+    function createModal_{{ $modalId }}() {
+        if (modal_{{ $modalId }}_created) return;
+
+        const modalHTML = `
         <div id="{{ $modalId }}" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 999999 !important;">
             <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0 relative" 
                  id="{{ $modalId }}Content" style="z-index: 1000000 !important;">
@@ -65,78 +65,78 @@ function createModal_{{ $modalId }}() {
             </div>
         </div>
     `;
-    
-    // Append modal directly to body
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    modal_{{ $modalId }}_created = true;
-    
-    // Add event listeners
-    const modal = document.getElementById('{{ $modalId }}');
-    
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal_{{ $modalId }}();
-        }
-    });
-}
 
-function openDeleteModal{{ $modalId }}(itemId, itemName) {
-    // Create modal if not exists
-    createModal_{{ $modalId }}();
-    
-    currentDeleteId_{{ $modalId }} = itemId;
-    document.getElementById('{{ $modalId }}ItemName').textContent = itemName;
+        // Append modal directly to body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        modal_{{ $modalId }}_created = true;
 
-    const modal = document.getElementById('{{ $modalId }}');
-    const modalContent = document.getElementById('{{ $modalId }}Content');
+        // Add event listeners
+        const modal = document.getElementById('{{ $modalId }}');
 
-    // Show modal
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal_{{ $modalId }}();
+            }
+        });
+    }
 
-    // Animate modal appearance
-    setTimeout(() => {
-        modalContent.classList.remove('scale-95', 'opacity-0');
-        modalContent.classList.add('scale-100', 'opacity-100');
-    }, 10);
+    function openDeleteModal{{ $modalId }}(itemId, itemName) {
+        // Create modal if not exists
+        createModal_{{ $modalId }}();
 
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-    
-    // Ensure modal is on top of everything
-    modal.style.zIndex = '999999';
-    modalContent.style.zIndex = '1000000';
-}
+        currentDeleteId_{{ $modalId }} = itemId;
+        document.getElementById('{{ $modalId }}ItemName').textContent = itemName;
 
-function closeModal_{{ $modalId }}() {
-    const modal = document.getElementById('{{ $modalId }}');
-    const modalContent = document.getElementById('{{ $modalId }}Content');
+        const modal = document.getElementById('{{ $modalId }}');
+        const modalContent = document.getElementById('{{ $modalId }}Content');
 
-    if (!modal || !modalContent) return;
+        // Show modal
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
 
-    // Animate modal disappearance
-    modalContent.classList.remove('scale-100', 'opacity-100');
-    modalContent.classList.add('scale-95', 'opacity-0');
+        // Animate modal appearance
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
 
-    setTimeout(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        currentDeleteId_{{ $modalId }} = null;
-    }, 300);
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
 
-    // Restore body scroll
-    document.body.style.overflow = 'auto';
-    document.documentElement.style.overflow = 'auto';
-}
+        // Ensure modal is on top of everything
+        modal.style.zIndex = '999999';
+        modalContent.style.zIndex = '1000000';
+    }
 
-function confirmDelete_{{ $modalId }}() {
-    if (currentDeleteId_{{ $modalId }}) {
-        // Add loading state
-        const confirmBtn = document.getElementById('{{ $modalId }}ConfirmBtn');
-        confirmBtn.disabled = true;
-        confirmBtn.innerHTML = `
+    function closeModal_{{ $modalId }}() {
+        const modal = document.getElementById('{{ $modalId }}');
+        const modalContent = document.getElementById('{{ $modalId }}Content');
+
+        if (!modal || !modalContent) return;
+
+        // Animate modal disappearance
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentDeleteId_{{ $modalId }} = null;
+        }, 300);
+
+        // Restore body scroll
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+    }
+
+    function confirmDelete_{{ $modalId }}() {
+        if (currentDeleteId_{{ $modalId }}) {
+            // Add loading state
+            const confirmBtn = document.getElementById('{{ $modalId }}ConfirmBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = `
             <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -144,23 +144,23 @@ function confirmDelete_{{ $modalId }}() {
             Menghapus...
         `;
 
-        // Submit the form
-        document.getElementById('deleteForm{{ $modalId }}' + currentDeleteId_{{ $modalId }}).submit();
-    }
-}
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const modal = document.getElementById('{{ $modalId }}');
-        if (modal && !modal.classList.contains('hidden')) {
-            closeModal_{{ $modalId }}();
+            // Submit the form
+            document.getElementById('deleteForm{{ $modalId }}' + currentDeleteId_{{ $modalId }}).submit();
         }
     }
-});
 
-// Initialize modal creation when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    createModal_{{ $modalId }}();
-});
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('{{ $modalId }}');
+            if (modal && !modal.classList.contains('hidden')) {
+                closeModal_{{ $modalId }}();
+            }
+        }
+    });
+
+    // Initialize modal creation when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        createModal_{{ $modalId }}();
+    });
 </script>

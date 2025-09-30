@@ -48,11 +48,13 @@
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Tanggal Peminjaman:</span>
-                                        <span class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_peminjaman ?? $transaksi->tanggal['peminjaman'] ?? null)->format('d F Y') ?? '-' }}</span>
+                                        <span
+                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_peminjaman ?? ($transaksi->tanggal['peminjaman'] ?? null))->format('d F Y') ?? '-' }}</span>
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Tanggal Pengembalian:</span>
-                                        <span class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_pengembalian ?? $transaksi->tanggal['pengembalian'] ?? null)->format('d F Y') ?? '-' }}</span>
+                                        <span
+                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_pengembalian ?? ($transaksi->tanggal['pengembalian'] ?? null))->format('d F Y') ?? '-' }}</span>
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Status:</span>
@@ -68,7 +70,8 @@
                                                 ],
                                                 'rejected' => [
                                                     'color' => 'bg-red-500/20 text-red-300 border-red-400/30',
-                                                    'icon' => 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+                                                    'icon' =>
+                                                        'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
                                                 ],
                                                 'canceled' => [
                                                     'color' => 'bg-gray-500/20 text-gray-300 border-gray-400/30',
@@ -77,13 +80,15 @@
                                             ];
                                             $config = $statusConfig[$transaksi->status] ?? $statusConfig['pending'];
                                         @endphp
-                                        <span class="inline-flex items-center px-2 py-1 text-xs rounded-full border {{ $config['color'] }}">
+                                        <span
+                                            class="inline-flex items-center px-2 py-1 text-xs rounded-full border {{ $config['color'] }}">
                                             {{ ucfirst($transaksi->status) }}
                                         </span>
                                     </div>
                                     <div class="flex justify-between items-center py-2">
                                         <span class="text-gray-400">Dibuat:</span>
-                                        <span class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}</span>
+                                        <span
+                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -104,15 +109,19 @@
                                     <h4 class="text-lg font-semibold text-white mb-3">Surat Peminjaman</h4>
                                     <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 bg-gray-700/50 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            <div
+                                                class="w-10 h-10 bg-gray-700/50 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                     </path>
                                                 </svg>
                                             </div>
                                             <div class="flex-1">
-                                                <p class="text-white font-medium text-sm">{{ $transaksi->file['name'] ?? 'Surat Peminjaman.pdf' }}</p>
+                                                <p class="text-white font-medium text-sm">
+                                                    {{ $transaksi->file['name'] ?? 'Surat Peminjaman.pdf' }}</p>
                                                 <p class="text-gray-400 text-xs">PDF Document</p>
                                             </div>
                                             <a href="{{ $transaksi->file['url'] }}" target="_blank"
@@ -128,30 +137,39 @@
                             <div>
                                 <h4 class="text-lg font-semibold text-white mb-3">Timeline Status</h4>
                                 <div class="space-y-3">
-                                    <div class="flex items-center gap-3 p-3 bg-yellow-500/10 border border-yellow-400/30 rounded-lg">
+                                    <div
+                                        class="flex items-center gap-3 p-3 bg-yellow-500/10 border border-yellow-400/30 rounded-lg">
                                         <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
                                         <div>
                                             <p class="text-yellow-300 font-medium text-sm">Menunggu Approval</p>
-                                            <p class="text-yellow-400 text-xs">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}</p>
+                                            <p class="text-yellow-400 text-xs">
+                                                {{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}
+                                            </p>
                                         </div>
                                     </div>
 
                                     @if ($transaksi->status === 'accepted')
-                                        <div class="flex items-center gap-3 p-3 bg-green-500/10 border border-green-400/30 rounded-lg">
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-green-500/10 border border-green-400/30 rounded-lg">
                                             <div class="w-2 h-2 bg-green-400 rounded-full"></div>
                                             <div>
                                                 <p class="text-green-300 font-medium text-sm">Disetujui</p>
-                                                <p class="text-green-400 text-xs">{{ \Carbon\Carbon::parse($transaksi->updated_at)->format('d F Y, H:i') }}</p>
+                                                <p class="text-green-400 text-xs">
+                                                    {{ \Carbon\Carbon::parse($transaksi->updated_at)->format('d F Y, H:i') }}
+                                                </p>
                                             </div>
                                         </div>
                                     @endif
 
                                     @if ($transaksi->status === 'rejected')
-                                        <div class="flex items-center gap-3 p-3 bg-red-500/10 border border-red-400/30 rounded-lg">
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-red-500/10 border border-red-400/30 rounded-lg">
                                             <div class="w-2 h-2 bg-red-400 rounded-full"></div>
                                             <div>
                                                 <p class="text-red-300 font-medium text-sm">Ditolak</p>
-                                                <p class="text-red-400 text-xs">{{ \Carbon\Carbon::parse($transaksi->updated_at)->format('d F Y, H:i') }}</p>
+                                                <p class="text-red-400 text-xs">
+                                                    {{ \Carbon\Carbon::parse($transaksi->updated_at)->format('d F Y, H:i') }}
+                                                </p>
                                             </div>
                                         </div>
                                     @endif
@@ -177,7 +195,8 @@
                     <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                 </svg>
@@ -213,12 +232,15 @@
                                 @if ((is_array($barang->gambar) && isset($barang->gambar['url'])) || (is_string($barang->gambar) && $barang->gambar))
                                     <div class="pt-4 border-t border-gray-800/50">
                                         <h4 class="text-sm font-medium text-gray-400 mb-3">Foto Barang</h4>
-                                        <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg overflow-hidden">
+                                        <div
+                                            class="bg-gray-800/50 border border-gray-700/50 rounded-lg overflow-hidden">
                                             @if (is_array($barang->gambar) && isset($barang->gambar['url']))
-                                                <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
+                                                <img src="{{ $barang->gambar['url'] }}"
+                                                    alt="{{ $barang->nama_barang }}"
                                                     class="w-full h-48 object-cover">
                                             @elseif(is_string($barang->gambar) && $barang->gambar)
-                                                <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}"
+                                                <img src="{{ asset($barang->gambar) }}"
+                                                    alt="{{ $barang->nama_barang }}"
                                                     class="w-full h-48 object-cover">
                                             @endif
                                         </div>
@@ -234,7 +256,8 @@
                     <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
@@ -254,7 +277,8 @@
                                 </div>
                                 <div class="flex justify-between items-center py-2">
                                     <span class="text-gray-400">Role:</span>
-                                    <span class="inline-flex items-center px-2 py-1 bg-gray-700/50 text-gray-200 text-xs rounded-full border border-gray-600/30">
+                                    <span
+                                        class="inline-flex items-center px-2 py-1 bg-gray-700/50 text-gray-200 text-xs rounded-full border border-gray-600/30">
                                         {{ ucfirst($user->role) }}
                                     </span>
                                 </div>
@@ -272,7 +296,8 @@
                     <div>
                         <div class="flex items-center gap-3 mb-2">
                             <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                                     </path>
@@ -282,18 +307,20 @@
                             </div>
                             <h3 class="text-lg font-semibold text-white">Aksi Admin</h3>
                         </div>
-                        <p class="text-gray-400 text-sm">Update status transaksi dan tambahkan catatan untuk peminjam</p>
+                        <p class="text-gray-400 text-sm">Update status transaksi dan tambahkan catatan untuk peminjam
+                        </p>
                     </div>
-                    
+
                     <div class="flex flex-col sm:flex-row gap-3">
                         <a href="{{ route('admin.transaksi.index') }}"
                             class="inline-flex items-center justify-center px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-white text-sm font-medium rounded-lg border border-gray-600/30 transition-colors">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
                             </svg>
                             Kembali ke Daftar
                         </a>
-                        
+
                         @if ($barang)
                             <a href="{{ route('barang.show', $barang->id) }}" target="_blank"
                                 class="inline-flex items-center justify-center px-4 py-2 bg-blue-600/50 hover:bg-blue-500/50 text-white text-sm font-medium rounded-lg border border-blue-500/30 transition-colors">

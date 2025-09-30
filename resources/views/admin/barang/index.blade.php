@@ -518,104 +518,100 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <x-delete-confirmation-modal 
-        modal-id="deleteModal"
-        title="Konfirmasi Hapus Barang"
-        subtitle="Tindakan ini tidak dapat dibatalkan"
-        item-type="barang"
+    <x-delete-confirmation-modal modal-id="deleteModal" title="Konfirmasi Hapus Barang"
+        subtitle="Tindakan ini tidak dapat dibatalkan" item-type="barang"
         warning-text="Data barang yang sudah dihapus tidak dapat dikembalikan lagi. Pastikan barang tidak sedang digunakan dalam transaksi aktif."
-        confirm-button-text="Ya, Hapus Barang"
-        cancel-button-text="Batal" />
+        confirm-button-text="Ya, Hapus Barang" cancel-button-text="Batal" />
 
     <script>
-            const dropdowns = document.querySelectorAll('.premium-dropdown');
+        const dropdowns = document.querySelectorAll('.premium-dropdown');
 
-            dropdowns.forEach(dropdown => {
-                // Add focus and blur effects
-                dropdown.addEventListener('focus', function() {
-                    this.parentNode.classList.add('dropdown-focused');
-                });
+        dropdowns.forEach(dropdown => {
+            // Add focus and blur effects
+            dropdown.addEventListener('focus', function() {
+                this.parentNode.classList.add('dropdown-focused');
+            });
 
-                dropdown.addEventListener('blur', function() {
-                    this.parentNode.classList.remove('dropdown-focused');
-                });
+            dropdown.addEventListener('blur', function() {
+                this.parentNode.classList.remove('dropdown-focused');
+            });
 
-                // Add hover effects to arrow
-                dropdown.addEventListener('mouseenter', function() {
-                    const arrow = this.parentNode.querySelector('.dropdown-arrow');
-                    if (arrow) {
-                        arrow.style.transform = 'rotate(180deg) scale(1.1)';
-                        arrow.style.color = '#ef4444';
-                    }
-                });
-
-                dropdown.addEventListener('mouseleave', function() {
-                    const arrow = this.parentNode.querySelector('.dropdown-arrow');
-                    if (arrow) {
-                        arrow.style.transform = 'rotate(0deg) scale(1)';
-                        arrow.style.color = '#9ca3af';
-                    }
-                });
-
-                // Add change effect for dropdowns
-                dropdown.addEventListener('change', function() {
-                    if (this.value) {
-                        this.classList.add('has-value');
-                        this.style.background =
-                            'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
-                        this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
-                    } else {
-                        this.classList.remove('has-value');
-                        this.style.background = '';
-                        this.style.borderColor = '';
-                    }
-                });
-
-                // Initialize dropdown state
-                if (dropdown.value) {
-                    dropdown.style.background =
-                        'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
-                    dropdown.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+            // Add hover effects to arrow
+            dropdown.addEventListener('mouseenter', function() {
+                const arrow = this.parentNode.querySelector('.dropdown-arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(180deg) scale(1.1)';
+                    arrow.style.color = '#ef4444';
                 }
             });
 
-            // Search input enhancements
-            const searchInput = document.querySelector('input[name="search"]');
-            if (searchInput) {
-                // Add input event listener for real-time effects
-                searchInput.addEventListener('input', function() {
-                    if (this.value.length > 0) {
-                        this.classList.add('has-value');
-                        this.style.background =
-                            'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
-                        this.style.borderColor = 'rgba(220, 38, 38, 0.6)';
-                        this.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
-                    } else {
-                        this.classList.remove('has-value');
-                        this.style.background = '';
-                        this.style.borderColor = '';
-                        this.style.boxShadow = '';
-                    }
-                });
-
-                // Initialize search input state
-                if (searchInput.value) {
-                    searchInput.classList.add('has-value');
-                    searchInput.style.background =
-                        'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
-                    searchInput.style.borderColor = 'rgba(220, 38, 38, 0.6)';
-                    searchInput.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
+            dropdown.addEventListener('mouseleave', function() {
+                const arrow = this.parentNode.querySelector('.dropdown-arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(0deg) scale(1)';
+                    arrow.style.color = '#9ca3af';
                 }
+            });
 
-                // Add focus and blur effects
-                searchInput.addEventListener('focus', function() {
-                    this.style.transform = 'scale(1.02)';
-                });
+            // Add change effect for dropdowns
+            dropdown.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('has-value');
+                    this.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                    this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+                } else {
+                    this.classList.remove('has-value');
+                    this.style.background = '';
+                    this.style.borderColor = '';
+                }
+            });
 
-                searchInput.addEventListener('blur', function() {
-                    this.style.transform = 'scale(1)';
-                });
+            // Initialize dropdown state
+            if (dropdown.value) {
+                dropdown.style.background =
+                    'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                dropdown.style.borderColor = 'rgba(220, 38, 38, 0.5)';
             }
+        });
+
+        // Search input enhancements
+        const searchInput = document.querySelector('input[name="search"]');
+        if (searchInput) {
+            // Add input event listener for real-time effects
+            searchInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    this.classList.add('has-value');
+                    this.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
+                    this.style.borderColor = 'rgba(220, 38, 38, 0.6)';
+                    this.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
+                } else {
+                    this.classList.remove('has-value');
+                    this.style.background = '';
+                    this.style.borderColor = '';
+                    this.style.boxShadow = '';
+                }
+            });
+
+            // Initialize search input state
+            if (searchInput.value) {
+                searchInput.classList.add('has-value');
+                searchInput.style.background =
+                    'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
+                searchInput.style.borderColor = 'rgba(220, 38, 38, 0.6)';
+                searchInput.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
+            }
+
+            // Add focus and blur effects
+            searchInput.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+
+            searchInput.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
         });
     </script>
 

@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="min-h-screen bg-gradient-to-br from-black/95 via-gray-900/95 to-black/95 py-8">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header with Back Icon -->
             <div class="mb-8 flex items-center gap-4">
                 <a href="{{ isset($transaksi) ? route('transaksi.detail', $transaksi->id) : route('barang.show', $barang->_id) }}"
@@ -34,15 +34,17 @@
                             {{ isset($transaksi) ? 'Form Edit Peminjaman' : 'Form Peminjaman Barang' }}
                         </h2>
                         <p class="text-gray-400">
-                            {{ isset($transaksi) ? 'Perbarui data peminjaman untuk' : 'Lengkapi data peminjaman barang' }} {{ $barang->nama_barang }}
+                            {{ isset($transaksi) ? 'Perbarui data peminjaman untuk' : 'Lengkapi data peminjaman barang' }}
+                            {{ $barang->nama_barang }}
                         </p>
                     </div>
                 </div>
 
-                <form action="{{ isset($transaksi) ? route('transaksi.update', $transaksi->id) : route('transaksi.store', ['barang_id' => $barang->_id]) }}" method="POST"
-                    enctype="multipart/form-data" class="space-y-6">
+                <form
+                    action="{{ isset($transaksi) ? route('transaksi.update', $transaksi->id) : route('transaksi.store', ['barang_id' => $barang->_id]) }}"
+                    method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
-                    @if(isset($transaksi))
+                    @if (isset($transaksi))
                         @method('PUT')
                     @endif
                     <input type="hidden" name="barang_id" value="{{ $barang->_id }}">
@@ -51,7 +53,8 @@
                     <div class="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-8 h-8 bg-red-600/20 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                 </svg>
@@ -74,7 +77,7 @@
                                 <div class="text-xs text-gray-400 mb-1 uppercase tracking-wide">Stok Tersedia</div>
                                 <div class="text-green-400 font-semibold flex items-center gap-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4">
                                         </path>
                                     </svg>
@@ -108,7 +111,8 @@
 
                         <!-- Tanggal Pengembalian -->
                         <div>
-                            <label for="tanggal_pengembalian" class="block text-sm font-medium text-gray-300 mb-2">Tanggal
+                            <label for="tanggal_pengembalian"
+                                class="block text-sm font-medium text-gray-300 mb-2">Tanggal
                                 Pengembalian</label>
                             <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" required
                                 value="{{ old('tanggal_pengembalian', isset($transaksi) && isset($transaksi->tanggal['pengembalian']) ? \Carbon\Carbon::parse($transaksi->tanggal['pengembalian'])->format('Y-m-d') : '') }}"
@@ -133,9 +137,9 @@
                             <label for="jumlah" class="block text-sm font-medium text-gray-300 mb-2">
                                 Jumlah Peminjaman
                             </label>
-                            <input type="number" name="jumlah" id="jumlah" min="1" 
-                                max="{{ $barang->stok }}"
-                                required value="{{ old('jumlah', isset($transaksi) ? $transaksi->jumlah : '') }}"
+                            <input type="number" name="jumlah" id="jumlah" min="1"
+                                max="{{ $barang->stok }}" required
+                                value="{{ old('jumlah', isset($transaksi) ? $transaksi->jumlah : '') }}"
                                 class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
                                 placeholder="0">
                             @error('jumlah')
@@ -149,15 +153,17 @@
                                 </p>
                             @enderror
                             <p class="mt-2 text-xs text-gray-400">
-                                Stok tersedia: <span class="text-green-400 font-semibold">{{ $barang->stok }} unit</span>
+                                Stok tersedia: <span class="text-green-400 font-semibold">{{ $barang->stok }}
+                                    unit</span>
                             </p>
                         </div>
 
                         <!-- Surat Peminjaman -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Surat Peminjaman</label>
-                            
-                            <input type="file" name="file" accept="application/pdf" {{ isset($transaksi) ? '' : 'required' }}
+
+                            <input type="file" name="file" accept="application/pdf"
+                                {{ isset($transaksi) ? '' : 'required' }}
                                 class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700 file:cursor-pointer cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200">
                             @error('file')
                                 <p class="mt-2 text-sm text-red-400 flex items-center gap-1">
@@ -172,7 +178,7 @@
                             <p class="mt-2 text-xs text-gray-400">
                                 <span class="inline-flex items-center gap-1">
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                         </path>
                                     </svg>
@@ -180,42 +186,46 @@
                                 </span>
                             </p>
 
-                            @if(isset($transaksi) && isset($transaksi->file['url']))
-                            <div class="mt-4 p-4 bg-gray-800/50 border border-gray-700/50 rounded-lg">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            @if (isset($transaksi) && isset($transaksi->file['url']))
+                                <div class="mt-4 p-4 bg-gray-800/50 border border-gray-700/50 rounded-lg">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-red-400" fill="none"
+                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <span class="text-white text-sm font-medium">File Saat Ini</span>
+                                                <p class="text-xs text-gray-400">Upload file baru untuk mengganti</p>
+                                            </div>
+                                        </div>
+                                        <a href="{{ $transaksi->file['url'] }}" target="_blank"
+                                            class="inline-flex items-center gap-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs rounded-lg transition-colors duration-200">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                                 </path>
                                             </svg>
-                                        </div>
-                                        <div>
-                                            <span class="text-white text-sm font-medium">File Saat Ini</span>
-                                            <p class="text-xs text-gray-400">Upload file baru untuk mengganti</p>
-                                        </div>
+                                            Lihat File
+                                        </a>
                                     </div>
-                                    <a href="{{ $transaksi->file['url'] }}" target="_blank" 
-                                       class="inline-flex items-center gap-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs rounded-lg transition-colors duration-200">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                            </path>
-                                        </svg>
-                                        Lihat File
-                                    </a>
                                 </div>
-                            </div>
                             @endif
                         </div>
                     </div>
 
                     <!-- Keterangan -->
                     <div>
-                        <label for="keterangan" class="block text-sm font-medium text-gray-300 mb-2">Keterangan</label>
-                        <textarea id="keterangan" name="keterangan" rows="4"
-                            placeholder="Tambahkan keterangan jika diperlukan..."
+                        <label for="keterangan"
+                            class="block text-sm font-medium text-gray-300 mb-2">Keterangan</label>
+                        <textarea id="keterangan" name="keterangan" rows="4" placeholder="Tambahkan keterangan jika diperlukan..."
                             class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200 resize-none">{{ old('keterangan', isset($transaksi) ? $transaksi->keterangan : '') }}</textarea>
                         @error('keterangan')
                             <p class="mt-2 text-sm text-red-400 flex items-center gap-1">
@@ -241,7 +251,7 @@
                         </a>
                         <button type="submit"
                             class="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors duration-200">
-                            @if(isset($transaksi))
+                            @if (isset($transaksi))
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
@@ -293,7 +303,9 @@
         }
 
         /* Smooth transitions untuk semua elemen form */
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             transition: all 0.2s ease-in-out;
         }
 
