@@ -26,4 +26,20 @@ class Transaksi extends Model
         'keterangan',
         'transaksi_terkait_id',
     ];
+
+    /**
+     * Relationship to Barang
+     */
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id', '_id');
+    }
+
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', '_id');
+    }
 }

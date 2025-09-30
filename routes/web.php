@@ -39,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     // Halaman pinjaman untuk user
     Route::get('/pinjaman', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/{id}', [TransaksiController::class, 'getDetail'])->name('transaksi.detail');
+    Route::get('/transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
+    Route::put('/transaksi/{id}', [TransaksiController::class, 'updatePeminjaman'])->name('transaksi.update');
+    Route::delete('/transaksi/{id}/cancel', [TransaksiController::class, 'statusCancel'])->name('transaksi.cancel');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

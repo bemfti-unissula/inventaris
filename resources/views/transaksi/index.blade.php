@@ -207,7 +207,7 @@
                                         <div>
                                             <span class="text-gray-400">Tanggal Pinjam:</span>
                                             <p class="text-white font-medium">
-                                                {{ \Carbon\Carbon::parse($transaksi->tanggal_peminjaman)->format('d/m/Y') }}
+                                                {{ \Carbon\Carbon::parse($transaksi->tanggal['peminjaman'])->format('d/m/Y') }}
                                             </p>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@
                                         <div>
                                             <span class="text-gray-400">Tanggal Kembali:</span>
                                             <p class="text-white font-medium">
-                                                {{ \Carbon\Carbon::parse($transaksi->tanggal_pengembalian)->format('d/m/Y') }}
+                                                {{ \Carbon\Carbon::parse($transaksi->tanggal['pengembalian'])->format('d/m/Y') }}
                                             </p>
                                         </div>
                                     </div>

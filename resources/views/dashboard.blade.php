@@ -296,7 +296,7 @@
                                             </div>
                                             <div class="flex items-center gap-1.5">
                                                 <div class="w-1.5 h-1.5 bg-sky-400 rounded-full"></div>
-                                                <span class="text-white/80 font-poppins font-medium">2024/2025</span>
+                                                <span class="text-white/80 font-poppins font-medium">{{ date('Y') }}/{{ date('Y') + 1 }}</span>
                                             </div>
                                         </div>
                                     </div>

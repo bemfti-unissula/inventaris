@@ -158,6 +158,7 @@
                                                     'pending' => 'bg-yellow-500/20 text-yellow-300',
                                                     'accepted' => 'bg-green-500/20 text-green-300',
                                                     'rejected' => 'bg-red-500/20 text-red-300',
+                                                    'canceled' => 'bg-gray-500/20 text-gray-300',
                                                 ];
                                             @endphp
                                             <span
@@ -188,19 +189,21 @@
                                                     </svg>
                                                     Detail
                                                 </a>
-                                                <span class="text-gray-600">|</span>
-                                                <button
-                                                    onclick="openStatusModal('{{ $transaksi->id }}', '{{ $transaksi->status }}', '{{ $transaksi->catatan_admin ?? '' }}')"
-                                                    class="text-red-400 hover:text-red-300 transition-colors duration-200 flex items-center gap-1">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                                        </path>
-                                                    </svg>
-                                                    Update
-                                                </button>
+                                                @if ($transaksi->status !== 'canceled')
+                                                    <span class="text-gray-600">|</span>
+                                                    <button
+                                                        onclick="openStatusModal('{{ $transaksi->id }}', '{{ $transaksi->status }}', '{{ $transaksi->catatan_admin ?? '' }}')"
+                                                        class="text-red-400 hover:text-red-300 transition-colors duration-200 flex items-center gap-1">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                            </path>
+                                                        </svg>
+                                                        Update
+                                                    </button>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

@@ -215,7 +215,7 @@
 
                     @if ($user->_id !== auth()->id())
                         <button type="button"
-                            onclick="openDeleteModal('{{ $user->_id }}', '{{ $user->name }}')"
+                            onclick="openDeleteModaluserShowDeleteModal('{{ $user->_id }}', '{{ $user->name }}')"
                             class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors duration-200">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -232,73 +232,18 @@
 
     @if ($user->_id !== auth()->id())
         <!-- Delete Confirmation Modal -->
-        <div id="deleteModal"
-            class="fixed inset-0 bg-black/50 backdrop-blur-sm items-center justify-center p-4 z-50 hidden">
-            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Konfirmasi Hapus User</h3>
-                    <p class="text-gray-400 mb-6">Apakah Anda yakin ingin menghapus user <strong
-                            class="text-white">{{ $user->name }}</strong>? Tindakan ini tidak dapat dibatalkan.</p>
-                    <div class="flex gap-3 justify-center">
-                        <button type="button" onclick="closeDeleteModal()"
-                            class="px-6 py-2.5 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors duration-200">
-                            Batal
-                        </button>
-                        <form action="{{ route('admin.user.destroy', $user->_id) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors duration-200">
-                                <span class="inline-flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                        </path>
-                                    </svg>
-                                    Hapus User
-                                </span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            function openDeleteModal() {
-                const modal = document.getElementById('deleteModal');
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeDeleteModal() {
-                const modal = document.getElementById('deleteModal');
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = 'auto';
-            }
-
-            // Close modal when clicking outside
-            document.getElementById('deleteModal')?.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeDeleteModal();
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeDeleteModal();
-                }
-            });
-        </script>
+        <form action="{{ route('admin.user.destroy', $user->_id) }}" method="POST" id="deleteFormuserShowDeleteModal">
+            @csrf
+            @method('DELETE')
+        </form>
+        
+        <x-delete-confirmation-modal 
+            modal-id="userShowDeleteModal"
+            title="Konfirmasi Hapus User"
+            subtitle="Tindakan ini tidak dapat dibatalkan"
+            item-type="user"
+            warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
+            confirm-button-text="Ya, Hapus User"
+            cancel-button-text="Batal" />
     @endif
 </x-app-layout>

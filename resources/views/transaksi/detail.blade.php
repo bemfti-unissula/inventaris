@@ -38,6 +38,7 @@
                                 'pending' => 'bg-yellow-500/20 text-yellow-300 border-yellow-400/30',
                                 'accepted' => 'bg-green-500/20 text-green-300 border-green-400/30',
                                 'rejected' => 'bg-red-500/20 text-red-300 border-red-400/30',
+                                'canceled' => 'bg-gray-500/20 text-gray-300 border-gray-400/30',
                             ];
                         @endphp
                         <span
@@ -62,13 +63,15 @@
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Tanggal Peminjaman:</span>
-                                        <span
-                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_peminjaman)->format('d F Y') }}</span>
+                                        <span class="text-white font-medium">
+                                            {{ isset($transaksi->tanggal['peminjaman']) ? \Carbon\Carbon::parse($transaksi->tanggal['peminjaman'])->format('d F Y') : '-' }}
+                                        </span>
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Tanggal Pengembalian:</span>
-                                        <span
-                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_pengembalian)->format('d F Y') }}</span>
+                                        <span class="text-white font-medium">
+                                            {{ isset($transaksi->tanggal['pengembalian']) ? \Carbon\Carbon::parse($transaksi->tanggal['pengembalian'])->format('d F Y') : '-' }}
+                                        </span>
                                     </div>
                                     <div class="flex justify-between items-center py-2">
                                         <span class="text-gray-400">Dibuat:</span>
@@ -154,6 +157,17 @@
                                             </div>
                                         </div>
                                     @endif
+
+                                    @if ($transaksi->status === 'canceled')
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-gray-500/10 border border-gray-400/30 rounded-lg">
+                                            <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                            <div>
+                                                <p class="text-gray-300 font-medium text-sm">Dibatalkan</p>
+                                                <p class="text-gray-400 text-xs">Transaksi dibatalkan oleh user</p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -218,18 +232,60 @@
                         Kembali ke Daftar
                     </a>
 
-                    @if ($barang)
-                        <a href="{{ route('barang.show', $barang->id) }}"
-                            class="inline-flex items-center px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-white text-sm font-medium rounded-lg border border-gray-600/30 transition-colors">
-                            Lihat Detail Barang
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    @endif
+                    <div class="flex items-center gap-3">
+                        @if ($barang)
+                            <a href="{{ route('barang.show', $barang->id) }}"
+                                class="inline-flex items-center px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-white text-sm font-medium rounded-lg border border-gray-600/30 transition-colors">
+                                Lihat Detail Barang
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        @endif
+
+                        @if (in_array($transaksi->status, ['pending', 'rejected']) && $transaksi->status !== 'canceled')
+                            <a href="{{ route('transaksi.edit', $transaksi->id) }}"
+                                class="inline-flex items-center px-4 py-2 bg-blue-600/50 hover:bg-blue-500/50 text-white text-sm font-medium rounded-lg border border-blue-500/30 transition-colors">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
+                                </svg>
+                                Edit Transaksi
+                            </a>
+
+                            <button type="button"
+                                onclick="openDeleteModaldeleteModal('{{ $transaksi->id }}', '{{ $transaksi->barang['nama_barang'] ?? 'transaksi ini' }}')"
+                                class="inline-flex items-center px-4 py-2 bg-red-600/50 hover:bg-red-500/50 text-white text-sm font-medium rounded-lg border border-red-500/30 transition-colors">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12">
+                                    </path>
+                                </svg>
+                                Batalkan
+                            </button>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Hidden form for cancel transaction -->
+    <form action="{{ route('transaksi.cancel', $transaksi->id) }}" method="POST" 
+          id="deleteFormdeleteModal{{ $transaksi->id }}" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
+    <!-- Delete Confirmation Modal -->
+    <x-delete-confirmation-modal 
+        modal-id="deleteModal"
+        title="Konfirmasi Batalkan Transaksi"
+        subtitle="Tindakan ini akan membatalkan transaksi"
+        item-type="transaksi untuk barang"
+        warning-text="Transaksi yang sudah dibatalkan tidak dapat dikembalikan. Stok barang akan dikembalikan jika transaksi masih dalam status pending."
+        confirm-button-text="Ya, Batalkan Transaksi"
+        cancel-button-text="Tidak, Kembali" />
 </x-app-layout>

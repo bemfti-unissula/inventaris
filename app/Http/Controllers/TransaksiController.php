@@ -25,12 +25,33 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::find($id);
         if (!$transaksi) {
-            return redirect()->route('transaksi.getByUser')->with('error', 'Riwayat tidak ditemukan');
+            return redirect()->route('transaksi.index')->with('error', 'Riwayat tidak ditemukan');
         }
         if ($transaksi->user_id != Auth::user()->id) {
             return abort(403);
         }
         return view('transaksi.detail', compact('transaksi'));
+    }
+
+    public function edit($id)
+    {
+        $transaksi = Transaksi::find($id);
+        if (!$transaksi) {
+            return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak ditemukan');
+        }
+        if ($transaksi->user_id != Auth::user()->id) {
+            return abort(403);
+        }
+        if ($transaksi->tipe != 'peminjaman' || $transaksi->status == 'accepted' || $transaksi->status == 'canceled') {
+            return redirect()->route('transaksi.detail', $id)->with('error', 'Transaksi tidak dapat diedit');
+        }
+        
+        $barang = Barang::find($transaksi->barang_id);
+        if (!$barang) {
+            return redirect()->route('transaksi.index')->with('error', 'Barang tidak ditemukan');
+        }
+        
+        return view('transaksi.create', compact('transaksi', 'barang'));
     }
 
     public function create($barang_id)
@@ -49,11 +70,11 @@ class TransaksiController extends Controller
             // Step 1: Cek barang dan stok terlebih dahulu
             $barang = Barang::find($request->validated('barang_id'));
             if (!$barang) {
-                return redirect()->route('transaksi.getByUser')->with('error', 'Barang tidak ditemukan');
+                return redirect()->route('transaksi.index')->with('error', 'Barang tidak ditemukan');
             }
 
             if ($barang->total_dimiliki < (int) $request->validated('jumlah')) {
-                return redirect()->route('transaksi.getByUser')->with('error', 'Jumlah barang tidak cukup');
+                return redirect()->route('transaksi.index')->with('error', 'Jumlah barang tidak cukup');
             }
 
             // Step 2: Upload file
@@ -68,13 +89,15 @@ class TransaksiController extends Controller
             }
 
             // Create file object
-            $file = new stdClass;
-            $file->path = $uploadResult['path'];
-            $file->url = $uploadResult['url'];
+            $file = [
+                'path' => $uploadResult['path'],
+                'url' => $uploadResult['url']
+            ];
 
-            $tanggal = new stdClass;
-            $tanggal->peminjaman = date('Y-m-d', strtotime($request->validated('tanggal_peminjaman')));
-            $tanggal->pengembalian = date('Y-m-d', strtotime($request->validated('tanggal_pengembalian')));
+            $tanggal = [
+                'peminjaman' => date('Y-m-d', strtotime($request->validated('tanggal_peminjaman'))),
+                'pengembalian' => date('Y-m-d', strtotime($request->validated('tanggal_pengembalian')))
+            ];
 
             // Step 3: Save transaksi
             $transaksi = new Transaksi();
@@ -90,12 +113,12 @@ class TransaksiController extends Controller
             $transaksi->status = 'pending';
             $transaksi->save();
 
-            return redirect()->route('transaksi.getByUser')->with('success', 'Transaksi berhasil dibuat');
+            return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibuat');
         } catch (\Exception $e) {
             if ($uploadResult && isset($uploadResult['path'])) {
                 $imageKitService->deleteImageWithStorage($uploadResult['path']);
             }
-            return redirect()->route('transaksi.getByUser')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('transaksi.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -106,18 +129,25 @@ class TransaksiController extends Controller
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
             if ($transaksi->tipe != 'peminjaman' || $transaksi->status == 'accepted' || $transaksi->status == 'canceled') {
-                return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak dapat diupdate');
+                return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak dapat diupdate');
             }
 
-            // Validasi stok barang
-            if ($transaksi->barang->total_dimiliki < (int) $request->validated('jumlah')) {
+            // Get barang data for validation
+            $barang = Barang::find($transaksi->barang_id);
+            if (!$barang) {
+                return redirect()->route('transaksi.index')->with('error', 'Barang tidak ditemukan');
+            }
+
+            // Validasi stok barang - tambahkan jumlah yang sedang dipinjam kembali ke stok tersedia
+            $stokTersedia = $barang->stok + $transaksi->jumlah;
+            if ($stokTersedia < (int) $request->validated('jumlah')) {
                 return redirect()->back()->with('error', 'Jumlah barang tidak cukup untuk jumlah yang diminta.')->withInput();
             }
 
             // Update tanggal
-            $tanggal = $transaksi->tanggal;
-            $tanggal->peminjaman = date('Y-m-d', strtotime($request->validated('tanggal_peminjaman')));
-            $tanggal->pengembalian = date('Y-m-d', strtotime($request->validated('tanggal_pengembalian')));
+            $tanggal = $transaksi->tanggal ?? [];
+            $tanggal['peminjaman'] = date('Y-m-d', strtotime($request->validated('tanggal_peminjaman')));
+            $tanggal['pengembalian'] = date('Y-m-d', strtotime($request->validated('tanggal_pengembalian')));
             $transaksi->tanggal = $tanggal;
 
             // Update detail lainnya
@@ -129,8 +159,8 @@ class TransaksiController extends Controller
             // Handle file upload jika ada file baru
             if ($request->hasFile('file')) {
                 // Hapus file lama jika ada
-                if (isset($transaksi->file->path)) {
-                    $imageKitService->deleteImageWithStorage($transaksi->file->path);
+                if (isset($transaksi->file['path'])) {
+                    $imageKitService->deleteImageWithStorage($transaksi->file['path']);
                 }
 
                 // Upload file baru
@@ -139,22 +169,22 @@ class TransaksiController extends Controller
                     throw new \Exception($uploadResult['error']);
                 }
 
-                $file = new stdClass;
-                $file->path = $uploadResult['path'];
-                $file->url = $uploadResult['url'];
-                $transaksi->file = $file;
+                $transaksi->file = [
+                    'path' => $uploadResult['path'],
+                    'url' => $uploadResult['url']
+                ];
             }
 
             $transaksi->status = 'pending';
             $transaksi->save();
 
-            return redirect()->route('transaksi.getByUser')->with('success', 'Transaksi peminjaman berhasil diupdate.');
+            return redirect()->route('transaksi.index')->with('success', 'Transaksi peminjaman berhasil diupdate.');
         } catch (\Exception $e) {
             // Rollback: Hapus file yang baru diupload jika terjadi error
             if ($uploadResult && isset($uploadResult['path'])) {
                 $imageKitService->deleteImageWithStorage($uploadResult['path']);
             }
-            return redirect()->route('transaksi.getByUser')->with('error', 'Gagal mengupdate transaksi: ' . $e->getMessage());
+            return redirect()->route('transaksi.index')->with('error', 'Gagal mengupdate transaksi: ' . $e->getMessage());
         }
     }
 
@@ -165,7 +195,7 @@ class TransaksiController extends Controller
             // Ambil transaksi yang sudah divalidasi dari Form Request
             $transaksi = $request->transaksi;
             if ($transaksi->tipe != 'peminjaman' || $transaksi->status != 'accepted' || $transaksi->status == 'canceled') {
-                return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak dapat dikembalikan');
+                return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak dapat dikembalikan');
             }
 
             // Upload file gambar
@@ -180,14 +210,16 @@ class TransaksiController extends Controller
             }
 
             // Create file object
-            $gambar = new stdClass;
-            $gambar->path = $uploadResult['path'];
-            $gambar->url = $uploadResult['url'];
+            $gambar = [
+                'path' => $uploadResult['path'],
+                'url' => $uploadResult['url']
+            ];
 
             // Create return object
-            $return = new stdClass;
-            $return->jumlah = (int) $request->validated('jumlah');
-            $return->tanggal_kembali = date('Y-m-d', strtotime($request->validated('tanggal_kembali')));
+            $return = [
+                'jumlah' => (int) $request->validated('jumlah'),
+                'tanggal_kembali' => date('Y-m-d', strtotime($request->validated('tanggal_kembali')))
+            ];
             if ($request->validated('keterangan')) {
                 $return->keterangan = $request->validated('keterangan');
             }
@@ -199,13 +231,13 @@ class TransaksiController extends Controller
             $transaksi->status = 'pending';
             $transaksi->save();
 
-            return redirect()->route('transaksi.getByUser')->with('success', 'Transaksi berhasil dikembalikan');
+            return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dikembalikan');
         } catch (\Exception $e) {
             // Rollback: Hapus gambar yang baru diupload jika terjadi error saat save
             if ($uploadResult && isset($uploadResult['path'])) {
                 $imageKitService->deleteImageWithStorage($uploadResult['path']);
             }
-            return redirect()->route('transaksi.getByUser')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('transaksi.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -217,7 +249,7 @@ class TransaksiController extends Controller
             $transaksi = $request->transaksi;
             // Cek kondisi tambahan yang tidak bisa divalidasi di Form Request
             if ($transaksi->tipe != 'pengembalian' || $transaksi->status == 'accepted' || $transaksi->status == 'canceled') {
-                return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi ini tidak dapat diupdate.');
+                return redirect()->route('transaksi.index')->with('error', 'Transaksi ini tidak dapat diupdate.');
             }
 
             // Buat atau update objek 'return'
@@ -231,8 +263,8 @@ class TransaksiController extends Controller
             // Handle file upload jika ada file baru
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if (isset($return->gambar->path)) {
-                    $imageKitService->deleteImageWithStorage($return->gambar->path);
+                if (isset($return['gambar']['path'])) {
+                    $imageKitService->deleteImageWithStorage($return['gambar']['path']);
                 }
 
                 // Upload gambar baru
@@ -241,40 +273,61 @@ class TransaksiController extends Controller
                     throw new \Exception($uploadResult['error']);
                 }
 
-                $gambar = new stdClass;
-                $gambar->path = $uploadResult['path'];
-                $gambar->url = $uploadResult['url'];
-                $return->gambar = $gambar;
+                $return['gambar'] = [
+                    'path' => $uploadResult['path'],
+                    'url' => $uploadResult['url']
+                ];
             }
 
             $transaksi->status = 'pending';
             $transaksi->return = $return;
             $transaksi->save();
 
-            return redirect()->route('transaksi.getByUser')->with('success', 'Data pengembalian berhasil diupdate.');
+            return redirect()->route('transaksi.index')->with('success', 'Data pengembalian berhasil diupdate.');
         } catch (\Exception $e) {
             // Rollback: Hapus gambar yang baru diupload jika terjadi error saat save
             if ($uploadResult && isset($uploadResult['path'])) {
                 $imageKitService->deleteImageWithStorage($uploadResult['path']);
             }
-            return redirect()->route('transaksi.getByUser')->with('error', 'Gagal mengupdate data: ' . $e->getMessage());
+            return redirect()->route('transaksi.index')->with('error', 'Gagal mengupdate data: ' . $e->getMessage());
         }
     }
 
     public function statusCancel($id)
     {
-        $transaksi = Transaksi::find($id);
-        if (!$transaksi) {
-            return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi tidak ditemukan');
+        try {
+            $transaksi = Transaksi::find($id);
+            if (!$transaksi) {
+                return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak ditemukan');
+            }
+            
+            if ($transaksi->user_id != Auth::user()->id) {
+                return abort(403);
+            }
+            
+            if ($transaksi->status == 'accepted') {
+                return redirect()->route('transaksi.index')->with('error', 'Transaksi sudah diterima dan tidak dapat dibatalkan');
+            }
+            
+            if ($transaksi->status == 'canceled') {
+                return redirect()->route('transaksi.index')->with('error', 'Transaksi sudah dibatalkan sebelumnya');
+            }
+            
+            // Kembalikan stok barang jika status sebelumnya pending
+            if ($transaksi->status == 'pending') {
+                $barang = Barang::find($transaksi->barang_id);
+                if ($barang) {
+                    $barang->stok += $transaksi->jumlah;
+                    $barang->save();
+                }
+            }
+            
+            $transaksi->status = 'canceled';
+            $transaksi->save();
+            
+            return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibatalkan');
+        } catch (\Exception $e) {
+            return redirect()->route('transaksi.index')->with('error', 'Gagal membatalkan transaksi: ' . $e->getMessage());
         }
-        if ($transaksi->user_id != Auth::user()->id) {
-            return abort(403);
-        }
-        if ($transaksi->status == 'accepted') {
-            return redirect()->route('transaksi.getByUser')->with('error', 'Transaksi sudah diterima dan tidak dapat dibatalkan');
-        }
-        $transaksi->status = 'canceled';
-        $transaksi->save();
-        return redirect()->route('transaksi.getByUser')->with('success', 'Transaksi berhasil dibatalkan');
     }
 }
