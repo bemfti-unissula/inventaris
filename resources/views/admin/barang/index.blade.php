@@ -520,11 +520,9 @@
     @push('modals')
         <!-- Delete Confirmation Modal -->
         <x-delete-confirmation-modal modal-id="deleteModal" title="Konfirmasi Hapus Barang"
-            subtitle="Tindakan ini tidak dapat dibatalkan"
-            item-type="barang"
+            subtitle="Tindakan ini tidak dapat dibatalkan" item-type="barang"
             warning-text="Data barang yang sudah dihapus tidak dapat dikembalikan lagi. Pastikan barang tidak sedang digunakan dalam transaksi aktif."
-            confirm-button-text="Ya, Hapus Barang"
-            cancel-button-text="Batal" />
+            confirm-button-text="Ya, Hapus Barang" cancel-button-text="Batal" />
     @endpush
 
     <script>

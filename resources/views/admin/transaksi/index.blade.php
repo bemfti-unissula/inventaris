@@ -133,7 +133,14 @@
                                             @endphp
                                             <div class="text-sm font-medium text-white">
                                                 {{ $barang->nama_barang ?? 'N/A' }}</div>
-                                            <div class="text-sm text-gray-400">{{ $transaksi->keterangan ?? '-' }}
+                                            <div class="text-sm text-gray-400">
+                                                @if ($transaksi->tipe === 'peminjaman')
+                                                    {{ \Illuminate\Support\Str::limit($transaksi->keterangan ?? '-', 12, '...') }}
+                                                @elseif ($transaksi->tipe === 'pengembalian')
+                                                    {{ \Illuminate\Support\Str::limit($transaksi['return']['keterangan'] ?? '-', 12, '...') }}
+                                                @else
+                                                    -
+                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -302,8 +309,8 @@
         </div>
     </div>
 
-    <!-- Status Update Modal -->
-    <div id="statusModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
+    @push('modals')
+    <div id="statusModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden items-center justify-center">
         <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4">
             <h3 class="text-lg font-semibold text-white mb-4">Update Status Transaksi</h3>
 
@@ -340,8 +347,8 @@
             </form>
         </div>
     </div>
-
     <script>
+
         function openStatusModal(transaksiId, currentStatus, currentCatatan) {
             const modal = document.getElementById('statusModal');
             const form = document.getElementById('statusForm');
@@ -358,12 +365,16 @@
             // Show modal
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            // Lock body scroll
+            document.body.classList.add('overflow-hidden');
         }
 
         function closeStatusModal() {
             const modal = document.getElementById('statusModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            // Unlock body scroll
+            document.body.classList.remove('overflow-hidden');
         }
 
         // Close modal when clicking outside
@@ -373,4 +384,5 @@
             }
         });
     </script>
+    @endpush
 </x-app-layout>

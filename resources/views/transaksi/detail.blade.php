@@ -146,7 +146,7 @@
                                         Keterangan
                                     </h3>
                                     <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                        <p class="text-gray-300">{{ $transaksi->keterangan }}</p>
+                                        <p class="text-gray-300 break-words">{{ $transaksi->keterangan }}</p>
                                     </div>
                                 </div>
                             @endif
@@ -277,6 +277,24 @@
                                     </div>
                                 </div>
                             @endif
+
+                            @if (!empty($transaksi->catatan_admin))
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                        <div class="w-6 h-6 bg-red-600 rounded-lg flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.268 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                                            </svg>
+                                        </div>
+                                        Catatan Admin
+                                    </h3>
+                                    <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                                        <p class="text-red-200 break-words">{{ $transaksi->catatan_admin }}</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -354,10 +372,8 @@
     @push('modals')
         <!-- Delete Confirmation Modal -->
         <x-delete-confirmation-modal modal-id="deleteModal" title="Konfirmasi Batalkan Transaksi"
-            subtitle="Tindakan ini akan membatalkan transaksi"
-            item-type="transaksi untuk barang"
+            subtitle="Tindakan ini akan membatalkan transaksi" item-type="transaksi untuk barang"
             warning-text="Transaksi yang sudah dibatalkan tidak dapat dikembalikan. Stok barang akan dikembalikan jika transaksi masih dalam status pending."
-            confirm-button-text="Ya, Batalkan Transaksi"
-            cancel-button-text="Tidak, Kembali" />
+            confirm-button-text="Ya, Batalkan Transaksi" cancel-button-text="Tidak, Kembali" />
     @endpush
 </x-app-layout>

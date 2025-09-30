@@ -255,6 +255,7 @@ class TransaksiController extends Controller
             $transaksi->return = $return;
             $transaksi->tipe = 'pengembalian';
             $transaksi->status = 'pending';
+            $transaksi->catatan_admin = null; // Reset catatan admin
             $transaksi->save();
 
             return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dikembalikan');

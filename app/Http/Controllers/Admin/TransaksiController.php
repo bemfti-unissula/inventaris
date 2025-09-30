@@ -165,6 +165,12 @@ class TransaksiController extends Controller
             if ($barang) {
                 $barang->increment('stok', $transaksi->jumlah);
             }
+        } elseif ($oldStatus === 'accepted' && $request->status === 'rejected' && $transaksi->tipe === 'pengembalian') {
+            // Jika status diubah dari accepted ke rejected, kembalikan jumlah barang
+            $barang = Barang::find($transaksi->barang_id);
+            if ($barang) {
+                $barang->decrement('stok', $transaksi->jumlah);
+            }
         } elseif ($oldStatus === 'accepted' && $request->status === 'pending' && $transaksi->tipe === 'pengembalian') {
             // Jika pengembalian selesai, tambah kembali jumlah barang
             $barang = Barang::find($transaksi->barang_id);
