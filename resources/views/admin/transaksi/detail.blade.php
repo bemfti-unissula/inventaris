@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 mb-6">
                 <!-- Main Content -->
                 <div class="space-y-6">
                     <!-- Informasi Transaksi -->
@@ -37,10 +37,96 @@
                             </div>
                         </div>
 
+                        <!-- Informasi Pengembalian (if exists) -->
+                        @if (!empty($transaksi->return))
+                            <div class="mt-8">
+                                <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                                    <div class="w-6 h-6 bg-green-600 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                                        </svg>
+                                    </div>
+                                    Informasi Pengembalian
+                                </h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
+                                        <span class="text-gray-400">Jumlah Dikembalikan:</span>
+                                        <span class="text-white font-medium">{{ $transaksi->return['jumlah'] ?? '-' }}
+                                            unit</span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
+                                        <span class="text-gray-400">Dikembalikan Pada:</span>
+                                        <span class="text-white font-medium">
+                                            {{ isset($transaksi->return['tanggal_kembali']) ? \Carbon\Carbon::parse($transaksi->return['tanggal_kembali'])->format('d F Y') : '-' }}
+                                        </span>
+                                    </div>
+                                    @if (isset($transaksi->return['gambar']['url']))
+                                        <div class="py-2">
+                                            <h3
+                                                class="text-lg font-semibold text-white mb-3 lg:mt-2 flex items-center gap-2">
+                                                <div
+                                                    class="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center">
+                                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                                Foto Bukti Pengembalian
+                                            </h3>
+                                            <div
+                                                class="bg-gray-800/50 border border-gray-700/50 rounded-lg overflow-hidden mb-3">
+                                                <img src="{{ $transaksi->return['gambar']['url'] }}"
+                                                    alt="Foto Bukti Pengembalian" class="w-full h-64 object-cover">
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Keterangan Pengembalian -->
+                            <div class="py-2">
+                                <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    Keterangan Kondisi Barang
+                                </h3>
+                                <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
+                                    <p class="text-gray-300 break-words whitespace-normal">
+                                        @if (empty($transaksi->return['keterangan']))
+                                            -
+                                        @else
+                                            {{ $transaksi->return['keterangan'] }}
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="space-y-6">
                             <!-- Informasi Peminjaman -->
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-4">Informasi Peminjaman</h4>
+                            <div class="py-2">
+                                <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3a4 4 0 118 0v4m-4 0V3m0 4h0m-4 0h8m-4 0v10m0 0l-3-3m3 3l3-3">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    Informasi Peminjaman
+                                </h3>
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Jumlah:</span>
@@ -56,35 +142,36 @@
                                         <span
                                             class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->tanggal_pengembalian ?? ($transaksi->tanggal['pengembalian'] ?? null))->format('d F Y') ?? '-' }}</span>
                                     </div>
-                                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                                        <span class="text-gray-400">Status:</span>
-                                        @php
-                                            $statusConfig = [
-                                                'pending' => [
-                                                    'color' => 'bg-yellow-500/20 text-yellow-300 border-yellow-400/30',
-                                                    'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
-                                                ],
-                                                'accepted' => [
-                                                    'color' => 'bg-green-500/20 text-green-300 border-green-400/30',
-                                                    'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-                                                ],
-                                                'rejected' => [
-                                                    'color' => 'bg-red-500/20 text-red-300 border-red-400/30',
-                                                    'icon' =>
-                                                        'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
-                                                ],
-                                                'canceled' => [
-                                                    'color' => 'bg-gray-500/20 text-gray-300 border-gray-400/30',
-                                                    'icon' => 'M6 18L18 6M6 6l12 12',
-                                                ],
-                                            ];
-                                            $config = $statusConfig[$transaksi->status] ?? $statusConfig['pending'];
-                                        @endphp
-                                        <span
-                                            class="inline-flex items-center px-2 py-1 text-xs rounded-full border {{ $config['color'] }}">
-                                            {{ ucfirst($transaksi->status) }}
-                                        </span>
-                                    </div>
+
+                                    @if ($transaksi->tipe === 'peminjaman')
+                                        <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
+                                            <span class="text-gray-400">Status:</span>
+                                            @php
+                                                $statusConfig = [
+                                                    'pending' => [
+                                                        'color' =>
+                                                            'bg-yellow-500/20 text-yellow-300 border-yellow-400/30',
+                                                        'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+                                                    ],
+                                                    'accepted' => [
+                                                        'color' => 'bg-green-500/20 text-green-300 border-green-400/30',
+                                                        'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+                                                    ],
+                                                    'rejected' => [
+                                                        'color' => 'bg-red-500/20 text-red-300 border-red-400/30',
+                                                        'icon' =>
+                                                            'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+                                                    ],
+                                                ];
+                                                $config = $statusConfig[$transaksi->status] ?? $statusConfig['pending'];
+                                            @endphp
+                                            <span
+                                                class="inline-flex items-center px-2 py-1 text-xs rounded-full border {{ $config['color'] }}">
+                                                {{ ucfirst($transaksi->status) }}
+                                            </span>
+                                        </div>
+                                    @endif
+
                                     <div class="flex justify-between items-center py-2">
                                         <span class="text-gray-400">Dibuat:</span>
                                         <span
@@ -93,26 +180,26 @@
                                 </div>
                             </div>
 
-                            <!-- Keterangan Peminjam -->
-                            @if ($transaksi->keterangan)
-                                <div>
-                                    <h4 class="text-lg font-semibold text-white mb-3">Keterangan Peminjam</h4>
-                                    <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                        <p class="text-gray-300">{{ $transaksi->keterangan }}</p>
-                                    </div>
-                                </div>
-                            @endif
-
                             <!-- File Surat Peminjaman -->
                             @if ($transaksi->file && isset($transaksi->file['url']))
-                                <div>
-                                    <h4 class="text-lg font-semibold text-white mb-3">Surat Peminjaman</h4>
+                                <div class="py-2">
+                                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                        <div class="w-6 h-6 bg-teal-600 rounded-lg flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        Surat Peminjaman
+                                    </h3>
                                     <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
                                         <div class="flex items-center gap-3">
                                             <div
                                                 class="w-10 h-10 bg-gray-700/50 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
+                                                <svg class="w-5 h-5 text-gray-400" fill="none"
+                                                    stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
@@ -133,13 +220,46 @@
                                 </div>
                             @endif
 
+                            <!-- Keterangan Peminjam -->
+                            @if ($transaksi->keterangan)
+                                <div class="py-2">
+                                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                        <div class="w-6 h-6 bg-yellow-600 rounded-lg flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        Keterangan Peminjaman
+                                    </h3>
+                                    <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
+                                        <p class="text-gray-300 break-words">{{ $transaksi->keterangan }}</p>
+                                    </div>
+                                </div>
+                            @endif
+
                             <!-- Timeline Status -->
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-3">Timeline Status</h4>
+                            <div class="py-2">
+                                <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                    <div class="w-6 h-6 bg-orange-600 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    Timeline Status
+                                </h3>
                                 <div class="space-y-3">
+                                    <!-- Pending -->
                                     <div
-                                        class="flex items-center gap-3 p-3 bg-yellow-500/10 border border-yellow-400/30 rounded-lg">
-                                        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                        class="flex items-center gap-3 p-3 rounded-lg border bg-yellow-500/10 border-yellow-400/30">
+                                        <div
+                                            class="w-2 h-2 rounded-full {{ $transaksi->status == 'pending' ? 'bg-yellow-400 animate-pulse' : 'bg-yellow-400/50' }}">
+                                        </div>
                                         <div>
                                             <p class="text-yellow-300 font-medium text-sm">Menunggu Approval</p>
                                             <p class="text-yellow-400 text-xs">
@@ -148,10 +268,13 @@
                                         </div>
                                     </div>
 
-                                    @if ($transaksi->status === 'accepted')
+                                    <!-- Accepted -->
+                                    @if ($transaksi->status == 'accepted' || !empty($transaksi->return))
                                         <div
-                                            class="flex items-center gap-3 p-3 bg-green-500/10 border border-green-400/30 rounded-lg">
-                                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                            class="flex items-center gap-3 p-3 rounded-lg border bg-green-500/10 border-green-400/30">
+                                            <div
+                                                class="w-2 h-2 rounded-full {{ $transaksi->status == 'accepted' && empty($transaksi->return) ? 'bg-green-400 animate-pulse' : 'bg-green-400' }}">
+                                            </div>
                                             <div>
                                                 <p class="text-green-300 font-medium text-sm">Disetujui</p>
                                                 <p class="text-green-400 text-xs">
@@ -161,10 +284,11 @@
                                         </div>
                                     @endif
 
-                                    @if ($transaksi->status === 'rejected')
+                                    <!-- Rejected -->
+                                    @if ($transaksi->status == 'rejected')
                                         <div
-                                            class="flex items-center gap-3 p-3 bg-red-500/10 border border-red-400/30 rounded-lg">
-                                            <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                                            class="flex items-center gap-3 p-3 rounded-lg border bg-red-500/10 border-red-400/30">
+                                            <div class="w-2 h-2 rounded-full bg-red-400"></div>
                                             <div>
                                                 <p class="text-red-300 font-medium text-sm">Ditolak</p>
                                                 <p class="text-red-400 text-xs">
@@ -173,18 +297,22 @@
                                             </div>
                                         </div>
                                     @endif
+
+                                    <!-- Returned -->
+                                    @if (!empty($transaksi->return))
+                                        <div
+                                            class="flex items-center gap-3 p-3 rounded-lg border bg-purple-500/10 border-purple-400/30">
+                                            <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+                                            <div>
+                                                <p class="text-purple-300 font-medium text-sm">Barang Dikembalikan</p>
+                                                <p class="text-purple-400 text-xs">
+                                                    {{ isset($transaksi->return['tanggal_kembali']) ? \Carbon\Carbon::parse($transaksi->return['tanggal_kembali'])->format('d F Y, H:i') : '-' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
-
-                            <!-- Catatan Admin -->
-                            @if ($transaksi->catatan_admin)
-                                <div>
-                                    <h4 class="text-lg font-semibold text-white mb-3">Catatan Admin</h4>
-                                    <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
-                                        <p class="text-red-200">{{ $transaksi->catatan_admin }}</p>
-                                    </div>
-                                </div>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -231,17 +359,29 @@
                                 <!-- Foto Barang -->
                                 @if ((is_array($barang->gambar) && isset($barang->gambar['url'])) || (is_string($barang->gambar) && $barang->gambar))
                                     <div class="pt-4 border-t border-gray-800/50">
-                                        <h4 class="text-sm font-medium text-gray-400 mb-3">Foto Barang</h4>
+                                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                            <div
+                                                class="w-6 h-6 bg-pink-600 rounded-lg flex items-center justify-center">
+                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            Foto Barang
+                                        </h3>
                                         <div
                                             class="bg-gray-800/50 border border-gray-700/50 rounded-lg overflow-hidden">
                                             @if (is_array($barang->gambar) && isset($barang->gambar['url']))
                                                 <img src="{{ $barang->gambar['url'] }}"
                                                     alt="{{ $barang->nama_barang }}"
-                                                    class="w-full h-48 object-cover">
+                                                    class="w-full h-64 object-cover">
                                             @elseif(is_string($barang->gambar) && $barang->gambar)
                                                 <img src="{{ asset($barang->gambar) }}"
                                                     alt="{{ $barang->nama_barang }}"
-                                                    class="w-full h-48 object-cover">
+                                                    class="w-full h-64 object-cover">
                                             @endif
                                         </div>
                                     </div>
@@ -287,6 +427,26 @@
                             <p class="text-red-400">Data user tidak ditemukan</p>
                         @endif
                     </div>
+
+                    @if ($transaksi->catatan_admin)
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.268 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white">Catatan Admin</h3>
+                            </div>
+                            <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                                <p class="text-red-200 break-words break-all whitespace-normal">
+                                    {{ $transaksi->catatan_admin }}</p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -333,18 +493,16 @@
                             </a>
                         @endif
 
-                        @if ($transaksi->status !== 'canceled')
-                            <button
-                                onclick="openStatusModal('{{ $transaksi->id }}', '{{ $transaksi->status }}', '{{ $transaksi->catatan_admin ?? '' }}')"
-                                class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 font-medium">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                    </path>
-                                </svg>
-                                Update Status
-                            </button>
-                        @endif
+                        <button
+                            onclick="openStatusModal('{{ $transaksi->id }}', '{{ $transaksi->status }}', '{{ $transaksi->catatan_admin ?? '' }}')"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 font-medium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                            Update Status
+                        </button>
                     </div>
                 </div>
             </div>

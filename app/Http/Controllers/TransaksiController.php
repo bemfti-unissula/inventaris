@@ -188,6 +188,32 @@ class TransaksiController extends Controller
         }
     }
 
+    /**
+     * Show form edit pengembalian (return) untuk user
+     */
+    public function editReturn($id)
+    {
+        $transaksi = Transaksi::find($id);
+        if (!$transaksi) {
+            return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak ditemukan');
+        }
+        if ($transaksi->user_id !== Auth::id()) {
+            return abort(403);
+        }
+        if ($transaksi->tipe !== 'pengembalian' || !isset($transaksi->return)) {
+            return redirect()->route('transaksi.detail', $id)->with('error', 'Transaksi ini belum melakukan pengembalian');
+        }
+        if ($transaksi->status === 'accepted' || $transaksi->status === 'canceled') {
+            return redirect()->route('transaksi.return.detail', $id)->with('error', 'Pengembalian sudah dikonfirmasi atau dibatalkan');
+        }
+        $barang = Barang::find($transaksi->barang_id);
+        if (!$barang) {
+            return redirect()->route('transaksi.index')->with('error', 'Barang tidak ditemukan');
+        }
+        $returnTransaksi = $transaksi;
+        return view('transaksi.return', compact('transaksi', 'barang', 'returnTransaksi'));
+    }
+
     public function pengembalian(ReturnRequest $request, ImageKitService $imageKitService)
     {
         $uploadResult = null;
@@ -218,17 +244,18 @@ class TransaksiController extends Controller
             // Create return object
             $return = [
                 'jumlah' => (int) $request->validated('jumlah'),
-                'tanggal_kembali' => date('Y-m-d', strtotime($request->validated('tanggal_kembali')))
+                'tanggal_kembali' => date('Y-m-d', strtotime($request->validated('tanggal_kembali'))),
+                'gambar' => $gambar,
             ];
             if ($request->validated('keterangan')) {
-                $return->keterangan = $request->validated('keterangan');
+                $return['keterangan'] = $request->validated('keterangan');
             }
-            $return->gambar = $gambar;
 
             // Update transaksi
             $transaksi->return = $return;
             $transaksi->tipe = 'pengembalian';
             $transaksi->status = 'pending';
+            $transaksi->catatan_admin = null; // Reset catatan admin
             $transaksi->save();
 
             return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dikembalikan');
@@ -252,12 +279,12 @@ class TransaksiController extends Controller
                 return redirect()->route('transaksi.index')->with('error', 'Transaksi ini tidak dapat diupdate.');
             }
 
-            // Buat atau update objek 'return'
+            // Buat atau update array 'return'
             $return = $transaksi->return;
-            $return->jumlah = (int) $request->validated('jumlah');
-            $return->tanggal_kembali = date('Y-m-d', strtotime($request->validated('tanggal_kembali')));
+            $return['jumlah'] = (int) $request->validated('jumlah');
+            $return['tanggal_kembali'] = date('Y-m-d', strtotime($request->validated('tanggal_kembali')));
             if ($request->validated('keterangan')) {
-                $return->keterangan = $request->validated('keterangan');
+                $return['keterangan'] = $request->validated('keterangan');
             }
 
             // Handle file upload jika ada file baru
@@ -329,5 +356,44 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('transaksi.index')->with('error', 'Gagal membatalkan transaksi: ' . $e->getMessage());
         }
+    }
+
+    public function createReturn($id)
+    {
+        $transaksi = Transaksi::find($id);
+
+        if (!$transaksi) {
+            return redirect()->route('transaksi.index')->with('error', 'Transaksi tidak ditemukan');
+        }
+
+        if ($transaksi->user_id !== Auth::id()) {
+            return abort(403);
+        }
+
+        if ($transaksi->tipe !== 'peminjaman' || $transaksi->status !== 'accepted') {
+            return redirect()->route('transaksi.detail', $id)->with('error', 'Transaksi tidak dapat dikembalikan');
+        }
+
+        $barang = Barang::find($transaksi->barang_id);
+        if (!$barang) {
+            return redirect()->route('transaksi.index')->with('error', 'Barang tidak ditemukan');
+        }
+
+        return view('transaksi.return', compact('transaksi', 'barang'));
+    }
+
+    public function getReturnDetail($id)
+    {
+        $transaksi = Transaksi::find($id);
+        if (!$transaksi) {
+            return redirect()->route('transaksi.index')->with('error', 'Riwayat tidak ditemukan');
+        }
+        if ($transaksi->user_id != Auth::user()->id) {
+            return abort(403);
+        }
+        if ($transaksi->tipe !== 'pengembalian') {
+            return redirect()->route('transaksi.detail', $id);
+        }
+        return view('transaksi.return-detail', compact('transaksi'));
     }
 }

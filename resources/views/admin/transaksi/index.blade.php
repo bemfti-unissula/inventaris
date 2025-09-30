@@ -135,7 +135,14 @@
                                             @endphp
                                             <div class="text-sm font-medium text-white">
                                                 {{ $barang->nama_barang ?? 'N/A' }}</div>
-                                            <div class="text-sm text-gray-400">{{ $transaksi->keterangan ?? '-' }}
+                                            <div class="text-sm text-gray-400">
+                                                @if ($transaksi->tipe === 'peminjaman')
+                                                    {{ \Illuminate\Support\Str::limit($transaksi->keterangan ?? '-', 12, '...') }}
+                                                @elseif ($transaksi->tipe === 'pengembalian')
+                                                    {{ \Illuminate\Support\Str::limit($transaksi['return']['keterangan'] ?? '-', 12, '...') }}
+                                                @else
+                                                    -
+                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -160,7 +167,6 @@
                                                     'pending' => 'bg-yellow-500/20 text-yellow-300',
                                                     'accepted' => 'bg-green-500/20 text-green-300',
                                                     'rejected' => 'bg-red-500/20 text-red-300',
-                                                    'canceled' => 'bg-gray-500/20 text-gray-300',
                                                 ];
                                             @endphp
                                             <span
@@ -191,21 +197,19 @@
                                                     </svg>
                                                     Detail
                                                 </a>
-                                                @if ($transaksi->status !== 'canceled')
-                                                    <span class="text-gray-600">|</span>
-                                                    <button
-                                                        onclick="openStatusModal('{{ $transaksi->id }}', '{{ $transaksi->status }}', '{{ $transaksi->catatan_admin ?? '' }}')"
-                                                        class="text-red-400 hover:text-red-300 transition-colors duration-200 flex items-center gap-1">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                                            </path>
-                                                        </svg>
-                                                        Update
-                                                    </button>
-                                                @endif
+                                                <span class="text-gray-600">|</span>
+                                                <button
+                                                    onclick="openStatusModal('{{ $transaksi->id }}', '{{ $transaksi->status }}', '{{ $transaksi->catatan_admin ?? '' }}')"
+                                                    class="text-red-400 hover:text-red-300 transition-colors duration-200 flex items-center gap-1">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                        </path>
+                                                    </svg>
+                                                    Update
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -307,75 +311,80 @@
         </div>
     </div>
 
-    <!-- Status Update Modal -->
-    <div id="statusModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
-        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4">
-            <h3 class="text-lg font-semibold text-white mb-4">Update Status Transaksi</h3>
+    @push('modals')
+        <div id="statusModal"
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden items-center justify-center">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Update Status Transaksi</h3>
 
-            <form id="statusForm" method="POST">
-                @csrf
-                @method('PATCH')
+                <form id="statusForm" method="POST">
+                    @csrf
+                    @method('PATCH')
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Status</label>
-                    <select id="statusSelect" name="status"
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                        <option value="pending">Pending</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="rejected">Rejected</option>
-                    </select>
-                </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Status</label>
+                        <select id="statusSelect" name="status"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                            <option value="pending">Pending</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
 
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Catatan Admin (Opsional)</label>
-                    <textarea id="catatanAdmin" name="catatan_admin" rows="3" placeholder="Tambahkan catatan untuk user..."
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
-                </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Catatan Admin (Opsional)</label>
+                        <textarea id="catatanAdmin" name="catatan_admin" rows="3" placeholder="Tambahkan catatan untuk user..."
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
+                    </div>
 
-                <div class="flex gap-3">
-                    <button type="submit"
-                        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
-                        Update Status
-                    </button>
-                    <button type="button" onclick="closeStatusModal()"
-                        class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
-                        Batal
-                    </button>
-                </div>
-            </form>
+                    <div class="flex gap-3">
+                        <button type="submit"
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
+                            Update Status
+                        </button>
+                        <button type="button" onclick="closeStatusModal()"
+                            class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
+                            Batal
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+        <script>
+            function openStatusModal(transaksiId, currentStatus, currentCatatan) {
+                const modal = document.getElementById('statusModal');
+                const form = document.getElementById('statusForm');
+                const statusSelect = document.getElementById('statusSelect');
+                const catatanAdmin = document.getElementById('catatanAdmin');
 
-    <script>
-        function openStatusModal(transaksiId, currentStatus, currentCatatan) {
-            const modal = document.getElementById('statusModal');
-            const form = document.getElementById('statusForm');
-            const statusSelect = document.getElementById('statusSelect');
-            const catatanAdmin = document.getElementById('catatanAdmin');
+                // Set form action
+                form.action = `/admin/transaksi/${transaksiId}/status`;
 
-            // Set form action
-            form.action = `/admin/transaksi/${transaksiId}/status`;
+                // Set current values
+                statusSelect.value = currentStatus;
+                catatanAdmin.value = currentCatatan;
 
-            // Set current values
-            statusSelect.value = currentStatus;
-            catatanAdmin.value = currentCatatan;
-
-            // Show modal
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeStatusModal() {
-            const modal = document.getElementById('statusModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('statusModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeStatusModal();
+                // Show modal
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                // Lock body scroll
+                document.body.classList.add('overflow-hidden');
             }
-        });
-    </script>
+
+            function closeStatusModal() {
+                const modal = document.getElementById('statusModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                // Unlock body scroll
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            // Close modal when clicking outside
+            document.getElementById('statusModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeStatusModal();
+                }
+            });
+        </script>
+    @endpush
 </x-app-layout>
