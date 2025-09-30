@@ -295,6 +295,23 @@
                 @if ($users->count() > 0)
                     <!-- Users Grid Layout -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                @php
+                    $fakultasMap = [
+                        'FTI' => 'Fakultas Teknologi Industri',
+                        'FE' => 'Fakultas Ekonomi',
+                        'FH' => 'Fakultas Hukum',
+                        'FAI' => 'Fakultas Agama Islam',
+                        'FP' => 'Fakultas Psikologi',
+                        'FKIP' => 'Fakultas Keguruan dan Ilmu Pendidikan',
+                        'FBSB' => 'Fakultas Bahasa, Sastra, dan Budaya',
+                        'FIKOM' => 'Fakultas Ilmu Komunikasi',
+                        'FK' => 'Fakultas Kedokteran',
+                        'FKG' => 'Fakultas Kedokteran Gigi',
+                        'FIK' => 'Fakultas Ilmu Keperawatan',
+                        'FT' => 'Fakultas Teknik',
+                        'FF' => 'Fakultas Farmasi',
+                    ];
+                @endphp
                         @foreach ($users as $user)
                             <div
                                 class="relative bg-gray-800/30 border border-gray-700/50 rounded-xl overflow-hidden hover:border-gray-600/50 hover:bg-gray-800/50 transition-all duration-200 group">
@@ -361,7 +378,9 @@
                                                 <span class="text-xs text-gray-400">Fakultas</span>
                                             </div>
                                             <span
-                                                class="text-sm text-white">{{ $user->fakultas ?? 'Tidak ada' }}</span>
+                                                class="text-sm text-white">
+                                                    {{ $user->fakultas ? ($fakultasMap[$user->fakultas] ?? $user->fakultas) : 'Tidak ada' }}
+                                                </span>
                                         </div>
 
                                         <!-- Phone -->
@@ -479,11 +498,15 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <x-delete-confirmation-modal modal-id="deleteUserModal" title="Konfirmasi Hapus User"
-        subtitle="Tindakan ini tidak dapat dibatalkan" item-type="user"
-        warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
-        confirm-button-text="Ya, Hapus User" cancel-button-text="Batal" />
+    @push('modals')
+        <!-- Delete Confirmation Modal -->
+        <x-delete-confirmation-modal modal-id="deleteUserModal" title="Konfirmasi Hapus User"
+            subtitle="Tindakan ini tidak dapat dibatalkan"
+            item-type="user"
+            warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
+            confirm-button-text="Ya, Hapus User"
+            cancel-button-text="Batal" />
+    @endpush
 
     <script>
         const dropdowns = document.querySelectorAll('select');

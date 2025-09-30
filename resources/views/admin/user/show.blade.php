@@ -67,7 +67,7 @@
                         <!-- Name -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Nama Lengkap</label>
-                            <div class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
+                            <div class="user-info-field">
                                 {{ $user->name }}
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                         <!-- Email -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                            <div class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
+                            <div class="user-info-field">
                                 {{ $user->email }}
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         <!-- Phone -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Nomor Telepon</label>
-                            <div class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
+                            <div class="user-info-field">
                                 {{ $user->phone ?? 'Tidak ada' }}
                             </div>
                         </div>
@@ -103,18 +103,32 @@
                             </h3>
                         </div>
 
+                        @php
+                            $fakultasMap = [
+                                'FTI' => 'Fakultas Teknologi Industri',
+                                'FE' => 'Fakultas Ekonomi',
+                                'FH' => 'Fakultas Hukum',
+                                'FAI' => 'Fakultas Agama Islam',
+                                'FP' => 'Fakultas Psikologi',
+                                'FKIP' => 'Fakultas Keguruan dan Ilmu Pendidikan',
+                                'FBSB' => 'Fakultas Bahasa, Sastra, dan Budaya',
+                                'FIKOM' => 'Fakultas Ilmu Komunikasi',
+                                'FK' => 'Fakultas Kedokteran',
+                                'FKG' => 'Fakultas Kedokteran Gigi',
+                                'FIK' => 'Fakultas Ilmu Keperawatan',
+                                'FT' => 'Fakultas Teknik',
+                                'FF' => 'Fakultas Farmasi',
+                            ];
+                        @endphp
+
                         <!-- Faculty -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Fakultas</label>
-                            <div
-                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white flex items-center">
+                            <div class="user-info-field">
                                 @if ($user->fakultas)
-                                    <span
-                                        class="inline-flex items-center px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">
-                                        {{ $user->fakultas }}
-                                    </span>
+                                    {{ $fakultasMap[$user->fakultas] ?? $user->fakultas }}
                                 @else
-                                    <span class="text-gray-400 italic">Tidak ada fakultas</span>
+                                    <span class="italic">Tidak ada fakultas</span>
                                 @endif
                             </div>
                         </div>
@@ -122,44 +136,40 @@
                         <!-- Role -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Role</label>
-                            <div
-                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white flex items-center">
-                                @if ($user->role === 'admin')
-                                    <span
-                                        class="inline-flex items-center px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">
-                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M18 8a6 6 0 01-7.743 5.743L10 14l-4 1-1-4 .257-.257A6 6 0 1118 8zm-6-2a1 1 0 11-2 0 1 1 0 012 0z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                        Administrator
-                                    </span>
-                                @else
-                                    <span
-                                        class="inline-flex items-center px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
-                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                        User
-                                    </span>
-                                @endif
+                            <div class="user-info-field">
+                                    @if ($user->role === 'admin')
+                                        <span class="flex items-center text-red-500 font-semibold">
+                                            <svg class="w-4 h-4 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M18 8a6 6 0 01-7.743 5.743L10 14l-4 1-1-4 .257-.257A6 6 0 1118 8zm-6-2a1 1 0 11-2 0 1 1 0 012 0z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Administrator
+                                        </span>
+                                    @else
+                                        <span class="flex items-center text-blue-500 font-semibold">
+                                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            User
+                                        </span>
+                                    @endif
                             </div>
                         </div>
 
                         <!-- Registration Date -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Tanggal Registrasi</label>
-                            <div
-                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white flex items-center">
-                                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                                {{ $user->created_at ? $user->created_at->format('d F Y, H:i') : 'Tidak ada data' }}
+                            <div class="user-info-field">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                    {{ $user->created_at ? $user->created_at->format('d F Y, H:i') : 'Tidak ada data' }}
                             </div>
                         </div>
                     </div>
@@ -174,7 +184,6 @@
                                     <path fill-rule="evenodd"
                                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                         clip-rule="evenodd"></path>
-                                </svg>
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-green-300">Email Terverifikasi</h4>
@@ -192,7 +201,6 @@
                                     <path fill-rule="evenodd"
                                         d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
                                         clip-rule="evenodd"></path>
-                                </svg>
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-yellow-300">Email Belum Terverifikasi</h4>
@@ -238,9 +246,28 @@
             @method('DELETE')
         </form>
 
-        <x-delete-confirmation-modal modal-id="userShowDeleteModal" title="Konfirmasi Hapus User"
-            subtitle="Tindakan ini tidak dapat dibatalkan" item-type="user"
-            warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
-            confirm-button-text="Ya, Hapus User" cancel-button-text="Batal" />
+        @push('modals')
+            <x-delete-confirmation-modal modal-id="userShowDeleteModal" title="Konfirmasi Hapus User"
+                subtitle="Tindakan ini tidak dapat dibatalkan"
+                item-type="user"
+                warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
+                confirm-button-text="Ya, Hapus User"
+                cancel-button-text="Batal" />
+        @endpush
     @endif
+
+    <style>
+    .user-info-field {
+        width: 100%;
+        min-height: 48px;
+        padding: 0.75rem 1rem;
+        background-color: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 0.5rem;
+        color: #fff;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    </style>
 </x-app-layout>
