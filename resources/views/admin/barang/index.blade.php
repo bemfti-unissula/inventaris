@@ -52,23 +52,24 @@
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-4">
                     <!-- Add Button (Left) -->
                     <a href="{{ route('admin.barang.create') }}"
-                        class="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="premium-button inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/25 group flex-shrink-0">
+                        <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-90" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
                         </svg>
                         Tambah Barang Baru
                     </a>
 
-                    <!-- Search Form (Right) -->
-                    <form action="{{ route('admin.barang.index') }}" method="GET" class="flex-1 lg:flex-initial">
-                        <div class="flex flex-col sm:flex-row gap-4 lg:w-96">
+                    <!-- Search Form (Right) - Full Width -->
+                    <form action="{{ route('admin.barang.index') }}" method="GET" class="flex-1">
+                        <div class="flex flex-col sm:flex-row gap-4 w-full">
                             <!-- Search Input -->
                             <div class="flex-1">
                                 <div class="relative">
                                     <input type="text" name="search" value="{{ request('search') }}"
-                                        class="w-full bg-gray-800/50 rounded-lg px-4 py-3 text-white border border-gray-700/50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-200"
-                                        placeholder="Cari nama barang...">
+                                        class="premium-input w-full bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm rounded-lg px-4 py-3 text-white border border-gray-700/50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 hover:border-red-400/70 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300 transform hover:scale-[1.02]"
+                                        placeholder="🔍 Cari nama barang...">
                                     @if (request('search'))
                                         <button type="button"
                                             onclick="document.querySelector('input[name=search]').value=''; this.closest('form').submit();"
@@ -84,24 +85,48 @@
                             </div>
 
                             <!-- Category Filter -->
-                            <div class="w-full sm:w-48">
-                                <div class="relative">
+                            <div class="w-full sm:w-56 flex-shrink-0">
+                                <div class="relative dropdown-wrapper">
                                     <select name="category" id="category" onchange="this.form.submit()"
-                                        class="w-full bg-gray-800/50 rounded-lg pl-4 pr-10 py-3 border border-gray-700/50 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-200 cursor-pointer appearance-none">
-                                        <option value="">Semua Kategori</option>
+                                        class="premium-dropdown w-full bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm rounded-lg pl-4 pr-10 py-3 border border-gray-700/50 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 hover:border-red-400/70 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300 cursor-pointer appearance-none transform">
+                                        <option value="" class="bg-gray-800 text-gray-300">📦 Semua Kategori
+                                        </option>
                                         @foreach ($categories as $cat)
+                                            @php
+                                                $categoryEmojis = [
+                                                    'elektronik' => '🔌',
+                                                    'furniture' => '🪑',
+                                                    'komputer' => '💻',
+                                                    'alat tulis' => '✏️',
+                                                    'olahraga' => '⚽',
+                                                    'kendaraan' => '🚗',
+                                                    'peralatan' => '🔧',
+                                                    'medis' => '🩺',
+                                                    'laboratorium' => '🧪',
+                                                    'kebersihan' => '🧹',
+                                                    'keamanan' => '🔒',
+                                                    'musik' => '🎵',
+                                                    'fotografi' => '📸',
+                                                    'dapur' => '🍳',
+                                                    'perlengkapan kantor' => '📋',
+                                                ];
+                                                $emoji = $categoryEmojis[strtolower(trim($cat))] ?? '📄';
+                                            @endphp
                                             <option value="{{ $cat }}"
-                                                {{ request()->get('category') == $cat ? 'selected' : '' }}>
-                                                {{ $cat }}
+                                                {{ request()->get('category') == $cat ? 'selected' : '' }}
+                                                class="bg-gray-800 text-white hover:bg-gray-700 py-2">
+                                                {{ $emoji }} {{ $cat }}
                                             </option>
                                         @endforeach
                                     </select>
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7"></path>
-                                        </svg>
+                                        <div class="dropdown-arrow-wrapper">
+                                            <svg class="h-4 w-4 text-gray-400 dropdown-arrow transition-all duration-300"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -123,12 +148,12 @@
                         </div>
                         @if ($currentFilters['search'])
                             <span
-                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs bg-blue-500/20 text-blue-300 border border-blue-400/30 hover:bg-blue-500/30 transition-all duration-300 cursor-default">
                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
-                                Pencarian: "{{ $currentFilters['search'] }}"
+                                🔍 Pencarian: "{{ $currentFilters['search'] }}"
                             </span>
                         @endif
                         @if ($currentFilters['category'])
@@ -158,31 +183,53 @@
                                     'bg-gray-500/20 text-gray-300 border-gray-400/30';
                             @endphp
                             <span
-                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs {{ $filterColorClass }} border">
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs {{ $filterColorClass }} border hover:scale-105 transition-all duration-300 cursor-default">
                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
                                     </path>
                                 </svg>
-                                Kategori: {{ $currentFilters['category'] }}
+                                @php
+                                    $categoryEmojis = [
+                                        'elektronik' => '🔌',
+                                        'furniture' => '🪑',
+                                        'komputer' => '💻',
+                                        'alat tulis' => '✏️',
+                                        'olahraga' => '⚽',
+                                        'kendaraan' => '🚗',
+                                        'peralatan' => '🔧',
+                                        'medis' => '🩺',
+                                        'laboratorium' => '🧪',
+                                        'kebersihan' => '🧹',
+                                        'keamanan' => '🔒',
+                                        'musik' => '🎵',
+                                        'fotografi' => '📸',
+                                        'dapur' => '🍳',
+                                        'perlengkapan kantor' => '📋',
+                                    ];
+                                    $filterEmoji =
+                                        $categoryEmojis[strtolower(trim($currentFilters['category']))] ?? '📄';
+                                @endphp
+                                {{ $filterEmoji }} Kategori: {{ $currentFilters['category'] }}
                             </span>
                         @endif
                         <span
-                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs bg-gray-700/50 text-gray-300 border border-gray-600/50">
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs bg-gray-700/50 text-gray-300 border border-gray-600/50 hover:bg-gray-600/50 transition-all duration-300 cursor-default">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
                                 </path>
                             </svg>
-                            Total: {{ $currentFilters['total_items'] }} barang
+                            📊 Total: {{ $currentFilters['total_items'] }} barang
                         </span>
                         <a href="{{ route('admin.barang.index') }}"
-                            class="inline-flex items-center gap-1 px-2 py-1 text-xs text-gray-400 hover:text-gray-200 transition-colors duration-200">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs text-gray-400 hover:text-red-300 bg-gray-800/30 hover:bg-red-500/20 border border-gray-600/50 hover:border-red-400/50 rounded-lg transition-all duration-300 transform hover:scale-105 group">
+                            <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-90"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
-                            Hapus Filter
+                            🗑️ Hapus Filter
                         </a>
                     </div>
                 @endif
@@ -355,6 +402,43 @@
                                     </div>
                                 </div>
 
+                                <!-- Status Pembayaran -->
+                                <div
+                                    class="bg-gray-700/30 rounded-lg p-3 border border-gray-600/30 group-hover:border-gray-500/50 transition-colors duration-200 mb-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z">
+                                                </path>
+                                            </svg>
+                                            <span class="text-sm text-gray-400">Status Pembayaran</span>
+                                        </div>
+                                        @if (isset($barang->is_paid) && $barang->is_paid)
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-green-500/20 text-green-300 border border-green-400/30">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                Berbayar
+                                            </span>
+                                        @else
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                Gratis
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <!-- Action Buttons -->
                                 <div class="flex gap-2">
                                     <a href="{{ route('barang.show', $barang) }}"
@@ -380,14 +464,14 @@
                                         Edit
                                     </a>
                                     <div class="flex-1">
-                                        <form id="deleteForm{{ $barang->id }}"
+                                        <form id="deleteFormdeleteModal{{ $barang->id }}"
                                             action="{{ route('admin.barang.destroy', $barang) }}" method="POST"
                                             class="hidden">
                                             @csrf
                                             @method('DELETE')
                                         </form>
                                         <button type="button"
-                                            onclick="openDeleteModal('{{ $barang->id }}', '{{ $barang->nama_barang }}')"
+                                            onclick="openDeleteModaldeleteModal('{{ $barang->id }}', '{{ $barang->nama_barang }}')"
                                             class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 hover:text-red-200 text-sm rounded-lg border border-red-500/30 hover:border-red-400/50 transition-all duration-200">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -434,127 +518,265 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
-        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0"
-            id="deleteModalContent">
-            <!-- Header -->
-            <div class="flex items-center gap-4 mb-6">
-                <div class="flex-shrink-0 w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
-                    <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z">
-                        </path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-white">Konfirmasi Hapus</h3>
-                    <p class="text-sm text-gray-400">Tindakan ini tidak dapat dibatalkan</p>
-                </div>
-            </div>
-
-            <!-- Content -->
-            <div class="mb-6">
-                <p class="text-gray-300 leading-relaxed">
-                    Apakah Anda yakin ingin menghapus barang
-                    <span id="deleteItemName" class="font-semibold text-white"></span>?
-                </p>
-                <p class="text-sm text-gray-400 mt-2">
-                    Data yang sudah dihapus tidak dapat dikembalikan lagi.
-                </p>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex gap-3">
-                <button type="button" onclick="closeDeleteModal()"
-                    class="flex-1 px-4 py-2.5 bg-gray-600/50 hover:bg-gray-600/70 text-gray-200 rounded-lg font-medium transition-all duration-200 border border-gray-500/50 hover:border-gray-400/50">
-                    Batal
-                </button>
-                <button type="button" onclick="confirmDelete()" id="confirmDeleteBtn"
-                    class="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                        </path>
-                    </svg>
-                    Ya, Hapus
-                </button>
-            </div>
-        </div>
-    </div>
+    <x-delete-confirmation-modal modal-id="deleteModal" title="Konfirmasi Hapus Barang"
+        subtitle="Tindakan ini tidak dapat dibatalkan" item-type="barang"
+        warning-text="Data barang yang sudah dihapus tidak dapat dikembalikan lagi. Pastikan barang tidak sedang digunakan dalam transaksi aktif."
+        confirm-button-text="Ya, Hapus Barang" cancel-button-text="Batal" />
 
     <script>
-        let currentDeleteFormId = null;
+        const dropdowns = document.querySelectorAll('.premium-dropdown');
 
-        function openDeleteModal(barangId, barangName) {
-            currentDeleteFormId = barangId;
-            document.getElementById('deleteItemName').textContent = barangName;
+        dropdowns.forEach(dropdown => {
+            // Add focus and blur effects
+            dropdown.addEventListener('focus', function() {
+                this.parentNode.classList.add('dropdown-focused');
+            });
 
-            const modal = document.getElementById('deleteModal');
-            const modalContent = document.getElementById('deleteModalContent');
+            dropdown.addEventListener('blur', function() {
+                this.parentNode.classList.remove('dropdown-focused');
+            });
 
-            // Show modal
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            // Add hover effects to arrow
+            dropdown.addEventListener('mouseenter', function() {
+                const arrow = this.parentNode.querySelector('.dropdown-arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(180deg) scale(1.1)';
+                    arrow.style.color = '#ef4444';
+                }
+            });
 
-            // Animate modal appearance
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
+            dropdown.addEventListener('mouseleave', function() {
+                const arrow = this.parentNode.querySelector('.dropdown-arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(0deg) scale(1)';
+                    arrow.style.color = '#9ca3af';
+                }
+            });
 
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
-        }
+            // Add change effect for dropdowns
+            dropdown.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('has-value');
+                    this.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                    this.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+                } else {
+                    this.classList.remove('has-value');
+                    this.style.background = '';
+                    this.style.borderColor = '';
+                }
+            });
 
-        function closeDeleteModal() {
-            const modal = document.getElementById('deleteModal');
-            const modalContent = document.getElementById('deleteModalContent');
-
-            // Animate modal disappearance
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                currentDeleteFormId = null;
-            }, 300);
-
-            // Restore body scroll
-            document.body.style.overflow = 'auto';
-        }
-
-        function confirmDelete() {
-            if (currentDeleteFormId) {
-                // Add loading state
-                const confirmBtn = document.getElementById('confirmDeleteBtn');
-                confirmBtn.disabled = true;
-                confirmBtn.innerHTML = `
-                    <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Menghapus...
-                `;
-
-                // Submit the form
-                document.getElementById('deleteForm' + currentDeleteFormId).submit();
-            }
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('click', function(e) {
-            const modal = document.getElementById('deleteModal');
-            if (e.target === modal) {
-                closeDeleteModal();
+            // Initialize dropdown state
+            if (dropdown.value) {
+                dropdown.style.background =
+                    'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.05))';
+                dropdown.style.borderColor = 'rgba(220, 38, 38, 0.5)';
             }
         });
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeDeleteModal();
+        // Search input enhancements
+        const searchInput = document.querySelector('input[name="search"]');
+        if (searchInput) {
+            // Add input event listener for real-time effects
+            searchInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    this.classList.add('has-value');
+                    this.style.background =
+                        'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
+                    this.style.borderColor = 'rgba(220, 38, 38, 0.6)';
+                    this.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
+                } else {
+                    this.classList.remove('has-value');
+                    this.style.background = '';
+                    this.style.borderColor = '';
+                    this.style.boxShadow = '';
+                }
+            });
+
+            // Initialize search input state
+            if (searchInput.value) {
+                searchInput.classList.add('has-value');
+                searchInput.style.background =
+                    'linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1))';
+                searchInput.style.borderColor = 'rgba(220, 38, 38, 0.6)';
+                searchInput.style.boxShadow = '0 0 0 1px rgba(220, 38, 38, 0.1)';
             }
+
+            // Add focus and blur effects
+            searchInput.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+
+            searchInput.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
         });
     </script>
+
+    <style>
+        /* Premium Dropdown Styling */
+        .premium-dropdown {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.6), rgba(17, 24, 39, 0.6));
+            border: 1px solid rgba(107, 114, 128, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .premium-dropdown:hover {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.8), rgba(17, 24, 39, 0.8));
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 10px 25px -3px rgba(239, 68, 68, 0.1), 0 4px 6px -2px rgba(239, 68, 68, 0.05);
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .premium-dropdown:focus {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.9), rgba(17, 24, 39, 0.9));
+            border-color: rgba(239, 68, 68, 0.8);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2), 0 10px 25px -3px rgba(239, 68, 68, 0.1);
+            transform: scale(1.02);
+        }
+
+        .dropdown-wrapper.dropdown-focused {
+            filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.3));
+        }
+
+        .dropdown-arrow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .premium-dropdown option {
+            padding: 8px 12px;
+            background-color: #1f2937;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(107, 114, 128, 0.2);
+        }
+
+        .premium-dropdown option:hover {
+            background-color: #374151;
+            color: #ef4444;
+        }
+
+        .premium-dropdown option:checked {
+            background-color: #ef4444;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Custom scrollbar for dropdown options */
+        .premium-dropdown::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .premium-dropdown::-webkit-scrollbar-track {
+            background: rgba(17, 24, 39, 0.5);
+            border-radius: 4px;
+        }
+
+        .premium-dropdown::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 4px;
+        }
+
+        .premium-dropdown::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        /* Animated border effect */
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                border-color: rgba(107, 114, 128, 0.5);
+            }
+
+            50% {
+                border-color: rgba(239, 68, 68, 0.8);
+            }
+        }
+
+        .premium-dropdown:focus {
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+
+        /* Enhanced hover effects */
+        .dropdown-wrapper:hover .dropdown-arrow-wrapper {
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        /* Premium Button Styling */
+        .premium-button {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .premium-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .premium-button:hover::before {
+            left: 100%;
+        }
+
+        .premium-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 15px 35px -5px rgba(239, 68, 68, 0.25), 0 5px 15px rgba(239, 68, 68, 0.1);
+        }
+
+        .premium-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* Premium Input Field Styling */
+        .premium-input {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .premium-input:hover {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.8), rgba(17, 24, 39, 0.8)) !important;
+            border-color: rgba(239, 68, 68, 0.7) !important;
+            box-shadow: 0 10px 25px -3px rgba(239, 68, 68, 0.1), 0 4px 6px -2px rgba(239, 68, 68, 0.05);
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .premium-input:focus {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.9), rgba(17, 24, 39, 0.9)) !important;
+            border-color: rgba(239, 68, 68, 0.8) !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2), 0 10px 25px -3px rgba(239, 68, 68, 0.1);
+            transform: scale(1.02);
+        }
+
+        .premium-input.has-value {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.1)) !important;
+            border-color: rgba(220, 38, 38, 0.6) !important;
+            box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.1);
+        }
+
+        /* Animated glow effect */
+        @keyframes inputGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(239, 68, 68, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 30px rgba(239, 68, 68, 0.1);
+            }
+        }
+
+        .premium-input:focus {
+            animation: inputGlow 2s ease-in-out infinite;
+        }
+    </style>
 </x-app-layout>

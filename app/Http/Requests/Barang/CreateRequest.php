@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'stok' => 'required|integer|min:1',
             'total_dimiliki' => 'required|integer|min:1',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'is_paid' => 'required|boolean',
+            'is_paid' => 'required|boolean',
         ];
     }
 

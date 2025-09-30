@@ -105,7 +105,7 @@ class BarangController extends Controller
             $barang->stok = (int) $request->validated('stok');
             $barang->total_dimiliki = (int) $request->validated('total_dimiliki');
             $barang->gambar = $gambar;
-            // $barang->is_paid = (bool) $request->validated('is_paid');
+            $barang->is_paid = (bool) $request->validated('is_paid');
             $barang->save();
 
             return redirect()->route('admin.barang.index')

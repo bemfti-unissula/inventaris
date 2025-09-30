@@ -26,6 +26,7 @@ class Barang extends Model
         'total_dimiliki',
         'kategori',
         'gambar',
+        'is_paid',
     ];
 
     /**
@@ -36,6 +37,6 @@ class Barang extends Model
     protected $casts = [
         'stok' => 'integer',
         'total_dimiliki' => 'integer',
+        'is_paid' => 'boolean',
     ];
-
 }
