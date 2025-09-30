@@ -95,7 +95,7 @@
                                     <div class="flex justify-between items-center py-2">
                                         <span class="text-gray-400">Dikembalikan pada:</span>
                                         <span
-                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}</span>
+                                            class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->return['tanggal_kembali'])->format('d F Y') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +271,7 @@
                                     <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg overflow-hidden">
                                         @if (is_array($barang->gambar) && isset($barang->gambar['url']))
                                             <img src="{{ $barang->gambar['url'] }}" alt="{{ $barang->nama_barang }}"
-                                                class="w-full h-50 object-cover">
+                                                class="w-full h-64 object-cover">
                                         @elseif(is_string($barang->gambar) && $barang->gambar)
                                             <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}"
                                                 class="w-full h-64 object-cover">

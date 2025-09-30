@@ -137,25 +137,25 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Role</label>
                             <div class="user-info-field">
-                                    @if ($user->role === 'admin')
-                                        <span class="flex items-center text-red-500 font-semibold">
-                                            <svg class="w-4 h-4 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M18 8a6 6 0 01-7.743 5.743L10 14l-4 1-1-4 .257-.257A6 6 0 1118 8zm-6-2a1 1 0 11-2 0 1 1 0 012 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            Administrator
-                                        </span>
-                                    @else
-                                        <span class="flex items-center text-blue-500 font-semibold">
-                                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            User
-                                        </span>
-                                    @endif
+                                @if ($user->role === 'admin')
+                                    <span class="flex items-center text-red-500 font-semibold">
+                                        <svg class="w-4 h-4 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M18 8a6 6 0 01-7.743 5.743L10 14l-4 1-1-4 .257-.257A6 6 0 1118 8zm-6-2a1 1 0 11-2 0 1 1 0 012 0z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        Administrator
+                                    </span>
+                                @else
+                                    <span class="flex items-center text-blue-500 font-semibold">
+                                        <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        User
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
@@ -163,13 +163,12 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Tanggal Registrasi</label>
                             <div class="user-info-field">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                    {{ $user->created_at ? $user->created_at->format('d F Y, H:i') : 'Tidak ada data' }}
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                {{ $user->created_at ? $user->created_at->format('d F Y, H:i') : 'Tidak ada data' }}
                             </div>
                         </div>
                     </div>
@@ -248,26 +247,24 @@
 
         @push('modals')
             <x-delete-confirmation-modal modal-id="userShowDeleteModal" title="Konfirmasi Hapus User"
-                subtitle="Tindakan ini tidak dapat dibatalkan"
-                item-type="user"
+                subtitle="Tindakan ini tidak dapat dibatalkan" item-type="user"
                 warning-text="Data user yang sudah dihapus tidak dapat dikembalikan lagi. Semua data transaksi user akan tetap tersimpan."
-                confirm-button-text="Ya, Hapus User"
-                cancel-button-text="Batal" />
+                confirm-button-text="Ya, Hapus User" cancel-button-text="Batal" />
         @endpush
     @endif
 
     <style>
-    .user-info-field {
-        width: 100%;
-        min-height: 48px;
-        padding: 0.75rem 1rem;
-        background-color: #1f2937;
-        border: 1px solid #374151;
-        border-radius: 0.5rem;
-        color: #fff;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-    }
+        .user-info-field {
+            width: 100%;
+            min-height: 48px;
+            padding: 0.75rem 1rem;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
     </style>
 </x-app-layout>

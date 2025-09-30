@@ -8,7 +8,9 @@
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center">
                             <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
                             </svg>
                         </div>
                         <div>
@@ -310,79 +312,79 @@
     </div>
 
     @push('modals')
-    <div id="statusModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden items-center justify-center">
-        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4">
-            <h3 class="text-lg font-semibold text-white mb-4">Update Status Transaksi</h3>
+        <div id="statusModal"
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden items-center justify-center">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md mx-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Update Status Transaksi</h3>
 
-            <form id="statusForm" method="POST">
-                @csrf
-                @method('PATCH')
+                <form id="statusForm" method="POST">
+                    @csrf
+                    @method('PATCH')
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Status</label>
-                    <select id="statusSelect" name="status"
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                        <option value="pending">Pending</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="rejected">Rejected</option>
-                    </select>
-                </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Status</label>
+                        <select id="statusSelect" name="status"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                            <option value="pending">Pending</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
 
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Catatan Admin (Opsional)</label>
-                    <textarea id="catatanAdmin" name="catatan_admin" rows="3" placeholder="Tambahkan catatan untuk user..."
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
-                </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Catatan Admin (Opsional)</label>
+                        <textarea id="catatanAdmin" name="catatan_admin" rows="3" placeholder="Tambahkan catatan untuk user..."
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
+                    </div>
 
-                <div class="flex gap-3">
-                    <button type="submit"
-                        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
-                        Update Status
-                    </button>
-                    <button type="button" onclick="closeStatusModal()"
-                        class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
-                        Batal
-                    </button>
-                </div>
-            </form>
+                    <div class="flex gap-3">
+                        <button type="submit"
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
+                            Update Status
+                        </button>
+                        <button type="button" onclick="closeStatusModal()"
+                            class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
+                            Batal
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-    <script>
+        <script>
+            function openStatusModal(transaksiId, currentStatus, currentCatatan) {
+                const modal = document.getElementById('statusModal');
+                const form = document.getElementById('statusForm');
+                const statusSelect = document.getElementById('statusSelect');
+                const catatanAdmin = document.getElementById('catatanAdmin');
 
-        function openStatusModal(transaksiId, currentStatus, currentCatatan) {
-            const modal = document.getElementById('statusModal');
-            const form = document.getElementById('statusForm');
-            const statusSelect = document.getElementById('statusSelect');
-            const catatanAdmin = document.getElementById('catatanAdmin');
+                // Set form action
+                form.action = `/admin/transaksi/${transaksiId}/status`;
 
-            // Set form action
-            form.action = `/admin/transaksi/${transaksiId}/status`;
+                // Set current values
+                statusSelect.value = currentStatus;
+                catatanAdmin.value = currentCatatan;
 
-            // Set current values
-            statusSelect.value = currentStatus;
-            catatanAdmin.value = currentCatatan;
-
-            // Show modal
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            // Lock body scroll
-            document.body.classList.add('overflow-hidden');
-        }
-
-        function closeStatusModal() {
-            const modal = document.getElementById('statusModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            // Unlock body scroll
-            document.body.classList.remove('overflow-hidden');
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('statusModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeStatusModal();
+                // Show modal
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                // Lock body scroll
+                document.body.classList.add('overflow-hidden');
             }
-        });
-    </script>
+
+            function closeStatusModal() {
+                const modal = document.getElementById('statusModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                // Unlock body scroll
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            // Close modal when clicking outside
+            document.getElementById('statusModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeStatusModal();
+                }
+            });
+        </script>
     @endpush
 </x-app-layout>
