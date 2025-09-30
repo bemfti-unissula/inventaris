@@ -212,7 +212,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-1 gap-2 text-sm">
+                                    <div class="grid grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <span class="text-gray-400">Jenis:</span>
+                                            <p class="text-white font-medium">
+                                                @if ($transaksi->tipe === 'peminjaman')
+                                                    <span
+                                                        class="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-500/20 text-blue-300 rounded-full">
+                                                        Peminjaman
+                                                    </span>
+                                                @else
+                                                    <span
+                                                        class="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-500/20 text-green-300 rounded-full">
+                                                        Pengembalian
+                                                    </span>
+                                                @endif
+                                            </p>
+                                        </div>
                                         <div>
                                             <span class="text-gray-400">Tanggal Kembali:</span>
                                             <p class="text-white font-medium">
@@ -221,13 +237,21 @@
                                         </div>
                                     </div>
 
-                                    @if ($transaksi->keterangan)
-                                        <div>
-                                            <span class="text-gray-400 text-sm">Keterangan:</span>
-                                            <p class="text-gray-300 text-sm mt-1 line-clamp-2">
-                                                {{ $transaksi->keterangan }}</p>
-                                        </div>
-                                    @endif
+                                    @php
+                                        $keterangan = $transaksi->tipe === 'pengembalian'
+                                            ? ($transaksi->return['keterangan'] ?? null)
+                                            : ($transaksi->keterangan ?? null);
+                                    @endphp
+                                    <div>
+                                        <span class="text-gray-400 text-sm">Keterangan:</span>
+                                        <p class="text-gray-300 text-sm mt-1 truncate">
+                                            @if (!empty($keterangan))
+                                                {{ collect(explode(' ', $keterangan))->take(8)->implode(' ') }}@if(count(explode(' ', $keterangan)) > 8)...@endif
+                                            @else
+                                                -
+                                            @endif
+                                        </p>
+                                    </div>
 
                                     <!-- File Download -->
                                     @if ($transaksi->file && isset($transaksi->file['url']))
@@ -252,15 +276,27 @@
                                             Dibuat:
                                             {{ \Carbon\Carbon::parse($transaksi->created_at)->format('d/m/Y H:i') }}
                                         </span>
-                                        <a href="{{ route('transaksi.detail', $transaksi->_id) }}"
-                                            class="inline-flex items-center text-sm text-gray-300 hover:text-white transition-colors group">
-                                            Detail
-                                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </a>
+                                        @if ($transaksi->tipe === 'peminjaman')
+                                            <a href="{{ route('transaksi.detail', $transaksi->_id) }}"
+                                                class="inline-flex items-center text-sm text-gray-300 hover:text-white transition-colors group">
+                                                Detail
+                                                <svg class="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform"
+                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                </svg>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('transaksi.return.detail', $transaksi->_id) }}"
+                                                class="inline-flex items-center text-sm text-gray-300 hover:text-white transition-colors group">
+                                                Detail
+                                                <svg class="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform"
+                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                </svg>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

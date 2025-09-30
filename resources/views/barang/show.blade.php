@@ -197,6 +197,15 @@
                                     <p class="text-gray-400">
                                         @if ($barang->stok > 0)
                                             Barang tersedia untuk dipinjam
+                                            @if (isset($barang->is_paid) && $barang->is_paid && Auth::check())
+                                                @if (Auth::user()->fakultas !== 'FTI')
+                                                    <br>
+                                                    <span class="text-red-500 text-sm font-semibold">Peminjaman barang ini akan dikenakan biaya.</span>
+                                                @else
+                                                    <br>
+                                                    <span class="text-green-500 text-sm font-semibold">Peminjaman yang dilakukan oleh anggota Fakultas Teknologi Industri tidak dikenakan biaya.</span>
+                                                @endif
+                                            @endif
                                         @else
                                             Barang sedang tidak tersedia
                                         @endif

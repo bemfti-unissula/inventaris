@@ -39,9 +39,16 @@ Route::middleware(['auth'])->group(function () {
     // Halaman pinjaman untuk user
     Route::get('/pinjaman', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/{id}', [TransaksiController::class, 'getDetail'])->name('transaksi.detail');
+    Route::get('/pengembalian/{id}', [TransaksiController::class, 'getReturnDetail'])->name('transaksi.return.detail');
     Route::get('/transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('/transaksi/{id}', [TransaksiController::class, 'updatePeminjaman'])->name('transaksi.update');
     Route::delete('/transaksi/{id}/cancel', [TransaksiController::class, 'statusCancel'])->name('transaksi.cancel');
+
+    // Pengembalian barang
+    Route::get('/transaksi/{id}/return', [TransaksiController::class, 'createReturn'])->name('transaksi.return.create');
+    Route::post('/transaksi/{id}/return', [TransaksiController::class, 'pengembalian'])->name('transaksi.return.store');
+    Route::get('/transaksi/{id}/return/edit', [TransaksiController::class, 'editReturn'])->name('transaksi.return.edit');
+    Route::put('/transaksi/{id}/return', [TransaksiController::class, 'updatePengembalian'])->name('transaksi.return.update');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="title">Detail Transaksi {{ $transaksi->id }}</x-slot>
+    <x-slot name="title">Detail Pengembalian {{ $transaksi->id }}</x-slot>
 
     <div class="min-h-screen bg-gradient-to-br from-black/95 via-gray-900/95 to-black/95 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,8 +13,8 @@
                     </svg>
                 </a>
                 <div>
-                    <h1 class="text-3xl font-bold text-white">Detail Pinjaman</h1>
-                    <p class="text-gray-300 mt-1">Informasi lengkap transaksi Anda</p>
+                    <h1 class="text-3xl font-bold text-white">Detail Pengembalian</h1>
+                    <p class="text-gray-300 mt-1">Informasi lengkap pengembalian barang</p>
                 </div>
             </div>
 
@@ -51,31 +51,25 @@
                 <!-- Card Content -->
                 <div class="p-6">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Left Column: Transaction Info -->
+                        <!-- Left Column: Return Info -->
                         <div class="space-y-6">
-                            <!-- Informasi Peminjaman -->
+                            <!-- Informasi Pengembalian -->
                             <div>
                                 <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                                    <div class="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+                                    <div class="w-6 h-6 bg-green-600 rounded-lg flex items-center justify-center">
                                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3a4 4 0 118 0v4m-4 0V3m0 4h0m-4 0h8m-4 0v10m0 0l-3-3m3 3l3-3">
+                                                d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6">
                                             </path>
                                         </svg>
                                     </div>
-                                    Informasi Peminjaman
+                                    Informasi Pengembalian
                                 </h3>
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                                        <span class="text-gray-400">Jumlah:</span>
+                                        <span class="text-gray-400">Jumlah Dikembalikan:</span>
                                         <span class="text-white font-medium">{{ $transaksi->jumlah }} unit</span>
-                                    </div>
-                                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                                        <span class="text-gray-400">Tanggal Peminjaman:</span>
-                                        <span class="text-white font-medium">
-                                            {{ isset($transaksi->tanggal['peminjaman']) ? \Carbon\Carbon::parse($transaksi->tanggal['peminjaman'])->format('d F Y') : '-' }}
-                                        </span>
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
                                         <span class="text-gray-400">Tanggal Pengembalian:</span>
@@ -83,73 +77,73 @@
                                             {{ isset($transaksi->tanggal['pengembalian']) ? \Carbon\Carbon::parse($transaksi->tanggal['pengembalian'])->format('d F Y') : '-' }}
                                         </span>
                                     </div>
+                                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
+                                        <span class="text-gray-400">Status:</span>
+                                        <span
+                                            class="inline-flex items-center px-2 py-1 text-xs rounded-full border {{ $statusColors[$transaksi->status] ?? 'bg-gray-500/20 text-gray-300 border-gray-400/30' }}">
+                                            @if ($transaksi->status === 'pending')
+                                                Menunggu Konfirmasi
+                                            @elseif($transaksi->status === 'accepted')
+                                                Accepted
+                                            @elseif($transaksi->status === 'rejected')
+                                                Rejected
+                                            @else
+                                                {{ ucfirst($transaksi->status) }}
+                                            @endif
+                                        </span>
+                                    </div>
                                     <div class="flex justify-between items-center py-2">
-                                        <span class="text-gray-400">Dibuat:</span>
+                                        <span class="text-gray-400">Dikembalikan pada:</span>
                                         <span
                                             class="text-white font-medium">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- File Surat Peminjaman -->
-                            @if ($transaksi->file && isset($transaksi->file['url']))
+                            <!-- Foto Bukti Pengembalian -->
+                            @if (isset($transaksi->return) && isset($transaksi->return['gambar']) && isset($transaksi->return['gambar']['url']))
                                 <div>
-                                    <h3 class="text-lg font-semibold text-white mb-3 lg:mt-19 flex items-center gap-2">
-                                        <div class="w-6 h-6 bg-teal-600 rounded-lg flex items-center justify-center">
+                                    <h3 class="text-lg font-semibold text-white mb-3 lg:mt-18 flex items-center gap-2">
+                                        <div class="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center">
                                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
                                                 </path>
                                             </svg>
                                         </div>
-                                        Surat Peminjaman
+                                        Foto Bukti Pengembalian
                                     </h3>
-                                    <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-10 h-10 bg-gray-700/50 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                    </path>
-                                                </svg>
-                                            </div>
-                                            <div class="flex-1">
-                                                <p class="text-white font-medium text-sm">
-                                                    {{ $transaksi->file['name'] ?? 'Surat Peminjaman.pdf' }}</p>
-                                                <p class="text-gray-400 text-xs">PDF Document</p>
-                                            </div>
-                                            <a href="{{ $transaksi->file['url'] }}" target="_blank"
-                                                class="inline-flex items-center px-3 py-1.5 bg-gray-700/50 hover:bg-gray-600/50 text-white text-sm font-medium rounded-lg border border-gray-600/30 transition-colors">
-                                                Lihat
-                                            </a>
-                                        </div>
+                                    <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg overflow-hidden">
+                                        <img src="{{ $transaksi->return['gambar']['url'] }}"
+                                            alt="Foto Bukti Pengembalian" class="w-full h-64 object-cover">
                                     </div>
                                 </div>
                             @endif
 
-                            <!-- Keterangan -->
-                            @if ($transaksi->keterangan)
-                                <div>
-                                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                                        <div class="w-6 h-6 bg-yellow-600 rounded-lg flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                </path>
-                                            </svg>
-                                        </div>
-                                        Keterangan
-                                    </h3>
-                                    <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                        <p class="text-gray-300">{{ $transaksi->keterangan }}</p>
+                            <!-- Keterangan Pengembalian -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            </path>
+                                        </svg>
                                     </div>
+                                    Keterangan Kondisi Barang
+                                </h3>
+                                <div class="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
+                                    <p class="text-gray-300 break-words whitespace-normal">
+                                        @if (empty($transaksi->return['keterangan']))
+                                            -
+                                        @else
+                                            {{ $transaksi->return['keterangan'] }}
+                                        @endif
+                                    </p>
                                 </div>
-                            @endif
+                            </div>
 
                             <!-- Timeline Status -->
                             <div>
@@ -166,11 +160,11 @@
                                 </h3>
                                 <div class="space-y-3">
                                     <div
-                                        class="flex items-center gap-3 p-3 bg-yellow-500/10 border border-yellow-400/30 rounded-lg">
-                                        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                        class="flex items-center gap-3 p-3 bg-green-500/10 border border-green-400/30 rounded-lg">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
                                         <div>
-                                            <p class="text-yellow-300 font-medium text-sm">Menunggu Approval</p>
-                                            <p class="text-yellow-400 text-xs">
+                                            <p class="text-green-300 font-medium text-sm">Barang Dikembalikan</p>
+                                            <p class="text-green-400 text-xs">
                                                 {{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}
                                             </p>
                                         </div>
@@ -181,19 +175,27 @@
                                             class="flex items-center gap-3 p-3 bg-green-500/10 border border-green-400/30 rounded-lg">
                                             <div class="w-2 h-2 bg-green-400 rounded-full"></div>
                                             <div>
-                                                <p class="text-green-300 font-medium text-sm">Disetujui</p>
-                                                <p class="text-green-400 text-xs">Disetujui oleh admin</p>
+                                                <p class="text-green-300 font-medium text-sm">Dikonfirmasi Admin</p>
+                                                <p class="text-green-400 text-xs">Pengembalian telah dikonfirmasi</p>
                                             </div>
                                         </div>
-                                    @endif
-
-                                    @if ($transaksi->status === 'rejected')
+                                    @elseif ($transaksi->status === 'pending')
+                                        <div
+                                            class="flex items-center gap-3 p-3 bg-yellow-500/10 border border-yellow-400/30 rounded-lg">
+                                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                            <div>
+                                                <p class="text-yellow-300 font-medium text-sm">Menunggu Konfirmasi</p>
+                                                <p class="text-yellow-400 text-xs">Menunggu admin mengkonfirmasi
+                                                    pengembalian</p>
+                                            </div>
+                                        </div>
+                                    @elseif ($transaksi->status === 'rejected')
                                         <div
                                             class="flex items-center gap-3 p-3 bg-red-500/10 border border-red-400/30 rounded-lg">
                                             <div class="w-2 h-2 bg-red-400 rounded-full"></div>
                                             <div>
                                                 <p class="text-red-300 font-medium text-sm">Ditolak</p>
-                                                <p class="text-red-400 text-xs">Peminjaman ditolak</p>
+                                                <p class="text-red-400 text-xs">Pengembalian ditolak oleh admin</p>
                                             </div>
                                         </div>
                                     @endif
@@ -204,7 +206,7 @@
                                             <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
                                             <div>
                                                 <p class="text-gray-300 font-medium text-sm">Dibatalkan</p>
-                                                <p class="text-gray-400 text-xs">Transaksi dibatalkan oleh user</p>
+                                                <p class="text-gray-400 text-xs">Pengembalian dibatalkan</p>
                                             </div>
                                         </div>
                                     @endif
@@ -212,7 +214,7 @@
                             </div>
                         </div>
 
-                        <!-- Right Column: Item Details & Status -->
+                        <!-- Right Column: Item Details -->
                         <div class="space-y-6">
                             <!-- Informasi Barang -->
                             <div>
@@ -237,7 +239,7 @@
                                         <span class="text-white font-medium">{{ $barang->kategori ?? '-' }}</span>
                                     </div>
                                     <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
-                                        <span class="text-gray-400">Stok Tersedia:</span>
+                                        <span class="text-gray-400">Stok Saat Ini:</span>
                                         <span class="text-white font-medium">{{ $barang->stok ?? 0 }} unit</span>
                                     </div>
                                     @if ($barang->deskripsi)
@@ -272,8 +274,28 @@
                                                 class="w-full h-50 object-cover">
                                         @elseif(is_string($barang->gambar) && $barang->gambar)
                                             <img src="{{ asset($barang->gambar) }}" alt="{{ $barang->nama_barang }}"
-                                                class="w-full h-50 object-cover">
+                                                class="w-full h-64 object-cover">
                                         @endif
+                                    </div>
+                                </div>
+                            @endif
+
+                            <!-- Catatan Admin (jika ada) -->
+                            @if (isset($transaksi->catatan_admin) && $transaksi->catatan_admin)
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                        <div class="w-6 h-6 bg-red-600 rounded-lg flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.268 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        Catatan Admin
+                                    </h3>
+                                    <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                                        <p class="text-red-200">{{ $transaksi->catatan_admin }}</p>
                                     </div>
                                 </div>
                             @endif
@@ -305,55 +327,46 @@
                         @endif
 
                         @if (in_array($transaksi->status, ['pending', 'rejected']) && $transaksi->status !== 'canceled')
-                            <a href="{{ route('transaksi.edit', $transaksi->id) }}"
+                            <a href="{{ route('transaksi.return.edit', $transaksi->id) }}"
                                 class="inline-flex items-center px-4 py-2 bg-blue-600/50 hover:bg-blue-500/50 text-white text-sm font-medium rounded-lg border border-blue-500/30 transition-colors">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                     </path>
                                 </svg>
-                                Edit Transaksi
+                                Edit Pengembalian
                             </a>
-
-                            <button type="button"
-                                onclick="openDeleteModaldeleteModal('{{ $transaksi->id }}', '{{ $transaksi->barang['nama_barang'] ?? 'transaksi ini' }}')"
-                                class="inline-flex items-center px-4 py-2 bg-red-600/50 hover:bg-red-500/50 text-white text-sm font-medium rounded-lg border border-red-500/30 transition-colors">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12">
-                                    </path>
-                                </svg>
-                                Batalkan
-                            </button>
                         @endif
 
-                        @if ($transaksi->status === 'accepted' && $transaksi->tipe === 'peminjaman')
-                            <a href="{{ route('transaksi.return.create', $transaksi->id) }}"
-                                class="inline-flex items-center px-4 py-2 bg-green-600/50 hover:bg-green-500/50 text-white text-sm font-medium rounded-lg border border-green-500/30 transition-colors">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6">
-                                    </path>
-                                </svg>
-                                Kembalikan
-                            </a>
+                        @if ($transaksi->status === 'pending')
+                            <div
+                                class="text-sm text-gray-400 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 animate-spin text-yellow-400" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                        </path>
+                                    </svg>
+                                    Menunggu konfirmasi admin
+                                </span>
+                            </div>
+                        @elseif ($transaksi->status === 'accepted')
+                            <div
+                                class="text-sm text-green-400 px-4 py-2 bg-green-500/10 rounded-lg border border-green-500/20">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7">
+                                        </path>
+                                    </svg>
+                                    Pengembalian dikonfirmasi
+                                </span>
+                            </div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Hidden form for cancel transaction -->
-    <form action="{{ route('transaksi.cancel', $transaksi->id) }}" method="POST"
-        id="deleteFormdeleteModal{{ $transaksi->id }}" style="display: none;">
-        @csrf
-        @method('DELETE')
-    </form>
-
-    <!-- Delete Confirmation Modal -->
-    <x-delete-confirmation-modal modal-id="deleteModal" title="Konfirmasi Batalkan Transaksi"
-        subtitle="Tindakan ini akan membatalkan transaksi" item-type="transaksi untuk barang"
-        warning-text="Transaksi yang sudah dibatalkan tidak dapat dikembalikan. Stok barang akan dikembalikan jika transaksi masih dalam status pending."
-        confirm-button-text="Ya, Batalkan Transaksi" cancel-button-text="Tidak, Kembali" />
 </x-app-layout>
