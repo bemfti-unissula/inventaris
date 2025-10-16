@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 mb-6">
+             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                 <!-- Main Content -->
                 <div class="space-y-6">
                     <!-- Informasi Transaksi -->
@@ -258,11 +258,11 @@
                                     <div
                                         class="flex items-center gap-3 p-3 rounded-lg border bg-yellow-500/10 border-yellow-400/30">
                                         <div
-                                            class="w-2 h-2 rounded-full {{ $transaksi->status == 'pending' ? 'bg-yellow-400 animate-pulse' : 'bg-yellow-400/50' }}">
+                                            class="w-2 h-2 rounded-full flex-shrink-0 {{ $transaksi->status == 'pending' ? 'bg-yellow-400 animate-pulse' : 'bg-yellow-400/50' }}">
                                         </div>
-                                        <div>
-                                            <p class="text-yellow-300 font-medium text-sm">Menunggu Approval</p>
-                                            <p class="text-yellow-400 text-xs">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-yellow-300 font-medium text-sm break-words">Menunggu Approval</p>
+                                            <p class="text-yellow-400 text-xs break-words">
                                                 {{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y, H:i') }}
                                             </p>
                                         </div>
@@ -273,11 +273,11 @@
                                         <div
                                             class="flex items-center gap-3 p-3 rounded-lg border bg-green-500/10 border-green-400/30">
                                             <div
-                                                class="w-2 h-2 rounded-full {{ $transaksi->status == 'accepted' && empty($transaksi->return) ? 'bg-green-400 animate-pulse' : 'bg-green-400' }}">
+                                                class="w-2 h-2 rounded-full flex-shrink-0 {{ $transaksi->status == 'accepted' && empty($transaksi->return) ? 'bg-green-400 animate-pulse' : 'bg-green-400' }}">
                                             </div>
-                                            <div>
-                                                <p class="text-green-300 font-medium text-sm">Disetujui</p>
-                                                <p class="text-green-400 text-xs">
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-green-300 font-medium text-sm break-words">Disetujui</p>
+                                                <p class="text-green-400 text-xs break-words">
                                                     {{ \Carbon\Carbon::parse($transaksi->updated_at)->format('d F Y, H:i') }}
                                                 </p>
                                             </div>
@@ -288,10 +288,10 @@
                                     @if ($transaksi->status == 'rejected')
                                         <div
                                             class="flex items-center gap-3 p-3 rounded-lg border bg-red-500/10 border-red-400/30">
-                                            <div class="w-2 h-2 rounded-full bg-red-400"></div>
-                                            <div>
-                                                <p class="text-red-300 font-medium text-sm">Ditolak</p>
-                                                <p class="text-red-400 text-xs">
+                                            <div class="w-2 h-2 rounded-full bg-red-400 flex-shrink-0"></div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-red-300 font-medium text-sm break-words">Ditolak</p>
+                                                <p class="text-red-400 text-xs break-words">
                                                     {{ \Carbon\Carbon::parse($transaksi->updated_at)->format('d F Y, H:i') }}
                                                 </p>
                                             </div>
@@ -302,10 +302,10 @@
                                     @if (!empty($transaksi->return))
                                         <div
                                             class="flex items-center gap-3 p-3 rounded-lg border bg-purple-500/10 border-purple-400/30">
-                                            <div class="w-2 h-2 rounded-full bg-purple-400"></div>
-                                            <div>
-                                                <p class="text-purple-300 font-medium text-sm">Barang Dikembalikan</p>
-                                                <p class="text-purple-400 text-xs">
+                                            <div class="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0"></div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-purple-300 font-medium text-sm break-words">Barang Dikembalikan</p>
+                                                <p class="text-purple-400 text-xs break-words">
                                                     {{ isset($transaksi->return['tanggal_kembali']) ? \Carbon\Carbon::parse($transaksi->return['tanggal_kembali'])->format('d F Y, H:i') : '-' }}
                                                 </p>
                                             </div>
